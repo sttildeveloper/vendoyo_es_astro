@@ -1,0 +1,167 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<section id="hero" class="relative min-h-screen flex items-center overflow-hidden pt-20">
+  <!-- Background Blobs -->
+  <div class="absolute inset-0 -z-10">
+    <div class="absolute top-20 right-10 w-96 h-96 bg-teal-400/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 left-10 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="section">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <!-- Content -->
+      <div class="space-y-6" data-hero-content>
+        <span class="badge" data-hero-badge>
+          <Icon name="heroicons:sparkles" class="w-4 h-4" />
+          Nueva versión disponible
+        </span>
+
+        <h1
+          class="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 leading-tight"
+          data-hero-title
+        >
+          Tu <span class="gradient-text">inmobiliaria</span> en tu bolsillo
+        </h1>
+
+        <p class="text-xl text-slate-600 max-w-2xl" data-hero-description>
+          Gestiona propiedades, asigna franquicias y realiza seguimiento en tiempo real. Todo desde
+          tu móvil, de forma simple y rápida.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-4" data-hero-ctas>
+          <a href="#" class="btn-dark inline-flex items-center gap-2">
+            <Icon name="lucide:apple" class="w-5 h-5" />
+            App Store
+          </a>
+          <a href="#" class="btn-dark inline-flex items-center gap-2">
+            <Icon name="lucide:play" class="w-5 h-5" />
+            Google Play
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-6 pt-8" data-hero-stats>
+          <div>
+            <div class="text-3xl font-bold text-teal-600" data-count="5000">0</div>
+            <div class="text-sm text-slate-600">Propiedades</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-teal-600" data-count="500">0</div>
+            <div class="text-sm text-slate-600">Franquicias</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-teal-600" data-count="10000">0</div>
+            <div class="text-sm text-slate-600">Usuarios</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mockup -->
+      <div class="relative" data-hero-mockup>
+        <div class="relative z-10 mx-auto max-w-sm">
+          <div class="relative">
+            <!-- Glow effect -->
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-3xl blur-2xl opacity-30"
+            >
+            </div>
+            <!-- Phone mockup placeholder -->
+            <div class="relative bg-slate-900 rounded-3xl p-2 glow-teal">
+              <div class="bg-white rounded-2xl aspect-[9/19] overflow-hidden">
+                <div class="p-6 space-y-4">
+                  <div class="h-2 bg-slate-200 rounded-full w-1/3"></div>
+                  <div class="space-y-2">
+                    <div class="h-32 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-2xl"></div>
+                    <div class="h-20 bg-slate-100 rounded-xl"></div>
+                    <div class="h-20 bg-slate-100 rounded-xl"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+
+  // Check for reduced motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    // Hero entrance animation
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    tl.from('[data-hero-badge]', {
+      opacity: 0,
+      y: 30,
+      duration: 0.6,
+    })
+      .from(
+        '[data-hero-title]',
+        {
+          opacity: 0,
+          y: 40,
+          duration: 0.8,
+        },
+        '-=0.3'
+      )
+      .from(
+        '[data-hero-description]',
+        {
+          opacity: 0,
+          y: 30,
+          duration: 0.6,
+        },
+        '-=0.4'
+      )
+      .from(
+        '[data-hero-ctas]',
+        {
+          opacity: 0,
+          y: 30,
+          duration: 0.6,
+        },
+        '-=0.3'
+      )
+      .from(
+        '[data-hero-stats]',
+        {
+          opacity: 0,
+          y: 20,
+          duration: 0.6,
+        },
+        '-=0.3'
+      )
+      .from(
+        '[data-hero-mockup]',
+        {
+          opacity: 0,
+          x: 50,
+          duration: 1,
+        },
+        '-=0.8'
+      );
+
+    // Animate counter stats
+    const counters = document.querySelectorAll('[data-count]');
+    counters.forEach((counter) => {
+      const target = parseInt(counter.getAttribute('data-count') || '0');
+      gsap.to(counter, {
+        innerText: target,
+        duration: 2,
+        delay: 1,
+        snap: { innerText: 1 },
+        onUpdate: function () {
+          counter.textContent = Math.ceil(parseFloat(counter.textContent)).toLocaleString();
+        },
+      });
+    });
+  }
+</script>

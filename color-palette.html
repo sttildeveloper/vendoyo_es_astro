@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VendoYo - Paleta de Colores</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #f8fafa;
+        padding: 2rem;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        padding: 3rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      }
+
+      h1 {
+        color: #3cb4ac;
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .subtitle {
+        color: #6b7c7c;
+        font-size: 1.125rem;
+        margin-bottom: 3rem;
+      }
+
+      .section {
+        margin-bottom: 3rem;
+      }
+
+      .section-title {
+        color: #1a2020;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #e4ebeb;
+      }
+
+      .color-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .color-card {
+        text-align: center;
+      }
+
+      .color-swatch {
+        width: 100%;
+        height: 80px;
+        border-radius: 0.5rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .color-name {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #2a3333;
+        margin-bottom: 0.25rem;
+      }
+
+      .color-value {
+        font-size: 0.7rem;
+        color: #6b7c7c;
+        font-family: 'Courier New', monospace;
+      }
+
+      .examples {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .example-card {
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        text-align: center;
+      }
+
+      .example-title {
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        border-radius: 9999px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>🎨 Paleta de Colores VendoYo</h1>
+      <p class="subtitle">Basada en el color principal <strong>#3CB4AC</strong></p>
+
+      <!-- TEAL PRINCIPAL -->
+      <div class="section">
+        <h2 class="section-title">🌊 Teal Principal</h2>
+        <div class="color-grid">
+          <div class="color-card">
+            <div class="color-swatch" style="background: #e8faf8"></div>
+            <div class="color-name">primary-50</div>
+            <div class="color-value">#e8faf8</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #c7f3ed"></div>
+            <div class="color-name">primary-100</div>
+            <div class="color-value">#c7f3ed</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #95e8dd"></div>
+            <div class="color-name">primary-200</div>
+            <div class="color-value">#95e8dd</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #5dd9ca"></div>
+            <div class="color-name">primary-300</div>
+            <div class="color-value">#5dd9ca</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #3cb4ac; border: 3px solid #ff7a5c"></div>
+            <div class="color-name">primary-400 ⭐</div>
+            <div class="color-value">#3cb4ac</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #2e8f88"></div>
+            <div class="color-name">primary-500</div>
+            <div class="color-value">#2e8f88</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #237068"></div>
+            <div class="color-name">primary-600</div>
+            <div class="color-value">#237068</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #1a544f"></div>
+            <div class="color-name">primary-700</div>
+            <div class="color-value">#1a544f</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #133d39"></div>
+            <div class="color-name">primary-800</div>
+            <div class="color-value">#133d39</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #0d2a27"></div>
+            <div class="color-name">primary-900</div>
+            <div class="color-value">#0d2a27</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CORAL COMPLEMENTARIO -->
+      <div class="section">
+        <h2 class="section-title">🌅 Coral Complementario (Acentos)</h2>
+        <div class="color-grid">
+          <div class="color-card">
+            <div class="color-swatch" style="background: #fff5f3"></div>
+            <div class="color-name">accent-50</div>
+            <div class="color-value">#fff5f3</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #ffe6e0"></div>
+            <div class="color-name">accent-100</div>
+            <div class="color-value">#ffe6e0</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #ffc9ba"></div>
+            <div class="color-name">accent-200</div>
+            <div class="color-value">#ffc9ba</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #ffa58a"></div>
+            <div class="color-name">accent-300</div>
+            <div class="color-value">#ffa58a</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #ff7a5c; border: 3px solid #3cb4ac"></div>
+            <div class="color-name">accent-400 ⭐</div>
+            <div class="color-value">#ff7a5c</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #f95738"></div>
+            <div class="color-name">accent-500</div>
+            <div class="color-value">#f95738</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #e03616"></div>
+            <div class="color-name">accent-600</div>
+            <div class="color-value">#e03616</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRISES NEUTRALES -->
+      <div class="section">
+        <h2 class="section-title">⚪ Neutros (Grises con toque Teal)</h2>
+        <div class="color-grid">
+          <div class="color-card">
+            <div class="color-swatch" style="background: #f8fafa"></div>
+            <div class="color-name">gray-50</div>
+            <div class="color-value">#f8fafa</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #f1f5f5"></div>
+            <div class="color-name">gray-100</div>
+            <div class="color-value">#f1f5f5</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #e4ebeb"></div>
+            <div class="color-name">gray-200</div>
+            <div class="color-value">#e4ebeb</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #cbd5d5"></div>
+            <div class="color-name">gray-300</div>
+            <div class="color-value">#cbd5d5</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #94a3a3"></div>
+            <div class="color-name">gray-400</div>
+            <div class="color-value">#94a3a3</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #6b7c7c"></div>
+            <div class="color-name">gray-500</div>
+            <div class="color-value">#6b7c7c</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #526161"></div>
+            <div class="color-name">gray-600</div>
+            <div class="color-value">#526161</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #3f4a4a"></div>
+            <div class="color-name">gray-700</div>
+            <div class="color-value">#3f4a4a</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #2a3333"></div>
+            <div class="color-name">gray-800</div>
+            <div class="color-value">#2a3333</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #1a2020"></div>
+            <div class="color-name">gray-900</div>
+            <div class="color-value">#1a2020</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLORES SEMÁNTICOS -->
+      <div class="section">
+        <h2 class="section-title">✅ Colores Semánticos</h2>
+        <div class="color-grid">
+          <div class="color-card">
+            <div class="color-swatch" style="background: #10b981"></div>
+            <div class="color-name">success</div>
+            <div class="color-value">#10b981</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #d1fae5"></div>
+            <div class="color-name">success-light</div>
+            <div class="color-value">#d1fae5</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #f59e0b"></div>
+            <div class="color-name">warning</div>
+            <div class="color-value">#f59e0b</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #fef3c7"></div>
+            <div class="color-name">warning-light</div>
+            <div class="color-value">#fef3c7</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #ef4444"></div>
+            <div class="color-name">error</div>
+            <div class="color-value">#ef4444</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #fee2e2"></div>
+            <div class="color-name">error-light</div>
+            <div class="color-value">#fee2e2</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #3b82f6"></div>
+            <div class="color-name">info</div>
+            <div class="color-value">#3b82f6</div>
+          </div>
+          <div class="color-card">
+            <div class="color-swatch" style="background: #dbeafe"></div>
+            <div class="color-name">info-light</div>
+            <div class="color-value">#dbeafe</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EJEMPLOS DE USO -->
+      <div class="section">
+        <h2 class="section-title">💡 Ejemplos de Uso</h2>
+        <div class="examples">
+          <div
+            class="example-card"
+            style="background: linear-gradient(135deg, #3cb4ac 0%, #2e8f88 100%)"
+          >
+            <div class="example-title" style="color: white">Botón Principal</div>
+            <a href="#" class="btn" style="background: white; color: #3cb4ac">Descargar App</a>
+          </div>
+
+          <div
+            class="example-card"
+            style="background: linear-gradient(135deg, #ff7a5c 0%, #f95738 100%)"
+          >
+            <div class="example-title" style="color: white">Botón Acento</div>
+            <a href="#" class="btn" style="background: white; color: #ff7a5c">Ver Más</a>
+          </div>
+
+          <div class="example-card" style="background: #f8fafa; border: 2px solid #e4ebeb">
+            <div class="example-title" style="color: #1a2020">Card Neutral</div>
+            <a href="#" class="btn" style="background: #3cb4ac; color: white">Acción</a>
+          </div>
+
+          <div class="example-card" style="background: #e8faf8">
+            <div class="example-title" style="color: #237068">Background Teal</div>
+            <a href="#" class="btn" style="background: #3cb4ac; color: white">Explorar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOTAS DE USO -->
+      <div class="section">
+        <h2 class="section-title">📋 Guía de Uso</h2>
+        <div
+          style="
+            background: #e8faf8;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid #3cb4ac;
+          "
+        >
+          <h3 style="color: #237068; margin-bottom: 1rem; font-size: 1.125rem">Recomendaciones:</h3>
+          <ul style="color: #2a3333; line-height: 1.8; margin-left: 1.5rem">
+            <li>
+              <strong>Teal (primary)</strong>: Botones principales, enlaces, elementos interactivos
+              clave
+            </li>
+            <li>
+              <strong>Coral (accent)</strong>: CTAs secundarios, badges destacados, elementos de
+              énfasis
+            </li>
+            <li>
+              <strong>Grises neutros</strong>: Texto, fondos, bordes - mantienen la armonía con el
+              teal
+            </li>
+            <li><strong>Semánticos</strong>: Mensajes de estado, alertas, notificaciones</li>
+            <li>
+              <strong>Contraste</strong>: Usar primary-400 sobre blanco o primary-700+ sobre
+              primary-50
+            </li>
+            <li><strong>Hover states</strong>: primary-500 para hover de primary-400</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
