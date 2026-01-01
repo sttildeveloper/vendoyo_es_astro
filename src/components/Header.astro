@@ -1,0 +1,219 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<header
+  id="header"
+  class="header-clean fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+  x-data="{ 
+    mobileMenuOpen: false, 
+    scrolled: false 
+  }"
+  x-init="() => {
+    window.addEventListener('scroll', () => {
+      scrolled = window.scrollY > 20;
+    });
+  }"
+  :class="scrolled ? 'header-scrolled' : ''"
+>
+  <nav class="section !py-2.5">
+    <div class="flex items-center justify-between">
+      <!-- Logo + Badge -->
+      <div class="flex items-center gap-2.5">
+        <a href="#" class="flex items-center gap-2 group">
+          <div
+            class="w-9 h-9 bg-gradient-to-br from-primary-400 to-primary-600 rounded-lg flex items-center justify-center transition-all duration-300"
+            :class="scrolled ? 'w-8 h-8' : 'w-9 h-9'"
+          >
+            <span class="text-white font-bold text-lg">V</span>
+          </div>
+          <span class="text-lg font-bold text-slate-900" :class="scrolled ? 'text-base' : 'text-lg'"
+            >VendoYo</span
+          >
+        </a>
+
+        <!-- Badge discreto -->
+        <div
+          class="hidden md:flex items-center gap-1.5 px-2.5 py-1 bg-slate-100 rounded-full border border-slate-200"
+        >
+          <Icon name="heroicons:trophy" class="w-3.5 h-3.5 text-slate-600" />
+          <span class="text-xs font-medium text-slate-700">100K+ descargas</span>
+        </div>
+      </div>
+
+      <!-- Desktop Navigation SIN iconos -->
+      <div class="hidden lg:flex items-center gap-1">
+        <a href="#features" class="nav-link">Características</a>
+        <a href="#app-showcase" class="nav-link">App Móvil</a>
+        <a href="#pricing" class="nav-link">Precios</a>
+      </div>
+
+      <!-- Desktop CTAs -->
+      <div class="hidden md:flex items-center gap-2">
+        <!-- Secondary: Ver Demo sin icono -->
+        <a href="#demo" class="btn-ghost">Ver Demo</a>
+
+        <!-- Primary: Platform Dropdown simplificado -->
+        <div class="relative" x-data="{ open: false }" @click.away="open = false">
+          <button @click="open = !open" class="btn-primary">
+            Descargar App
+            <Icon
+              name="heroicons:chevron-down"
+              class="w-3.5 h-3.5 transition-transform"
+              :class="open ? 'rotate-180' : ''"
+            />
+          </button>
+
+          <!-- Platform Dropdown simplificado -->
+          <div
+            x-show="open"
+            x-transition:enter="transition ease-out duration-150"
+            x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-100"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-95"
+            class="absolute right-0 mt-1.5 w-48 bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden"
+            x-cloak
+          >
+            <div class="p-1.5">
+              <a href="#ios" class="dropdown-item">
+                <Icon name="lucide:apple" class="w-4 h-4" />
+                <span>iOS App</span>
+              </a>
+
+              <a href="#android" class="dropdown-item">
+                <Icon name="lucide:smartphone" class="w-4 h-4" />
+                <span>Android App</span>
+              </a>
+
+              <div class="h-px bg-slate-200 my-1"></div>
+
+              <a href="#web" class="dropdown-item">
+                <Icon name="heroicons:globe-alt" class="w-4 h-4" />
+                <span>Web App</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        @click="mobileMenuOpen = !mobileMenuOpen"
+        class="md:hidden p-2 text-slate-700 hover:text-primary-600 transition-colors rounded-lg"
+        aria-label="Toggle menu"
+      >
+        <Icon name="heroicons:bars-3" class="w-6 h-6" x-show="!mobileMenuOpen" />
+        <Icon name="heroicons:x-mark" class="w-6 h-6" x-show="mobileMenuOpen" x-cloak />
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div
+      x-show="mobileMenuOpen"
+      x-transition:enter="transition ease-out duration-150"
+      x-transition:enter-start="opacity-0 -translate-y-2"
+      x-transition:enter-end="opacity-100 translate-y-0"
+      x-transition:leave="transition ease-in duration-100"
+      x-transition:leave-start="opacity-100 translate-y-0"
+      x-transition:leave-end="opacity-0 -translate-y-2"
+      class="md:hidden mt-3 pt-3 border-t border-slate-200 space-y-2"
+      x-cloak
+    >
+      <a href="#features" @click="mobileMenuOpen = false" class="mobile-nav-link">
+        Características
+      </a>
+      <a href="#app-showcase" @click="mobileMenuOpen = false" class="mobile-nav-link">
+        App Móvil
+      </a>
+      <a href="#pricing" @click="mobileMenuOpen = false" class="mobile-nav-link"> Precios </a>
+
+      <div class="pt-2 space-y-1.5">
+        <a href="#demo" @click="mobileMenuOpen = false" class="btn-ghost w-full !justify-center">
+          Ver Demo
+        </a>
+
+        <a
+          href="#ios"
+          @click="mobileMenuOpen = false"
+          class="btn-primary w-full !justify-center bg-slate-900 hover:bg-slate-800"
+        >
+          <Icon name="lucide:apple" class="w-4 h-4" />
+          iOS
+        </a>
+        <a
+          href="#android"
+          @click="mobileMenuOpen = false"
+          class="btn-primary w-full !justify-center"
+        >
+          <Icon name="lucide:smartphone" class="w-4 h-4" />
+          Android
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<style>
+  [x-cloak] {
+    display: none !important;
+  }
+
+  .header-clean {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+  }
+
+  .header-scrolled {
+    backdrop-filter: blur(16px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  }
+
+  .nav-link {
+    padding: 0.5rem 0.875rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: rgb(71 85 105);
+    transition: all 0.15s;
+  }
+
+  .nav-link:hover {
+    background: rgb(248 250 252);
+    color: var(--color-primary-600);
+  }
+
+  .mobile-nav-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    color: rgb(51 65 85);
+    transition: all 0.15s;
+    background: rgb(248 250 252);
+  }
+
+  .mobile-nav-link:hover {
+    background: var(--color-primary-50);
+    color: var(--color-primary-700);
+  }
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.625rem 0.875rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: rgb(51 65 85);
+    transition: all 0.15s;
+  }
+
+  .dropdown-item:hover {
+    background: rgb(248 250 252);
+    color: var(--color-primary-600);
+  }
+</style>

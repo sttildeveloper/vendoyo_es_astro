@@ -1,0 +1,293 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<section id="app-showcase" class="section bg-gradient-to-br from-primary-50 to-cyan-50">
+  <div
+    class="max-w-6xl mx-auto"
+    x-data="{ activeTab: 'upload', autoplay: true }"
+    x-init="() => {
+      if (autoplay) {
+        setInterval(() => {
+          const tabs = ['upload', 'assign', 'track'];
+          const currentIndex = tabs.indexOf(activeTab);
+          activeTab = tabs[(currentIndex + 1) % tabs.length];
+        }, 5000);
+      }
+    }"
+  >
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <span class="badge mb-4">
+        <Icon name="heroicons:device-phone-mobile" class="w-4 h-4" />
+        App Móvil Disponible
+      </span>
+      <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+        Descarga la <span class="gradient-text">App VendoYo</span>
+      </h2>
+      <p class="text-xl text-slate-600 max-w-2xl mx-auto mb-6">
+        Disponible para <strong>iOS</strong> y <strong>Android</strong>. Gestiona tus propiedades
+        desde cualquier lugar.
+      </p>
+
+      <!-- Store Badges -->
+      <div class="flex flex-wrap gap-4 justify-center mb-8">
+        <a
+          href="#"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-all hover:-translate-y-1 shadow-lg"
+        >
+          <Icon name="lucide:apple" class="w-6 h-6" />
+          <div class="text-left">
+            <div class="text-xs opacity-80">Descárgalo en</div>
+            <div class="text-sm font-bold">App Store</div>
+          </div>
+        </a>
+        <a
+          href="#"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-all hover:-translate-y-1 shadow-lg"
+        >
+          <Icon name="lucide:play" class="w-6 h-6" />
+          <div class="text-left">
+            <div class="text-xs opacity-80">Disponible en</div>
+            <div class="text-sm font-bold">Google Play</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Tabs + Phone Mockup -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <!-- Tabs -->
+      <div class="order-2 lg:order-1">
+        <!-- Tab Buttons -->
+        <div class="flex flex-col gap-4 mb-6">
+          <button
+            @click="activeTab = 'upload'"
+            :class="activeTab === 'upload' ? 'bg-primary-400 text-white shadow-primary' : 'bg-white text-slate-700 hover:bg-primary-50'"
+            class="flex items-start gap-4 p-6 rounded-2xl border-2 transition-all text-left"
+            :style="activeTab === 'upload' ? 'border-color: var(--color-primary-400)' : 'border-color: var(--color-gray-200)'"
+          >
+            <div
+              class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+              :class="activeTab === 'upload' ? 'bg-white/20' : 'bg-primary-100'"
+            >
+              <Icon
+                name="heroicons:home"
+                class="w-6 h-6"
+                :class="activeTab === 'upload' ? 'text-white' : 'text-primary-600'"
+              />
+            </div>
+            <div>
+              <h3 class="text-lg font-bold mb-1">📸 Sube tu Propiedad</h3>
+              <p class="text-sm opacity-90">
+                Añade fotos, descripción y precio en minutos directamente desde tu móvil
+              </p>
+            </div>
+          </button>
+
+          <button
+            @click="activeTab = 'assign'"
+            :class="activeTab === 'assign' ? 'bg-primary-400 text-white shadow-primary' : 'bg-white text-slate-700 hover:bg-primary-50'"
+            class="flex items-start gap-4 p-6 rounded-2xl border-2 transition-all text-left"
+            :style="activeTab === 'assign' ? 'border-color: var(--color-primary-400)' : 'border-color: var(--color-gray-200)'"
+          >
+            <div
+              class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+              :class="activeTab === 'assign' ? 'bg-white/20' : 'bg-primary-100'"
+            >
+              <Icon
+                name="heroicons:building-office-2"
+                class="w-6 h-6"
+                :class="activeTab === 'assign' ? 'text-white' : 'text-primary-600'"
+              />
+            </div>
+            <div>
+              <h3 class="text-lg font-bold mb-1">🏢 Asigna Franquicia</h3>
+              <p class="text-sm opacity-90">
+                Conecta con agencias locales y gestiona múltiples franquicias
+              </p>
+            </div>
+          </button>
+
+          <button
+            @click="activeTab = 'track'"
+            :class="activeTab === 'track' ? 'bg-primary-400 text-white shadow-primary' : 'bg-white text-slate-700 hover:bg-primary-50'"
+            class="flex items-start gap-4 p-6 rounded-2xl border-2 transition-all text-left"
+            :style="activeTab === 'track' ? 'border-color: var(--color-primary-400)' : 'border-color: var(--color-gray-200)'"
+          >
+            <div
+              class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+              :class="activeTab === 'track' ? 'bg-white/20' : 'bg-primary-100'"
+            >
+              <Icon
+                name="heroicons:chart-bar"
+                class="w-6 h-6"
+                :class="activeTab === 'track' ? 'text-white' : 'text-primary-600'"
+              />
+            </div>
+            <div>
+              <h3 class="text-lg font-bold mb-1">📊 Seguimiento en Vivo</h3>
+              <p class="text-sm opacity-90">Monitoriza visitas, ofertas y estado en tiempo real</p>
+            </div>
+          </button>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="flex gap-2">
+          <div class="h-1 flex-1 rounded-full bg-primary-200">
+            <div
+              class="h-full rounded-full bg-primary-500 transition-all duration-300"
+              :style="`width: ${activeTab === 'upload' ? '100' : '0'}%`"
+            >
+            </div>
+          </div>
+          <div class="h-1 flex-1 rounded-full bg-primary-200">
+            <div
+              class="h-full rounded-full bg-primary-500 transition-all duration-300"
+              :style="`width: ${activeTab === 'assign' ? '100' : '0'}%`"
+            >
+            </div>
+          </div>
+          <div class="h-1 flex-1 rounded-full bg-primary-200">
+            <div
+              class="h-full rounded-full bg-primary-500 transition-all duration-300"
+              :style="`width: ${activeTab === 'track' ? '100' : '0'}%`"
+            >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone Mockup -->
+      <div class="order-1 lg:order-2 flex justify-center">
+        <div class="relative max-w-sm w-full">
+          <!-- Glow -->
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-primary-400 to-cyan-400 rounded-[3rem] blur-3xl opacity-20"
+          >
+          </div>
+
+          <!-- Phone Frame -->
+          <div class="relative bg-slate-900 rounded-[3rem] p-3 shadow-2xl">
+            <!-- Notch -->
+            <div
+              class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-slate-900 rounded-b-3xl z-10"
+            >
+            </div>
+
+            <!-- Screen -->
+            <div class="relative bg-white rounded-[2.5rem] aspect-[9/19] overflow-hidden">
+              <!-- Content changes based on active tab -->
+              <div class="h-full p-6 flex flex-col" x-show="activeTab === 'upload'" x-transition>
+                <div class="text-center mb-4">
+                  <div
+                    class="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-3"
+                  >
+                    <Icon name="heroicons:camera" class="w-8 h-8 text-primary-600" />
+                  </div>
+                  <h4 class="font-bold text-slate-900">Nueva Propiedad</h4>
+                </div>
+                <div class="space-y-3 flex-1">
+                  <div class="h-32 bg-gradient-to-br from-primary-100 to-cyan-100 rounded-xl"></div>
+                  <div class="h-4 bg-slate-100 rounded w-3/4"></div>
+                  <div class="h-4 bg-slate-100 rounded w-1/2"></div>
+                  <div class="h-12 bg-primary-400 rounded-xl mt-auto"></div>
+                </div>
+              </div>
+
+              <div class="h-full p-6 flex flex-col" x-show="activeTab === 'assign'" x-transition>
+                <div class="text-center mb-4">
+                  <div
+                    class="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-3"
+                  >
+                    <Icon name="heroicons:users" class="w-8 h-8 text-primary-600" />
+                  </div>
+                  <h4 class="font-bold text-slate-900">Asignar Agencia</h4>
+                </div>
+                <div class="space-y-3 flex-1">
+                  <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
+                    <div class="w-10 h-10 bg-accent-200 rounded-full"></div>
+                    <div class="flex-1">
+                      <div class="h-3 bg-slate-200 rounded w-24 mb-1"></div>
+                      <div class="h-2 bg-slate-100 rounded w-16"></div>
+                    </div>
+                  </div>
+                  <div
+                    class="flex items-center gap-3 p-3 bg-primary-50 rounded-xl border-2 border-primary-400"
+                  >
+                    <div class="w-10 h-10 bg-primary-200 rounded-full"></div>
+                    <div class="flex-1">
+                      <div class="h-3 bg-primary-300 rounded w-24 mb-1"></div>
+                      <div class="h-2 bg-primary-200 rounded w-16"></div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
+                    <div class="w-10 h-10 bg-accent-200 rounded-full"></div>
+                    <div class="flex-1">
+                      <div class="h-3 bg-slate-200 rounded w-24 mb-1"></div>
+                      <div class="h-2 bg-slate-100 rounded w-16"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="h-full p-6 flex flex-col" x-show="activeTab === 'track'" x-transition>
+                <div class="text-center mb-4">
+                  <div
+                    class="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-3"
+                  >
+                    <Icon name="heroicons:chart-bar-square" class="w-8 h-8 text-primary-600" />
+                  </div>
+                  <h4 class="font-bold text-slate-900">Dashboard</h4>
+                </div>
+                <div class="space-y-3 flex-1">
+                  <div class="grid grid-cols-2 gap-2">
+                    <div class="p-3 bg-primary-50 rounded-xl">
+                      <div class="text-2xl font-bold text-primary-600">24</div>
+                      <div class="text-xs text-slate-600">Visitas</div>
+                    </div>
+                    <div class="p-3 bg-accent-50 rounded-xl">
+                      <div class="text-2xl font-bold text-accent-600">3</div>
+                      <div class="text-xs text-slate-600">Ofertas</div>
+                    </div>
+                  </div>
+                  <div class="h-20 bg-gradient-to-r from-primary-100 to-cyan-100 rounded-xl"></div>
+                  <div class="h-16 bg-slate-50 rounded-xl"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Platform Logos -->
+    <div class="mt-16 text-center">
+      <p class="text-sm text-slate-500 mb-4">Compatible con</p>
+      <div class="flex items-center justify-center gap-8 opacity-60">
+        <div class="flex items-center gap-2">
+          <Icon name="lucide:apple" class="w-8 h-8" />
+          <span class="font-medium">iOS 14+</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <Icon name="lucide:smartphone" class="w-8 h-8" />
+          <span class="font-medium">Android 8+</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import autoAnimate from '@formkit/auto-animate';
+
+  document.addEventListener('alpine:init', () => {
+    // Auto-animate will handle smooth transitions
+    const tabs = document.querySelectorAll('[x-show]');
+    tabs.forEach((tab) => {
+      if (tab.parentElement) {
+        autoAnimate(tab.parentElement);
+      }
+    });
+  });
+</script>
