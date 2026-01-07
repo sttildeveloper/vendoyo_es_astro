@@ -1,0 +1,68 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<div class="bg-neutral-white h-full flex flex-col font-sans relative overflow-hidden select-none pointer-events-none">
+  
+  <!-- Header -->
+  <div class="px-6 pt-12 pb-6 z-10">
+      <button class="w-10 h-10 rounded-full bg-brand-primary-soft flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition-colors mb-6">
+          <Icon name="heroicons:arrow-left" class="w-5 h-5" />
+      </button>
+      
+      <h1 class="text-2xl font-bold text-neutral-text mb-2">Crear Cuenta</h1>
+      <p class="text-neutral-muted text-sm">Únete a la red de inmobiliarias más grande.</p>
+  </div>
+
+  <!-- Form -->
+  <div class="flex-1 px-6 space-y-4 overflow-y-auto pb-6">
+      
+      <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-1.5 reg-field">
+              <label class="text-xs font-bold text-neutral-muted uppercase">Nombre</label>
+              <div id="reg-name" class="w-full bg-white border border-neutral-border rounded-xl px-4 py-2.5 text-sm text-neutral-text min-h-[42px] flex items-center input-mock"></div>
+          </div>
+          <div class="space-y-1.5 reg-field">
+              <label class="text-xs font-bold text-neutral-muted uppercase">Apellido</label>
+              <div id="reg-surname" class="w-full bg-white border border-neutral-border rounded-xl px-4 py-2.5 text-sm text-neutral-text min-h-[42px] flex items-center input-mock"></div>
+          </div>
+      </div>
+
+      <div class="space-y-1.5 reg-field">
+          <label class="text-xs font-bold text-neutral-muted uppercase">Email Profesional</label>
+          <div id="reg-email" class="w-full bg-white border border-neutral-border rounded-xl px-4 py-2.5 text-sm text-neutral-text min-h-[42px] flex items-center input-mock"></div>
+      </div>
+
+      <div class="space-y-1.5 reg-field">
+          <label class="text-xs font-bold text-neutral-muted uppercase">Tipo de Cuenta</label>
+          <div class="grid grid-cols-2 gap-3">
+              <div id="reg-type-agent" class="border border-neutral-border text-neutral-muted font-medium py-2.5 rounded-xl text-sm flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer">
+                  <Icon name="heroicons:user" class="w-4 h-4" />
+                  Agente
+              </div>
+              <div class="border border-neutral-border text-neutral-muted font-medium py-2.5 rounded-xl text-sm flex items-center justify-center gap-2 hover:bg-brand-primary-soft hover:text-brand-primary hover:border-brand-primary transition-colors cursor-pointer">
+                  <Icon name="heroicons:building-office" class="w-4 h-4" />
+                  Agencia
+              </div>
+          </div>
+      </div>
+
+      <div class="pt-4">
+          <button id="reg-submit" class="w-full bg-brand-primary text-white font-bold py-3.5 rounded-xl shadow-lg shadow-brand-primary/20 flex items-center justify-center gap-2 transform transition-all hover:bg-brand-primary-dark active:scale-95">
+              <span>Registrarse</span>
+              <Icon id="reg-spinner" name="heroicons:arrow-path" class="w-5 h-5 animate-spin hidden" />
+          </button>
+      </div>
+  </div>
+
+  <!-- Discreet Success Alert (Toast) -->
+  <div id="reg-alert" class="absolute top-6 left-6 right-6 bg-neutral-text text-white p-4 rounded-2xl shadow-xl flex items-center gap-4 z-50 transform -translate-y-32 transition-transform border border-neutral-border/10">
+    <div class="w-10 h-10 bg-brand-primary rounded-full flex items-center justify-center flex-shrink-0 text-white">
+       <Icon name="heroicons:check" class="w-6 h-6" />
+    </div>
+    <div>
+       <h3 class="text-sm font-bold">¡Cuenta Creada!</h3>
+       <p class="text-xs text-brand-primary-soft opacity-90">Revisa tu email para verificar.</p>
+    </div>
+  </div>
+</div>

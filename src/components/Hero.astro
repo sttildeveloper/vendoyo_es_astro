@@ -1,12 +1,16 @@
 ---
 import { Icon } from 'astro-icon/components';
+import ScreenRegisterWizard from './screens/ScreenRegisterWizard.astro';
+import ScreenEmail from './screens/ScreenEmail.astro';
+import ScreenLogin from './screens/ScreenLogin.astro';
+import ScreenManagerDashboard from './screens/ScreenManagerDashboard.astro';
 ---
 
-<section id="hero" class="relative min-h-screen flex items-center overflow-hidden pt-20">
-  <!-- Background Blobs -->
+<section id="hero" class="relative min-h-screen flex items-center overflow-hidden pt-20 bg-neutral-white">
+  <!-- Background Blobs (The "Difuminado Verde") -->
   <div class="absolute inset-0 -z-10">
-    <div class="absolute top-20 right-10 w-96 h-96 bg-teal-400/20 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-20 left-10 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl"></div>
+    <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-brand-soft/60 rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-brand-primary/10 rounded-full blur-[100px]"></div>
   </div>
 
   <div class="section">
@@ -19,42 +23,40 @@ import { Icon } from 'astro-icon/components';
         </span>
 
         <h1
-          class="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 leading-tight"
+          class="text-5xl md:text-6xl lg:text-7xl font-bold text-neutral-text leading-tight"
           data-hero-title
         >
-          Tu <span class="gradient-text">inmobiliaria</span> en tu bolsillo
+          Tu <span class="text-brand-primary">inmobiliaria</span> en tu bolsillo
         </h1>
 
-        <p class="text-xl text-slate-600 max-w-2xl" data-hero-description>
+        <p class="text-xl text-neutral-muted max-w-2xl" data-hero-description>
           Gestiona propiedades, asigna franquicias y realiza seguimiento en tiempo real. Todo desde
           tu móvil, de forma simple y rápida.
         </p>
 
         <!-- CTAs -->
         <div class="flex flex-wrap gap-4" data-hero-ctas>
-          <a href="#" class="btn-dark inline-flex items-center gap-2">
-            <Icon name="lucide:apple" class="w-5 h-5" />
-            App Store
+          <a href="#download" class="btn-primary px-8 py-3 shadow-lg shadow-brand-primary/20">
+            Descargar App
           </a>
-          <a href="#" class="btn-dark inline-flex items-center gap-2">
-            <Icon name="lucide:play" class="w-5 h-5" />
-            Google Play
+          <a href="#features" class="btn-ghost px-8 py-3 !border-neutral-border hover:!border-brand-primary">
+            Ver Características
           </a>
         </div>
 
         <!-- Stats -->
-        <div class="grid grid-cols-3 gap-6 pt-8" data-hero-stats>
+        <div class="grid grid-cols-3 gap-6 pt-8 border-t border-neutral-border" data-hero-stats>
           <div>
-            <div class="text-3xl font-bold text-teal-600" data-count="5000">0</div>
-            <div class="text-sm text-slate-600">Propiedades</div>
+            <div class="text-3xl font-bold text-brand-primary" data-count="5000">0</div>
+            <div class="text-xs text-neutral-muted uppercase font-bold tracking-wider">Propiedades</div>
           </div>
           <div>
-            <div class="text-3xl font-bold text-teal-600" data-count="500">0</div>
-            <div class="text-sm text-slate-600">Franquicias</div>
+            <div class="text-3xl font-bold text-brand-primary" data-count="500">0</div>
+            <div class="text-xs text-neutral-muted uppercase font-bold tracking-wider">Franquicias</div>
           </div>
           <div>
-            <div class="text-3xl font-bold text-teal-600" data-count="10000">0</div>
-            <div class="text-sm text-slate-600">Usuarios</div>
+            <div class="text-3xl font-bold text-brand-primary" data-count="10000">0</div>
+            <div class="text-xs text-neutral-muted uppercase font-bold tracking-wider">Usuarios</div>
           </div>
         </div>
       </div>
@@ -64,20 +66,34 @@ import { Icon } from 'astro-icon/components';
         <div class="relative z-10 mx-auto max-w-sm">
           <div class="relative">
             <!-- Glow effect -->
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-3xl blur-2xl opacity-30"
-            >
-            </div>
-            <!-- Phone mockup placeholder -->
-            <div class="relative bg-slate-900 rounded-3xl p-2 glow-teal">
-              <div class="bg-white rounded-2xl aspect-[9/19] overflow-hidden">
-                <div class="p-6 space-y-4">
-                  <div class="h-2 bg-slate-200 rounded-full w-1/3"></div>
-                  <div class="space-y-2">
-                    <div class="h-32 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-2xl"></div>
-                    <div class="h-20 bg-slate-100 rounded-xl"></div>
-                    <div class="h-20 bg-slate-100 rounded-xl"></div>
-                  </div>
+            <div class="absolute inset-0 bg-brand-primary/30 rounded-3xl blur-2xl opacity-30"></div>
+            <!-- Phone mockup container -->
+            <div class="relative bg-slate-900 rounded-[2.5rem] p-3 shadow-2xl">
+              <!-- Notch -->
+              <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-900 rounded-b-xl z-20"></div>
+
+              <!-- Screen Container - POINTER EVENTS NONE to block interaction -->
+              <div
+                class="bg-white rounded-[2rem] aspect-[9/19] overflow-hidden relative isolate pointer-events-none select-none"
+              >
+                <!-- 1. Register Screen (Start Visible) -->
+                <div class="absolute inset-0 w-full h-full bg-white z-40" id="screen-register">
+                    <ScreenRegisterWizard />
+                </div>
+
+                <!-- 2. Email Screen -->
+                <div class="absolute inset-0 w-full h-full bg-white z-30 opacity-0 hidden" id="screen-email">
+                    <ScreenEmail />
+                </div>
+
+                <!-- 3. Login Screen -->
+                <div class="absolute inset-0 w-full h-full bg-white z-20 opacity-0 hidden" id="screen-login">
+                    <ScreenLogin />
+                </div>
+
+                 <!-- 4. Manager Dashboard Screen -->
+                 <div class="absolute inset-0 w-full h-full bg-white z-10 opacity-0 hidden" id="screen-dashboard">
+                    <ScreenManagerDashboard />
                 </div>
               </div>
             </div>
@@ -90,74 +106,103 @@ import { Icon } from 'astro-icon/components';
 
 <script>
   import gsap from 'gsap';
+  import { TextPlugin } from 'gsap/TextPlugin';
 
-  // Check for reduced motion preference
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  gsap.registerPlugin(TextPlugin);
 
-  if (!prefersReducedMotion) {
-    // Hero entrance animation
+  // Zen Easing Constant
+  const zenEase = "power2.inOut";
+
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    tl.from('[data-hero-badge]', {
-      opacity: 0,
-      y: 30,
-      duration: 0.6,
-    })
-      .from(
-        '[data-hero-title]',
-        {
-          opacity: 0,
-          y: 40,
-          duration: 0.8,
-        },
-        '-=0.3'
-      )
-      .from(
-        '[data-hero-description]',
-        {
-          opacity: 0,
-          y: 30,
-          duration: 0.6,
-        },
-        '-=0.4'
-      )
-      .from(
-        '[data-hero-ctas]',
-        {
-          opacity: 0,
-          y: 30,
-          duration: 0.6,
-        },
-        '-=0.3'
-      )
-      .from(
-        '[data-hero-stats]',
-        {
-          opacity: 0,
-          y: 20,
-          duration: 0.6,
-        },
-        '-=0.3'
-      )
-      .from(
-        '[data-hero-mockup]',
-        {
-          opacity: 0,
-          x: 50,
-          duration: 1,
-        },
-        '-=0.8'
-      );
+    // 1. Initial Hero Entrance (Smooth Fade & Rise)
+    tl.from('[data-hero-badge]', { opacity: 0, y: 20, duration: 1 })
+      .from('[data-hero-title]', { opacity: 0, y: 30, duration: 1.2 }, '-=0.8')
+      .from('[data-hero-description]', { opacity: 0, y: 20, duration: 1 }, '-=1.0')
+      .from('[data-hero-ctas]', { opacity: 0, y: 20, duration: 1 }, '-=0.8')
+      .from('[data-hero-stats]', { opacity: 0, duration: 1.5 }, '-=0.8')
+      .from('[data-hero-mockup]', { opacity: 0, y: 40, duration: 1.5 }, '-=1.2');
 
-    // Animate counter stats
+    // 2. THE 40-SECOND WIZARD JOURNEY
+    const appTl = gsap.timeline({ delay: 1.5 });
+
+    // --- PHASE 1: REGISTRATION WIZARD (0-12s) ---
+    appTl
+      // Step 0: Select User Type (Visual Feedback)
+      .to('#type-franchisor', { borderColor: '#0B8F7A', backgroundColor: '#DDF3EE', scale: 1.02, duration: 0.8, delay: 1 })
+      
+      // Transition to Step 1
+      .to('#wiz-step-0', { xPercent: -100, opacity: 0, duration: 0.8, ease: zenEase }, "+=0.5")
+      .to('#wizard-stepper', { opacity: 1, duration: 0.5 }, "<")
+      .set('#wiz-step-1', { display: 'flex', xPercent: 100 }, "<") // Set start position
+      .to('#wiz-step-1', { xPercent: 0, opacity: 1, duration: 0.8, ease: zenEase }, "<") // Animate to center
+
+      // Fill Step 1 (Typing Effect)
+      .to('#wiz-field-company', { duration: 1, text: "VendoYo Madrid", ease: "none" }, "+=0.2")
+      .to('#wiz-field-email', { duration: 1.2, text: "manager@vendoyo.es", ease: "none" }, "+=0.3")
+      .to('#wiz-field-pass', { duration: 0.8, text: "••••••••", ease: "none" }, "+=0.2")
+      
+      // Transition to Step 2
+      .to('#wiz-step-1', { xPercent: -100, opacity: 0, duration: 0.8, ease: zenEase }, "+=0.8")
+      .to('.wizard-dot-2', { width: '2rem', backgroundColor: '#0B8F7A', duration: 0.5 }, "<")
+      .set('#wiz-step-2', { display: 'flex', xPercent: 100 }, "<") // Set start position
+      .to('#wiz-step-2', { xPercent: 0, opacity: 1, duration: 0.8, ease: zenEase }, "<") // Animate to center
+
+      // Fill Step 2
+      .to('#wiz-field-city', { duration: 0.8, text: "Madrid", ease: "none" }, "+=0.2")
+      .to('#wiz-field-addr', { duration: 1, text: "Calle Gran Vía, 12", ease: "none" }, "+=0.3")
+
+      // Finalize Click
+      .to('#wiz-btn-finish', { scale: 0.98, duration: 0.2 }, "+=0.8")
+      .to('#wiz-btn-finish', { scale: 1, duration: 0.2, onStart: () => document.getElementById('wiz-spinner')?.classList.remove('hidden') })
+      .to('#reg-alert', { y: '80px', opacity: 1, duration: 0.8, ease: "back.out(1.7)" }, "+=0.5");
+
+    // --- PHASE 2: VERIFICATION (12-22s) ---
+    appTl
+      .to('#screen-register', { opacity: 0, duration: 1 }, "+=2")
+      .set('#screen-register', { display: 'none' })
+      .set('#screen-email', { display: 'block' }, "<")
+      .to('#screen-email', { opacity: 1, duration: 1 }, "<")
+      .to('#email-item', { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" }, "+=0.5")
+      .to('#email-detail', { x: '0%', duration: 1, ease: zenEase, delay: 1.5 })
+      .to('#btn-verify-email', { scale: 0.98, duration: 0.2 }, "+=1.5")
+      .to('#btn-verify-email', { scale: 1, duration: 0.2 })
+      .to('#email-success', { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "+=0.5");
+
+    // --- PHASE 3: LOGIN (22-32s) ---
+    appTl
+      .to('#screen-email', { opacity: 0, duration: 1 }, "+=2.5")
+      .set('#screen-email', { display: 'none' })
+      .set('#screen-login', { display: 'block' }, "<")
+      .to('#screen-login', { opacity: 1, duration: 1 }, "<")
+      .to('#login-email', { duration: 1, text: "manager@vendoyo.es", ease: "none" }, "+=0.8")
+      .to('#login-pass', { duration: 1.2, text: "••••••••", ease: "none" }, "+=0.3")
+      .to('#btn-login-submit', { scale: 0.98, duration: 0.2 }, "+=0.8")
+      .to('#btn-login-submit', { scale: 1, duration: 0.2, onStart: () => document.getElementById('login-spinner')?.classList.remove('hidden') });
+
+    // --- PHASE 4: MANAGER DASHBOARD (32-40s) ---
+    appTl
+      .to('#screen-login', { opacity: 0, duration: 1.2 }, "+=1.5")
+      .set('#screen-login', { display: 'none' })
+      .set('#screen-dashboard', { display: 'block' }, "<")
+      .to('#screen-dashboard', { 
+          opacity: 1, duration: 1.2,
+          onComplete: () => {
+               if (window.animateManagerDashboard) window.animateManagerDashboard(document.getElementById('screen-dashboard')).play();
+          }
+      }, "<");
+
+    // Global Stats Counter
     const counters = document.querySelectorAll('[data-count]');
     counters.forEach((counter) => {
       const target = parseInt(counter.getAttribute('data-count') || '0');
       gsap.to(counter, {
         innerText: target,
-        duration: 2,
-        delay: 1,
+        duration: 3,
+        delay: 0.5,
         snap: { innerText: 1 },
+        ease: "power2.out",
         onUpdate: function () {
           counter.textContent = Math.ceil(parseFloat(counter.textContent)).toLocaleString();
         },

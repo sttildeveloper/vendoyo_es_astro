@@ -1,0 +1,63 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<div class="h-full flex flex-col font-sans relative overflow-hidden select-none pointer-events-none bg-neutral-white">
+  
+  <!-- Content -->
+  <div class="relative z-10 flex-1 flex flex-col justify-center px-5 pb-8 w-full">
+    
+    <!-- Logo Area -->
+    <div class="text-center mb-10">
+      <h1 class="text-3xl font-extrabold text-brand-primary tracking-tight mb-2 flex items-center justify-center gap-2">
+        VendoYo <Icon name="circle-flags:ua" class="w-6 h-6 shadow-sm" />
+      </h1>
+      <p class="text-neutral-muted text-sm">Tu inmobiliaria en tu bolsillo</p>
+    </div>
+
+    <!-- Form Container -->
+    <div class="space-y-5 w-full">
+        
+        <!-- Email Input -->
+        <div class="space-y-1.5">
+            <label class="text-[10px] font-bold text-neutral-muted uppercase ml-1">Email</label>
+            <div class="relative group">
+                <Icon name="heroicons:envelope" class="w-5 h-5 text-neutral-muted absolute left-3 top-3 z-10" />
+                <div 
+                  id="login-email"
+                  class="input-mock w-full !pl-10 shadow-sm"
+                ></div>
+            </div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="space-y-1.5">
+            <label class="text-[10px] font-bold text-neutral-muted uppercase ml-1">Contraseña</label>
+            <div class="relative group">
+                <Icon name="heroicons:lock-closed" class="w-5 h-5 text-neutral-muted absolute left-3 top-3 z-10" />
+                <div 
+                  id="login-pass"
+                  class="input-mock w-full !pl-10 shadow-sm"
+                ></div>
+            </div>
+        </div>
+
+        <div class="flex justify-end pt-1">
+            <span class="text-xs text-brand-primary font-bold cursor-pointer hover:text-brand-primary-dark">¿Olvidaste tu contraseña?</span>
+        </div>
+
+        <!-- Login Button -->
+        <button id="btn-login-submit" class="btn-brand w-full shadow-md py-3.5 rounded-xl flex items-center justify-center gap-2 mt-2">
+            <span>Iniciar Sesión</span>
+            <Icon id="login-spinner" name="heroicons:arrow-path" class="w-5 h-5 animate-spin hidden" />
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-8 text-center">
+        <p class="text-xs text-neutral-muted">
+            ¿No tienes cuenta? <span id="btn-to-register" class="text-brand-primary font-bold cursor-pointer">Regístrate gratis</span>
+        </p>
+    </div>
+  </div>
+</div>

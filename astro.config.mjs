@@ -16,6 +16,7 @@ export default defineConfig({
       include: {
         heroicons: ['*'],
         lucide: ['*'],
+        'circle-flags': ['*'],
       },
     }),
   ],

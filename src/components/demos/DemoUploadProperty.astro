@@ -1,0 +1,109 @@
+---
+import { Icon } from 'astro-icon/components';
+import pisoImg from '../../assets/resources/piso.jpg';
+---
+
+<div class="bg-neutral-white border border-neutral-border rounded-2xl shadow-sm overflow-hidden font-sans w-full max-w-sm mx-auto select-none h-[450px] flex flex-col relative">
+  <!-- Header -->
+  <div class="px-4 py-4 border-b border-neutral-border flex justify-between items-center bg-white shrink-0 z-20">
+    <div id="demo-header-title" class="text-sm font-bold text-neutral-text">Nueva Propiedad</div>
+    <div class="flex gap-1">
+      <div id="demo-dot-1" class="w-2 h-2 rounded-full bg-brand-primary transition-all duration-300"></div>
+      <div id="demo-dot-2" class="w-2 h-2 rounded-full bg-neutral-border transition-all duration-300"></div>
+    </div>
+  </div>
+
+  <!-- Screen 1: The Form -->
+  <div id="demo-screen-form" class="flex-1 flex flex-col overflow-hidden relative z-10">
+    <!-- Scrollable Form Content -->
+    <div id="demo-upload-scroll" class="p-4 space-y-4 flex-1 overflow-hidden relative bg-white">
+      <!-- 1. Photo Upload Area -->
+      <div class="space-y-1 demo-step opacity-0 translate-y-2">
+        <label class="text-[10px] font-bold text-neutral-muted uppercase">Fotografía Principal</label>
+        <div class="h-32 w-full border-2 border-dashed border-neutral-border rounded-xl bg-slate-50 flex items-center justify-center relative overflow-hidden group">
+          <div class="absolute inset-0 flex items-center justify-center text-neutral-muted z-0" id="demo-upload-placeholder">
+             <Icon name="heroicons:camera" class="w-6 h-6" />
+          </div>
+          <img 
+            id="demo-upload-image" 
+            src={pisoImg.src} 
+            alt="Piso de ejemplo"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 z-10"
+          />
+        </div>
+      </div>
+      
+      <!-- 2. Title Input -->
+      <div class="space-y-1 demo-step opacity-0 translate-y-2">
+        <label class="text-[10px] font-bold text-neutral-muted uppercase">Título</label>
+        <div class="h-8 w-full border border-neutral-border rounded-lg bg-neutral-white px-3 flex items-center text-xs text-neutral-text font-medium relative">
+          <span id="demo-title-text" class="absolute left-3"></span>
+          <span id="demo-cursor-title" class="w-0.5 h-4 bg-brand-primary animate-pulse absolute left-3"></span>
+        </div>
+      </div>
+
+      <!-- 3. Description Input -->
+      <div class="space-y-1 demo-step opacity-0 translate-y-2">
+        <label class="text-[10px] font-bold text-neutral-muted uppercase">Descripción</label>
+        <div class="h-16 w-full border border-neutral-border rounded-lg bg-neutral-white p-2 text-[10px] text-neutral-text leading-relaxed relative">
+           <span id="demo-desc-text"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="p-4 border-t border-neutral-border bg-neutral-white shrink-0 demo-step opacity-0 translate-y-2">
+       <div id="demo-save-btn" class="h-10 w-full bg-brand-primary text-white rounded-xl flex items-center justify-center text-sm font-bold shadow-md shadow-brand-primary/20 transform transition-transform">
+          Guardar Propiedad
+       </div>
+    </div>
+  </div>
+
+  <!-- Screen 2: The List (Hidden initially, controlled by GSAP) -->
+  <div id="demo-screen-list" class="absolute inset-0 pt-[68px] w-full h-full bg-slate-50 z-0 opacity-0 flex flex-col p-4 space-y-3">
+      <div class="flex justify-between items-center px-1 mb-1">
+          <h3 class="text-xs font-bold text-neutral-text uppercase tracking-wider">Mis Propiedades</h3>
+          <span class="text-[10px] text-brand-primary font-bold">Ver todas</span>
+      </div>
+
+      <!-- Item 1: The one we just added -->
+      <div id="demo-list-item-new" class="bg-white p-3 rounded-xl border border-brand-primary/30 shadow-sm flex gap-3 items-center opacity-0 translate-y-4">
+          <div class="w-12 h-12 rounded-lg bg-cover bg-center shrink-0 shadow-sm" style={`background-image: url('${pisoImg.src}')`}></div>
+          <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-start">
+                  <h4 class="font-bold text-neutral-text text-xs truncate">Ático con Terraza</h4>
+                  <span class="bg-brand-soft text-brand-primary text-[8px] font-bold px-1.5 py-0.5 rounded border border-brand-primary/10">REGISTRADO</span>
+              </div>
+              <p class="text-[9px] text-neutral-muted truncate">C/ de la Princesa, Madrid</p>
+              <div class="flex items-center gap-1 mt-1.5">
+                  <Icon name="heroicons:clock" class="w-3 h-3 text-brand-primary" />
+                  <span class="text-[8px] text-neutral-muted">Justo ahora</span>
+              </div>
+          </div>
+      </div>
+
+      <!-- Item 2: Existing one -->
+      <div class="bg-white p-3 rounded-xl border border-neutral-border shadow-sm flex gap-3 items-center opacity-60">
+          <div class="w-12 h-12 rounded-lg bg-slate-200 shrink-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=150&q=80')"></div>
+          <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-start">
+                  <h4 class="font-bold text-neutral-text text-xs truncate">Loft Moderno</h4>
+                  <span class="bg-slate-100 text-neutral-muted text-[8px] font-bold px-1.5 py-0.5 rounded">PUBLICADO</span>
+              </div>
+              <p class="text-[9px] text-neutral-muted">Av. Diagonal, Barcelona</p>
+          </div>
+      </div>
+
+      <!-- Item 3: Existing one -->
+      <div class="bg-white p-3 rounded-xl border border-neutral-border shadow-sm flex gap-3 items-center opacity-60">
+          <div class="w-12 h-12 rounded-lg bg-slate-200 shrink-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=150&q=80')"></div>
+          <div class="flex-1 min-w-0">
+              <div class="flex justify-between items-start">
+                  <h4 class="font-bold text-neutral-text text-xs truncate">Estudio Reformado</h4>
+                  <span class="bg-slate-100 text-neutral-muted text-[8px] font-bold px-1.5 py-0.5 rounded">PUBLICADO</span>
+              </div>
+              <p class="text-[9px] text-neutral-muted">C/ Pintor Sorolla, Valencia</p>
+          </div>
+      </div>
+  </div>
+</div>

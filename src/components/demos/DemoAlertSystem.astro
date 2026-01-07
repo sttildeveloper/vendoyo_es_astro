@@ -1,0 +1,32 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<div class="grid grid-cols-5 gap-4 font-sans select-none w-full max-w-md mx-auto">
+  <!-- Admin Side -->
+  <div class="col-span-3 bg-neutral-white border border-neutral-border rounded-2xl shadow-sm p-3 space-y-3">
+    <div class="flex items-center gap-2 mb-2">
+      <div class="w-2 h-2 rounded-full bg-danger"></div>
+      <span class="text-[10px] font-bold text-neutral-text uppercase">Panel Admin</span>
+    </div>
+    <div class="h-16 border border-dashed border-neutral-border rounded-lg bg-neutral-white p-2 text-[10px] text-neutral-muted">
+      Mensaje: "Cambio de tarifas..."
+    </div>
+    <div id="demo-send-btn" class="bg-neutral-text text-white h-8 rounded-lg flex items-center justify-center gap-2 text-xs font-bold cursor-pointer hover:bg-neutral-text/90 transition-colors">
+      Enviar Alerta
+      <Icon name="heroicons:paper-airplane" class="w-3 h-3" />
+    </div>
+  </div>
+
+  <!-- User Side -->
+  <div class="col-span-2 bg-neutral-white border border-neutral-border rounded-2xl shadow-sm p-2 flex flex-col items-center justify-center relative overflow-hidden">
+    <div class="absolute top-2 right-2 flex gap-1">
+       <div id="demo-badge" class="w-2 h-2 rounded-full bg-danger scale-0 transition-transform duration-300"></div>
+    </div>
+    <Icon name="heroicons:device-phone-mobile" class="w-12 h-12 text-neutral-border mb-2" />
+    <div id="demo-notification" class="bg-brand-primary text-white text-[9px] p-2 rounded-lg shadow-lg opacity-0 translate-y-4 transition-all duration-500 text-center w-full">
+      <span class="font-bold block mb-0.5">¡Nueva Alerta!</span>
+      Cambio de tarifas
+    </div>
+  </div>
+</div>

@@ -1,0 +1,201 @@
+---
+import { Icon } from 'astro-icon/components';
+import DemoUploadProperty from './demos/DemoUploadProperty.astro';
+import DemoAssignFranchise from './demos/DemoAssignFranchise.astro';
+import DemoAlertSystem from './demos/DemoAlertSystem.astro';
+---
+
+<section id="features" class="section bg-white">
+  <div class="max-w-4xl mx-auto mb-20 text-center" data-features-header>
+    <span class="badge mb-4">
+      <Icon name="heroicons:sparkles" class="w-4 h-4" />
+      Características
+    </span>
+    <h2 class="text-4xl md:text-5xl font-bold text-neutral-text mb-4">
+      Todo lo que necesitas en <span class="gradient-text">una app</span>
+    </h2>
+    <p class="text-xl text-neutral-muted max-w-2xl mx-auto leading-relaxed">
+      Gestiona tu negocio inmobiliario de forma profesional y sencilla con herramientas diseñadas para el mundo real.
+    </p>
+  </div>
+
+  <div class="max-w-4xl mx-auto space-y-32">
+    
+    <!-- Feature 1: Upload Property -->
+    <div class="grid md:grid-cols-2 gap-12 items-center feature-block">
+      <div class="space-y-6">
+        <div class="inline-block px-3 py-1 bg-brand-primary-soft text-brand-primary text-xs font-bold rounded-full uppercase tracking-wider">
+          Gestión Ágil
+        </div>
+        <h3 class="text-3xl md:text-4xl font-bold text-neutral-text leading-tight">
+          Sube tu propiedad <br>
+          <span class="text-brand-primary">en segundos.</span>
+        </h3>
+        <p class="text-neutral-muted text-lg leading-relaxed">
+          Añade propiedades fácilmente con fotos, descripción y precio. Todo optimizado para hacerlo desde tu móvil.
+        </p>
+      </div>
+      <div class="relative group" data-demo="upload">
+        <div class="absolute inset-0 bg-brand-primary-soft/50 rounded-3xl transform rotate-3 scale-95 transition-transform group-hover:rotate-6"></div>
+        <div class="relative bg-white rounded-2xl shadow-xl border border-neutral-border p-2">
+          <DemoUploadProperty />
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 2: Assign Franchise -->
+    <div class="grid md:grid-cols-2 gap-12 items-center feature-block">
+      <div class="order-2 md:order-1 relative group" data-demo="assign">
+        <div class="absolute inset-0 bg-brand-primary/10 rounded-3xl transform -rotate-3 scale-95 transition-transform group-hover:-rotate-6"></div>
+        <div class="relative bg-white rounded-2xl shadow-xl border border-neutral-border p-2">
+          <DemoAssignFranchise />
+        </div>
+      </div>
+      <div class="space-y-6 order-1 md:order-2">
+        <div class="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full uppercase tracking-wider">
+          Red de Franquicias
+        </div>
+        <h3 class="text-3xl md:text-4xl font-bold text-neutral-text leading-tight">
+          Asigna y conecta <br>
+          <span class="text-blue-600">tu red local.</span>
+        </h3>
+        <p class="text-neutral-muted text-lg leading-relaxed">
+          Conecta con agencias locales y gestiona múltiples franquicias desde una sola app centralizada.
+        </p>
+      </div>
+    </div>
+
+    <!-- Feature 3: Alerts -->
+    <div class="grid md:grid-cols-2 gap-12 items-center feature-block">
+      <div class="space-y-6">
+        <div class="inline-block px-3 py-1 bg-red-50 text-danger text-xs font-bold rounded-full uppercase tracking-wider">
+          Comunicación Real
+        </div>
+        <h3 class="text-3xl md:text-4xl font-bold text-neutral-text leading-tight">
+          Control y alertas <br>
+          <span class="text-danger">instantáneas.</span>
+        </h3>
+        <p class="text-neutral-muted text-lg leading-relaxed">
+          Comunica cambios importantes, nuevas normativas o avisos urgentes a toda tu red en segundos.
+        </p>
+      </div>
+      <div class="relative group" data-demo="alerts">
+        <div class="absolute inset-0 bg-neutral-border/30 rounded-3xl transform rotate-2 scale-95 transition-transform group-hover:rotate-3"></div>
+        <div class="relative bg-white rounded-2xl shadow-xl border border-neutral-border p-6">
+          <DemoAlertSystem />
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { TextPlugin } from 'gsap/TextPlugin';
+  import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+  gsap.registerPlugin(ScrollTrigger, TextPlugin, ScrollToPlugin);
+
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!isReduced) {
+    
+    // 1. Upload Demo Animation (Auto-Play Robust)
+    ScrollTrigger.create({
+      trigger: '[data-demo="upload"]',
+      start: 'top 75%',
+      onEnter: () => {
+        const tl = gsap.timeline();
+        const scrollContainer = document.getElementById('demo-upload-scroll');
+        
+        // Reset
+        if(scrollContainer) scrollContainer.scrollTop = 0;
+
+        tl.fromTo('.demo-step', 
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.5, stagger: 0.2, ease: "back.out(1.2)" }
+        )
+        
+        // Photo Appear
+        .to('#demo-upload-image', { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }, "+=0.2")
+        .to('#demo-upload-placeholder', { opacity: 0, duration: 0.3 }, "<")
+
+        // Scroll Down to see inputs
+        .to(scrollContainer, { scrollTo: { y: 120 }, duration: 1, ease: "power2.inOut" }, "+=0.3")
+
+        // Title Typing
+        .to('#demo-title-text', { text: "Ático con Terraza", duration: 1.5, ease: "none" }, "+=0.2")
+        .to('#demo-cursor-title', { opacity: 0, duration: 0.1 }, "+=0.1")
+
+        // Scroll Further
+        .to(scrollContainer, { scrollTo: { y: "max" }, duration: 1, ease: "power2.inOut" }, "+=0.3")
+
+        // Description Typing
+        .to('#demo-desc-text', { text: "Espectacular ático reformado en el centro. Muy luminoso y con vistas despejadas.", duration: 2.5, ease: "none" }, "+=0.2")
+
+        // 5. Save Button Feedback
+        .to('#demo-save-btn', { scale: 0.95, backgroundColor: '#087563', duration: 0.2, yoyo: true, repeat: 1 }, "+=0.5")
+
+        // 6. Transition to List View (The "Zen" moment)
+        .to('#demo-screen-form', { xPercent: -100, opacity: 0, duration: 0.8, ease: "power2.inOut" }, "+=0.8")
+        
+        // Explicitly animate List from right to center
+        .fromTo('#demo-screen-list', 
+            { xPercent: 100, opacity: 1, zIndex: 30 }, // Start off-screen right
+            { xPercent: 0, duration: 0.8, ease: "power2.inOut" }, // Slide to center
+            "<"
+        )
+        
+        // Update Header
+        .to('#demo-dot-1', { backgroundColor: '#E2E8F0', duration: 0.3 }, "<")
+        .to('#demo-dot-2', { backgroundColor: '#0B8F7A', duration: 0.3 }, "<")
+        .to('#demo-header-title', { text: "Mis Propiedades", duration: 0.5 }, "<")
+
+        // 7. Show new list item
+        .to('#demo-list-item-new', {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "back.out(1.7)"
+        }, "-=0.2");
+      }
+    });
+
+    // 2. Assign Demo Animation
+    ScrollTrigger.create({
+      trigger: '[data-demo="assign"]',
+      start: 'top 75%',
+      onEnter: () => {
+        if (!document.getElementById('demo-menu')) return;
+        const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
+        const menu = document.getElementById('demo-menu');
+        const card = document.getElementById('demo-card');
+        const text = document.getElementById('demo-dropdown-text');
+        tl.to(menu, { opacity: 1, scale: 1, duration: 0.3 })
+          .to(menu.children[1], { backgroundColor: '#DDF3EE', duration: 0.2 }, "+=0.4")
+          .to(menu, { opacity: 0, scale: 0.95, duration: 0.2, delay: 0.4 })
+          .set(text, { textContent: "Valencia Norte" })
+          .to(card, { opacity: 1, filter: "grayscale(0%)", duration: 0.6 }, "<");
+      }
+    });
+
+    // 3. Alert Demo Animation
+    ScrollTrigger.create({
+      trigger: '[data-demo="alerts"]',
+      start: 'top 75%',
+      onEnter: () => {
+        if (!document.getElementById('demo-send-btn')) return;
+        const tl = gsap.timeline();
+        const btn = document.getElementById('demo-send-btn');
+        const badge = document.getElementById('demo-badge');
+        const notif = document.getElementById('demo-notification');
+        tl.to(btn, { scale: 0.95, duration: 0.1 })
+          .to(btn, { scale: 1, duration: 0.1 })
+          .to(badge, { scale: 1, duration: 0.4, ease: "back.out(2)" }, "+=0.3")
+          .to(notif, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, "<");
+      }
+    });
+  }
+</script>

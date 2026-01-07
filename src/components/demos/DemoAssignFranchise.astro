@@ -1,0 +1,35 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<div class="bg-neutral-white border border-neutral-border rounded-2xl shadow-sm overflow-hidden font-sans w-full max-w-sm mx-auto select-none p-4">
+  <div class="space-y-4">
+    <!-- Dropdown -->
+    <div class="relative">
+      <label class="text-[10px] font-bold text-neutral-muted uppercase mb-1 block">Asignar a Franquicia</label>
+      <div id="demo-dropdown" class="w-full h-10 border border-brand-primary rounded-lg flex items-center justify-between px-3 text-sm text-neutral-text cursor-pointer bg-brand-primary-soft/20">
+        <span id="demo-dropdown-text">Seleccionar...</span>
+        <Icon name="heroicons:chevron-down" class="w-4 h-4 text-brand-primary" />
+      </div>
+      
+      <!-- Dropdown Menu (Hidden initially) -->
+      <div id="demo-menu" class="absolute top-full left-0 right-0 mt-1 bg-white border border-neutral-border rounded-lg shadow-lg z-10 opacity-0 scale-95 origin-top pointer-events-none">
+        <div class="p-2 text-xs hover:bg-brand-primary-soft rounded cursor-pointer text-neutral-text">Madrid Centro</div>
+        <div class="p-2 text-xs hover:bg-brand-primary-soft rounded cursor-pointer text-neutral-text font-bold text-brand-primary bg-brand-primary-soft/50">Valencia Norte</div>
+        <div class="p-2 text-xs hover:bg-brand-primary-soft rounded cursor-pointer text-neutral-text">Barcelona Sur</div>
+      </div>
+    </div>
+
+    <!-- Result Card -->
+    <div id="demo-card" class="border border-neutral-border rounded-xl p-3 flex items-center gap-3 opacity-50 grayscale transition-all duration-500">
+      <div class="w-10 h-10 bg-neutral-border rounded-lg"></div>
+      <div class="flex-1">
+        <div class="h-3 w-24 bg-neutral-border rounded mb-1"></div>
+        <div class="h-2 w-16 bg-neutral-border/50 rounded"></div>
+      </div>
+      <div class="w-6 h-6 rounded-full border border-neutral-border flex items-center justify-center">
+        <Icon name="heroicons:check" class="w-3 h-3 text-white" />
+      </div>
+    </div>
+  </div>
+</div>

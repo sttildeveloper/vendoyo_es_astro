@@ -30,6 +30,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@iconify-json/circle-flags": "^1.2.10",
     "eslint": "^9.39.2",
     "eslint-plugin-astro": "^1.5.0",
     "prettier": "^3.7.4",

@@ -1,5 +1,8 @@
----
+--- 
 import { Icon } from 'astro-icon/components';
+import ScreenUpload from './screens/ScreenUpload.astro';
+import ScreenTeam from './screens/ScreenTeam.astro';
+import ScreenManagerDashboard from './screens/ScreenManagerDashboard.astro';
 ---
 
 <section id="app-showcase" class="section bg-gradient-to-br from-primary-50 to-cyan-50">
@@ -7,14 +10,25 @@ import { Icon } from 'astro-icon/components';
     class="max-w-6xl mx-auto"
     x-data="{ activeTab: 'upload', autoplay: true }"
     x-init="() => {
+      // Trigger initial animation
+      setTimeout(() => window.animateUploadScreen?.().play(), 500);
+
+      // Autoplay Logic
       if (autoplay) {
-        setInterval(() => {
+        const interval = setInterval(() => {
+          if (!autoplay) return clearInterval(interval);
           const tabs = ['upload', 'assign', 'track'];
           const currentIndex = tabs.indexOf(activeTab);
           activeTab = tabs[(currentIndex + 1) % tabs.length];
-        }, 5000);
+        }, 6000); // Slightly longer for animations to finish
       }
     }"
+    x-effect="
+      // Watch for tab changes to trigger animations
+      if (activeTab === 'upload') setTimeout(() => window.animateUploadScreen?.().restart(), 100);
+      if (activeTab === 'assign') setTimeout(() => window.animateTeamScreen?.().restart(), 100);
+      // Manager Dashboard animates on mount via CSS/Internal script
+    "
   >
     <!-- Header -->
     <div class="text-center mb-12">
@@ -33,7 +47,7 @@ import { Icon } from 'astro-icon/components';
       <!-- Store Badges -->
       <div class="flex flex-wrap gap-4 justify-center mb-8">
         <a
-          href="#"
+          href="#ios"
           class="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-all hover:-translate-y-1 shadow-lg"
         >
           <Icon name="lucide:apple" class="w-6 h-6" />
@@ -43,7 +57,7 @@ import { Icon } from 'astro-icon/components';
           </div>
         </a>
         <a
-          href="#"
+          href="#android"
           class="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-all hover:-translate-y-1 shadow-lg"
         >
           <Icon name="lucide:play" class="w-6 h-6" />
@@ -62,7 +76,7 @@ import { Icon } from 'astro-icon/components';
         <!-- Tab Buttons -->
         <div class="flex flex-col gap-4 mb-6">
           <button
-            @click="activeTab = 'upload'"
+            @click="activeTab = 'upload'; autoplay = false"
             :class="activeTab === 'upload' ? 'bg-primary-400 text-white shadow-primary' : 'bg-white text-slate-700 hover:bg-primary-50'"
             class="flex items-start gap-4 p-6 rounded-2xl border-2 transition-all text-left"
             :style="activeTab === 'upload' ? 'border-color: var(--color-primary-400)' : 'border-color: var(--color-gray-200)'"
@@ -86,7 +100,7 @@ import { Icon } from 'astro-icon/components';
           </button>
 
           <button
-            @click="activeTab = 'assign'"
+            @click="activeTab = 'assign'; autoplay = false"
             :class="activeTab === 'assign' ? 'bg-primary-400 text-white shadow-primary' : 'bg-white text-slate-700 hover:bg-primary-50'"
             class="flex items-start gap-4 p-6 rounded-2xl border-2 transition-all text-left"
             :style="activeTab === 'assign' ? 'border-color: var(--color-primary-400)' : 'border-color: var(--color-gray-200)'"
@@ -96,21 +110,21 @@ import { Icon } from 'astro-icon/components';
               :class="activeTab === 'assign' ? 'bg-white/20' : 'bg-primary-100'"
             >
               <Icon
-                name="heroicons:building-office-2"
+                name="heroicons:users"
                 class="w-6 h-6"
                 :class="activeTab === 'assign' ? 'text-white' : 'text-primary-600'"
               />
             </div>
             <div>
-              <h3 class="text-lg font-bold mb-1">🏢 Asigna Franquicia</h3>
+              <h3 class="text-lg font-bold mb-1">👥 Gestión de Equipo</h3>
               <p class="text-sm opacity-90">
-                Conecta con agencias locales y gestiona múltiples franquicias
+                Administra usuarios, asigna roles y gestiona tu red de agentes fácilmente
               </p>
             </div>
           </button>
 
           <button
-            @click="activeTab = 'track'"
+            @click="activeTab = 'track'; autoplay = false"
             :class="activeTab === 'track' ? 'bg-primary-400 text-white shadow-primary' : 'bg-white text-slate-700 hover:bg-primary-50'"
             class="flex items-start gap-4 p-6 rounded-2xl border-2 transition-all text-left"
             :style="activeTab === 'track' ? 'border-color: var(--color-primary-400)' : 'border-color: var(--color-gray-200)'"
@@ -126,8 +140,8 @@ import { Icon } from 'astro-icon/components';
               />
             </div>
             <div>
-              <h3 class="text-lg font-bold mb-1">📊 Seguimiento en Vivo</h3>
-              <p class="text-sm opacity-90">Monitoriza visitas, ofertas y estado en tiempo real</p>
+              <h3 class="text-lg font-bold mb-1">📊 Manager Dashboard</h3>
+              <p class="text-sm opacity-90">KPIs, gestión de cartera y estado de franquicia</p>
             </div>
           </button>
         </div>
@@ -175,86 +189,53 @@ import { Icon } from 'astro-icon/components';
             >
             </div>
 
-            <!-- Screen -->
-            <div class="relative bg-white rounded-[2.5rem] aspect-[9/19] overflow-hidden">
-              <!-- Content changes based on active tab -->
-              <div class="h-full p-6 flex flex-col" x-show="activeTab === 'upload'" x-transition>
-                <div class="text-center mb-4">
-                  <div
-                    class="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-3"
-                  >
-                    <Icon name="heroicons:camera" class="w-8 h-8 text-primary-600" />
-                  </div>
-                  <h4 class="font-bold text-slate-900">Nueva Propiedad</h4>
-                </div>
-                <div class="space-y-3 flex-1">
-                  <div class="h-32 bg-gradient-to-br from-primary-100 to-cyan-100 rounded-xl"></div>
-                  <div class="h-4 bg-slate-100 rounded w-3/4"></div>
-                  <div class="h-4 bg-slate-100 rounded w-1/2"></div>
-                  <div class="h-12 bg-primary-400 rounded-xl mt-auto"></div>
-                </div>
+            <!-- Screen Container -->
+            <div class="relative bg-white rounded-[2.5rem] aspect-[9/19] overflow-hidden isolate">
+              
+              <!-- Screen 1: Upload -->
+              <div 
+                class="absolute inset-0 w-full h-full bg-white" 
+                x-show="activeTab === 'upload'" 
+                x-transition:enter="transition ease-out duration-300" 
+                x-transition:enter-start="opacity-0 translate-x-10" 
+                x-transition:enter-end="opacity-100 translate-x-0" 
+                x-transition:leave="transition ease-in duration-300" 
+                x-transition:leave-start="opacity-100 translate-x-0" 
+                x-transition:leave-end="opacity-0 -translate-x-10"
+              >
+                  <ScreenUpload />
               </div>
 
-              <div class="h-full p-6 flex flex-col" x-show="activeTab === 'assign'" x-transition>
-                <div class="text-center mb-4">
-                  <div
-                    class="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-3"
-                  >
-                    <Icon name="heroicons:users" class="w-8 h-8 text-primary-600" />
-                  </div>
-                  <h4 class="font-bold text-slate-900">Asignar Agencia</h4>
-                </div>
-                <div class="space-y-3 flex-1">
-                  <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
-                    <div class="w-10 h-10 bg-accent-200 rounded-full"></div>
-                    <div class="flex-1">
-                      <div class="h-3 bg-slate-200 rounded w-24 mb-1"></div>
-                      <div class="h-2 bg-slate-100 rounded w-16"></div>
-                    </div>
-                  </div>
-                  <div
-                    class="flex items-center gap-3 p-3 bg-primary-50 rounded-xl border-2 border-primary-400"
-                  >
-                    <div class="w-10 h-10 bg-primary-200 rounded-full"></div>
-                    <div class="flex-1">
-                      <div class="h-3 bg-primary-300 rounded w-24 mb-1"></div>
-                      <div class="h-2 bg-primary-200 rounded w-16"></div>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
-                    <div class="w-10 h-10 bg-accent-200 rounded-full"></div>
-                    <div class="flex-1">
-                      <div class="h-3 bg-slate-200 rounded w-24 mb-1"></div>
-                      <div class="h-2 bg-slate-100 rounded w-16"></div>
-                    </div>
-                  </div>
-                </div>
+              <!-- Screen 2: Team -->
+              <div 
+                class="absolute inset-0 w-full h-full bg-white" 
+                x-show="activeTab === 'assign'"
+                x-transition:enter="transition ease-out duration-300" 
+                x-transition:enter-start="opacity-0 translate-x-10" 
+                x-transition:enter-end="opacity-100 translate-x-0" 
+                x-transition:leave="transition ease-in duration-300" 
+                x-transition:leave-start="opacity-100 translate-x-0" 
+                x-transition:leave-end="opacity-0 -translate-x-10"
+                style="display: none;"
+              >
+                  <ScreenTeam />
               </div>
 
-              <div class="h-full p-6 flex flex-col" x-show="activeTab === 'track'" x-transition>
-                <div class="text-center mb-4">
-                  <div
-                    class="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-3"
-                  >
-                    <Icon name="heroicons:chart-bar-square" class="w-8 h-8 text-primary-600" />
-                  </div>
-                  <h4 class="font-bold text-slate-900">Dashboard</h4>
-                </div>
-                <div class="space-y-3 flex-1">
-                  <div class="grid grid-cols-2 gap-2">
-                    <div class="p-3 bg-primary-50 rounded-xl">
-                      <div class="text-2xl font-bold text-primary-600">24</div>
-                      <div class="text-xs text-slate-600">Visitas</div>
-                    </div>
-                    <div class="p-3 bg-accent-50 rounded-xl">
-                      <div class="text-2xl font-bold text-accent-600">3</div>
-                      <div class="text-xs text-slate-600">Ofertas</div>
-                    </div>
-                  </div>
-                  <div class="h-20 bg-gradient-to-r from-primary-100 to-cyan-100 rounded-xl"></div>
-                  <div class="h-16 bg-slate-50 rounded-xl"></div>
-                </div>
+              <!-- Screen 3: Manager Dashboard -->
+              <div 
+                class="absolute inset-0 w-full h-full bg-white" 
+                x-show="activeTab === 'track'"
+                x-transition:enter="transition ease-out duration-300" 
+                x-transition:enter-start="opacity-0 translate-x-10" 
+                x-transition:enter-end="opacity-100 translate-x-0" 
+                x-transition:leave="transition ease-in duration-300" 
+                x-transition:leave-start="opacity-100 translate-x-0" 
+                x-transition:leave-end="opacity-0 -translate-x-10"
+                style="display: none;"
+              >
+                  <ScreenManagerDashboard />
               </div>
+
             </div>
           </div>
         </div>
@@ -282,7 +263,8 @@ import { Icon } from 'astro-icon/components';
   import autoAnimate from '@formkit/auto-animate';
 
   document.addEventListener('alpine:init', () => {
-    // Auto-animate will handle smooth transitions
+    // Auto-animate for smooth height changes if needed, 
+    // though here we rely mostly on x-transition and GSAP
     const tabs = document.querySelectorAll('[x-show]');
     tabs.forEach((tab) => {
       if (tab.parentElement) {

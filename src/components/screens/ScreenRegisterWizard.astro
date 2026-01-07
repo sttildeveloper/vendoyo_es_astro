@@ -1,0 +1,117 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<div class="h-full flex flex-col font-sans relative overflow-hidden bg-neutral-white select-none pointer-events-none">
+  
+  <!-- Stepper Header (Visible from Step 1) -->
+  <div id="wizard-stepper" class="px-4 pt-10 pb-4 opacity-0 w-full">
+      <div class="flex items-center justify-center gap-3">
+          {[1, 2, 3].map((s) => (
+              <div class={`h-1.5 rounded-full transition-all duration-500 wizard-dot-${s} ${s === 1 ? 'w-8 bg-brand-primary' : 'w-2 bg-neutral-border'}`}></div>
+          ))}
+      </div>
+  </div>
+
+  <!-- Wizard Steps Container -->
+  <div class="flex-1 relative w-full overflow-hidden">
+      
+      <!-- STEP 0: Tipo de Usuario -->
+      <div id="wiz-step-0" class="absolute inset-0 px-4 flex flex-col justify-center w-full h-full">
+          <div class="mb-6 text-center">
+              <h2 class="text-xl font-bold text-neutral-text">Crear cuenta</h2>
+              <p class="text-neutral-muted text-xs mt-1">¿Qué tipo de usuario eres?</p>
+          </div>
+          <div class="space-y-3 w-full">
+              <div id="type-franchisor" class="p-4 rounded-2xl border border-neutral-border bg-white transition-all duration-300 w-full shadow-sm">
+                  <div class="w-10 h-10 rounded-full bg-brand-soft flex items-center justify-center text-brand-primary mb-3">
+                      <Icon name="heroicons:building-storefront" class="w-6 h-6" />
+                  </div>
+                  <h3 class="font-bold text-sm">Soy Franquiciador</h3>
+                  <p class="text-[10px] text-neutral-muted">Gestiona tu red de franquicias</p>
+              </div>
+              <div id="type-owner" class="p-4 rounded-2xl border border-neutral-border bg-white transition-all duration-300 w-full shadow-sm">
+                  <div class="w-10 h-10 rounded-full bg-brand-soft flex items-center justify-center text-brand-primary mb-3">
+                      <Icon name="heroicons:key" class="w-6 h-6" />
+                  </div>
+                  <h3 class="font-bold text-sm">Soy Propietario</h3>
+                  <p class="text-[10px] text-neutral-muted">Tarifa plana de gestión</p>
+              </div>
+          </div>
+      </div>
+
+      <!-- STEP 1: Datos Básicos -->
+      <div id="wiz-step-1" class="absolute inset-0 px-5 flex flex-col justify-center items-center w-full h-full opacity-0 hidden">
+          <div class="mb-6 text-center w-full">
+              <h2 class="text-lg font-bold text-neutral-text">Datos de acceso</h2>
+              <p class="text-xs text-neutral-muted">Configura tu perfil</p>
+          </div>
+          <div class="space-y-3 w-full mb-8">
+              <div class="space-y-1">
+                  <label class="text-[10px] font-bold text-neutral-muted uppercase ml-1">Razón Social</label>
+                  <div id="wiz-field-company" class="input-mock w-full shadow-sm"></div>
+              </div>
+              <div class="space-y-1">
+                  <label class="text-[10px] font-bold text-neutral-muted uppercase ml-1">Email</label>
+                  <div id="wiz-field-email" class="input-mock w-full shadow-sm"></div>
+              </div>
+              <div class="space-y-1">
+                  <label class="text-[10px] font-bold text-neutral-muted uppercase ml-1">Contraseña</label>
+                  <div id="wiz-field-pass" class="input-mock w-full shadow-sm"></div>
+              </div>
+          </div>
+          <div class="w-full">
+              <div class="btn-brand w-full shadow-md py-3.5 rounded-xl">Continuar</div>
+          </div>
+      </div>
+
+      <!-- STEP 2: Ubicación -->
+      <div id="wiz-step-2" class="absolute inset-0 px-5 flex flex-col justify-center items-center w-full h-full opacity-0 hidden">
+          <div class="mb-6 text-center w-full">
+              <h2 class="text-lg font-bold text-neutral-text">Ubicación</h2>
+              <p class="text-xs text-neutral-muted">¿Dónde operará tu negocio?</p>
+          </div>
+          <div class="space-y-3 w-full mb-8">
+              <div class="space-y-1">
+                  <label class="text-[10px] font-bold text-neutral-muted uppercase ml-1">Ciudad</label>
+                  <div id="wiz-field-city" class="input-mock w-full shadow-sm"></div>
+              </div>
+              <div class="space-y-1">
+                  <label class="text-[10px] font-bold text-neutral-muted uppercase ml-1">Dirección</label>
+                  <div id="wiz-field-addr" class="input-mock w-full shadow-sm"></div>
+              </div>
+          </div>
+          <div class="w-full">
+              <div id="wiz-btn-finish" class="btn-brand flex items-center justify-center gap-2 w-full shadow-md py-3.5 rounded-xl">
+                  Finalizar Registro
+                  <Icon id="wiz-spinner" name="heroicons:arrow-path" class="w-4 h-4 animate-spin hidden" />
+              </div>
+          </div>
+      </div>
+
+  </div>
+
+  <!-- Success Alert -->
+  <div id="reg-alert" class="absolute top-6 left-4 right-4 bg-neutral-text text-white p-4 rounded-2xl shadow-xl flex items-center gap-4 z-50 transform -translate-y-32">
+    <div class="w-10 h-10 bg-brand-primary rounded-full flex items-center justify-center flex-shrink-0">
+       <Icon name="heroicons:check" class="w-6 h-6 text-white" />
+    </div>
+    <div>
+       <h3 class="text-sm font-bold">¡Cuenta Creada!</h3>
+       <p class="text-xs text-brand-soft opacity-80">Verifica tu email ahora.</p>
+    </div>
+  </div>
+
+  </div>
+
+  <!-- Discreet Success Alert -->
+  <div id="reg-alert" class="absolute top-6 left-4 right-4 bg-neutral-text text-white p-4 rounded-2xl shadow-xl flex items-center gap-4 z-50 transform -translate-y-32">
+    <div class="w-10 h-10 bg-brand-primary rounded-full flex items-center justify-center flex-shrink-0">
+       <Icon name="heroicons:check" class="w-6 h-6 text-white" />
+    </div>
+    <div>
+       <h3 class="text-sm font-bold">¡Cuenta Creada!</h3>
+       <p class="text-xs text-brand-soft opacity-80">Verifica tu email ahora.</p>
+    </div>
+  </div>
+</div>

@@ -1,475 +1,160 @@
 @import 'tailwindcss';
 
-/* ============================================
-   BASE STYLES & TOKENS
-   ============================================ */
+@theme {
+  /* TOKENS OBLIGATORIOS VENDOYO */
+  --color-brand-bg: #0EA08A;
+  --color-brand-primary: #0B8F7A;
+  --color-brand-primary-dark: #087563;
+  --color-brand-soft: #DDF3EE;
+  --color-neutral-white: #FFFFFF;
+  --color-neutral-text: #0F172A;
+  --color-neutral-muted: #64748B;
+  --color-neutral-border: #E2E8F0;
+  --color-danger: #DC2626;
+
+  /* Aliases para compatibilidad */
+  --color-primary: var(--color-brand-primary);
+  --color-primary-soft: var(--color-brand-soft);
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
 @layer base {
-  :root {
-    /* ====================================
-       PALETA DE COLORES PRINCIPAL - TEAL
-       Base: #3CB4AC
-       ==================================== */
-    --color-primary-50: #e8faf8;
-    --color-primary-100: #c7f3ed;
-    --color-primary-200: #95e8dd;
-    --color-primary-300: #5dd9ca;
-    --color-primary-400: #3cb4ac;
-    /* Color base */
-    --color-primary-500: #2e8f88;
-    --color-primary-600: #237068;
-    --color-primary-700: #1a544f;
-    --color-primary-800: #133d39;
-    --color-primary-900: #0d2a27;
-
-    /* Aliases para facilitar uso */
-    --color-primary: var(--color-primary-400);
-    --color-primary-hover: var(--color-primary-500);
-    --color-primary-light: var(--color-primary-100);
-    --color-primary-lighter: var(--color-primary-50);
-    --color-primary-dark: var(--color-primary-600);
-
-    /* ====================================
-       COLORES COMPLEMENTARIOS - CORAL/SALMON
-       Para acentos y CTAs secundarios
-       ==================================== */
-    --color-accent-50: #fff5f3;
-    --color-accent-100: #ffe6e0;
-    --color-accent-200: #ffc9ba;
-    --color-accent-300: #ffa58a;
-    --color-accent-400: #ff7a5c;
-    --color-accent-500: #f95738;
-    --color-accent-600: #e03616;
-
-    --color-accent: var(--color-accent-400);
-    --color-accent-hover: var(--color-accent-500);
-
-    /* ====================================
-       NEUTRALES - GRISES CON TOQUE TEAL
-       ==================================== */
-    --color-gray-50: #f8fafa;
-    --color-gray-100: #f1f5f5;
-    --color-gray-200: #e4ebeb;
-    --color-gray-300: #cbd5d5;
-    --color-gray-400: #94a3a3;
-    --color-gray-500: #6b7c7c;
-    --color-gray-600: #526161;
-    --color-gray-700: #3f4a4a;
-    --color-gray-800: #2a3333;
-    --color-gray-900: #1a2020;
-
-    --color-gray: var(--color-gray-500);
-    --color-gray-light: var(--color-gray-100);
-
-    /* ====================================
-       COLORES OSCUROS - Para fondos y texto
-       ==================================== */
-    --color-dark: #0f172a;
-    --color-dark-soft: #1e293b;
-    --color-dark-lighter: #334155;
-
-    /* ====================================
-       COLORES SEMÁNTICOS
-       ==================================== */
-    --color-success: #10b981;
-    --color-success-light: #d1fae5;
-    --color-warning: #f59e0b;
-    --color-warning-light: #fef3c7;
-    --color-error: #ef4444;
-    --color-error-light: #fee2e2;
-    --color-info: #3b82f6;
-    --color-info-light: #dbeafe;
-
-    /* ====================================
-       RADIUS
-       ==================================== */
-    --radius-xs: 0.25rem;
-    --radius-sm: 0.5rem;
-    --radius-md: 0.75rem;
-    --radius-lg: 1rem;
-    --radius-xl: 1.5rem;
-    --radius-2xl: 2rem;
-    --radius-pill: 9999px;
-
-    /* ====================================
-       SHADOWS
-       ==================================== */
-    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.03);
-    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.12);
-    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-
-    /* Sombras de color (para efectos especiales) */
-    --shadow-primary: 0 10px 25px -5px rgb(60 180 172 / 0.3);
-    --shadow-accent: 0 10px 25px -5px rgb(255 122 92 / 0.3);
-
-    /* ====================================
-       TRANSITIONS
-       ==================================== */
-    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-
-    /* Easings específicos */
-    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-    --ease-out: cubic-bezier(0, 0, 0.2, 1);
-    --ease-in: cubic-bezier(0.4, 0, 1, 1);
-    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  }
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
   body {
-    color: rgb(51 65 85);
-    /* slate-700 */
-    background: white;
-    font-family:
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      'Segoe UI',
-      Roboto,
-      'Helvetica Neue',
-      Arial,
-      sans-serif;
-    line-height: 1.6;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: rgb(15 23 42);
-    /* slate-900 */
-    font-weight: 700;
-    line-height: 1.2;
-  }
-
-  /* Respect reduced motion preferences */
-  @media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-
-    html {
-      scroll-behavior: auto;
-    }
+    color: var(--color-neutral-text);
+    background-color: var(--color-neutral-white);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
 /* ============================================
-   COMPONENT UTILITIES (Tailwind v4 Compatible)
+   LAYOUT UTILITIES
    ============================================ */
 
-/* Buttons */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-pill);
-  font-weight: 500;
-  transition: var(--transition-base);
-  outline: none;
-}
-
-.btn:focus {
-  outline: 4px solid transparent;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
-}
-
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.btn-primary {
-  background: var(--color-primary);
-  color: white;
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.625rem;
-  border: 1px solid var(--color-primary-600);
-  box-shadow: var(--shadow-md);
-  font-weight: 600;
-}
-
-.btn-primary:hover {
-  background: var(--color-primary-hover);
-  border-color: var(--color-primary-700);
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-1px);
-}
-
-.btn-primary:focus {
-  box-shadow: 0 0 0 4px rgba(60, 180, 172, 0.5);
-}
-
-.btn-dark {
-  background: var(--color-dark);
-  color: white;
-  box-shadow: var(--shadow-md);
-}
-
-.btn-dark:hover {
-  background: var(--color-dark-soft);
-  box-shadow: var(--shadow-xl);
-  transform: translateY(-2px);
-}
-
-.btn-dark:focus {
-  box-shadow: 0 0 0 4px rgba(51, 65, 85, 0.5);
-}
-
-.btn-ghost {
-  color: rgb(51 65 85);
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.625rem;
-  border: 1px solid rgb(226 232 240);
-  background: white;
-}
-
-.btn-ghost:hover {
-  color: var(--color-primary);
-  background: var(--color-primary-50);
-  border-color: var(--color-primary-200);
-}
-
-.btn-ghost:focus {
-  box-shadow: 0 0 0 4px rgba(60, 180, 172, 0.3);
-}
-
-/* Cards */
-.card {
-  background: white;
-  border-radius: 1rem;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(226, 232, 240, 0.6);
-  padding: 1.5rem;
-  transition: var(--transition-base);
-}
-
-.card-hover {
-  background: white;
-  border-radius: 1rem;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(226, 232, 240, 0.6);
-  padding: 1.5rem;
-  transition: var(--transition-base);
-  cursor: pointer;
-}
-
-.card-hover:hover {
-  box-shadow: var(--shadow-xl);
-  transform: translateY(-4px);
-}
-
-/* Badges */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0.375rem 1rem;
-  border-radius: var(--radius-pill);
-  font-size: 0.875rem;
-  font-weight: 500;
-  background: var(--color-primary-light);
-  color: var(--color-primary);
-}
-
-/* Section Container */
 .section {
   width: 100%;
-  max-width: 80rem;
+  max-width: 80rem; /* 1280px */
   margin-left: auto;
   margin-right: auto;
-  padding: 4rem 1rem;
+  padding: 2.5rem 1rem; /* Reduced mobile padding */
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .section {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding: 5rem 2rem; /* Tablet padding */
   }
 }
 
 @media (min-width: 1024px) {
   .section {
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding: 6rem 3rem; /* Desktop padding */
   }
 }
 
-/* Gradient Text */
+/* ============================================
+   COMPONENT UTILITIES
+   ============================================ */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-brand-primary);
+  color: var(--color-neutral-white);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(11, 143, 122, 0.25);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-brand-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgba(11, 143, 122, 0.35);
+}
+
+.btn-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-neutral-text);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-dark:hover {
+  background-color: #1e293b;
+  transform: translateY(-1px);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-brand-primary-soft);
+  color: var(--color-brand-primary-dark);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+}
+
 .gradient-text {
-  background: linear-gradient(to right, rgb(13 148 136), rgb(8 145 178));
+  background: linear-gradient(135deg, var(--color-brand-primary) 0%, #0D9488 100%);
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
 }
 
-/* Backdrop blur utility */
-.backdrop-blur-glass {
-  backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.8);
+.card-hover {
+  background: white;
+  border: 1px solid var(--color-neutral-border);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
 }
 
-/* Glow effects */
-.glow-teal {
-  box-shadow: 0 0 20px rgba(60, 180, 172, 0.3);
+.card-hover:hover {
+  border-color: var(--color-brand-primary);
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-4px);
 }
 
-.glow-teal-hover {
-  transition: box-shadow 0.3s ease;
+/* Inputs Mock */
+.input-mock {
+  background-color: var(--color-neutral-white);
+  border: 1px solid var(--color-neutral-border);
+  border-radius: 0.75rem;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  color: var(--color-neutral-text);
+  min-height: 42px;
+  display: flex;
+  align-items: center;
 }
 
-.glow-teal-hover:hover {
-  box-shadow: 0 0 30px rgba(60, 180, 172, 0.5);
+.btn-brand {
+  background-color: var(--color-brand-primary);
+  color: var(--color-neutral-white);
+  font-weight: 700;
+  border-radius: 0.75rem;
+  padding: 0.875rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-/* ============================================
-   ANIMATIONS
-   ============================================ */
-
-/* Fade animations */
-.fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-.fade-up {
-  animation: fadeUp 0.8s ease-out forwards;
-}
-
-.fade-down {
-  animation: fadeDown 0.8s ease-out forwards;
-}
-
-/* Scale animations */
-.scale-in {
-  animation: scaleIn 0.5s ease-out forwards;
-}
-
-/* Slide animations */
-.slide-in-left {
-  animation: slideInLeft 0.7s ease-out forwards;
-}
-
-.slide-in-right {
-  animation: slideInRight 0.7s ease-out forwards;
-}
-
-/* ============================================
-   KEYFRAME ANIMATIONS
-   ============================================ */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* ============================================
-   CUSTOM SCROLLBAR (Optional)
-   ============================================ */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-gray-light);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary-hover);
+.btn-brand:hover {
+  background-color: var(--color-brand-primary-dark);
 }
