@@ -2,5 +2,5 @@ services:
   vendoyo:
     build: .
     ports:
-      - "8080:80"
+      - "31877:80"
     restart: unless-stopped
