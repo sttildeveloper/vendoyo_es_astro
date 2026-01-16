@@ -1,32 +1,131 @@
 ---
+/**
+ * DemoAlertSystem.astro
+ * Demo de sistema de alertas segmentadas con filtros por comunidad y tenant
+ * Muestra panel admin + notificación en móvil receptor
+ */
 import { Icon } from 'astro-icon/components';
+import MobileFrame from '../ui/MobileFrame.astro';
 ---
 
-<div class="grid grid-cols-5 gap-4 font-sans select-none w-full max-w-md mx-auto">
-  <!-- Admin Side -->
-  <div class="col-span-3 bg-neutral-white border border-neutral-border rounded-2xl shadow-sm p-3 space-y-3">
-    <div class="flex items-center gap-2 mb-2">
-      <div class="w-2 h-2 rounded-full bg-danger"></div>
-      <span class="text-[10px] font-bold text-neutral-text uppercase">Panel Admin</span>
+<MobileFrame height="530px">
+  <div class="demo-alert h-full flex flex-col bg-white" id="demo-alert-container">
+    
+    <!-- Header -->
+    <div class="bg-white px-3 py-2 border-b border-neutral-border flex items-center gap-2 pt-6">
+      <Icon name="heroicons:bell-alert" class="w-4 h-4 text-danger" />
+      <span class="text-sm font-bold text-neutral-text">Enviar Alerta</span>
+      <div class="ml-auto">
+        <div id="alert-status" class="flex items-center gap-1">
+          <div class="w-2 h-2 rounded-full bg-accent-success"></div>
+          <span class="text-[9px] text-neutral-muted">Conectado</span>
+        </div>
+      </div>
     </div>
-    <div class="h-16 border border-dashed border-neutral-border rounded-lg bg-neutral-white p-2 text-[10px] text-neutral-muted">
-      Mensaje: "Cambio de tarifas..."
-    </div>
-    <div id="demo-send-btn" class="bg-neutral-text text-white h-8 rounded-lg flex items-center justify-center gap-2 text-xs font-bold cursor-pointer hover:bg-neutral-text/90 transition-colors">
-      Enviar Alerta
-      <Icon name="heroicons:paper-airplane" class="w-3 h-3" />
-    </div>
-  </div>
 
-  <!-- User Side -->
-  <div class="col-span-2 bg-neutral-white border border-neutral-border rounded-2xl shadow-sm p-2 flex flex-col items-center justify-center relative overflow-hidden">
-    <div class="absolute top-2 right-2 flex gap-1">
-       <div id="demo-badge" class="w-2 h-2 rounded-full bg-danger scale-0 transition-transform duration-300"></div>
-    </div>
-    <Icon name="heroicons:device-phone-mobile" class="w-12 h-12 text-neutral-border mb-2" />
-    <div id="demo-notification" class="bg-brand-primary text-white text-[9px] p-2 rounded-lg shadow-lg opacity-0 translate-y-4 transition-all duration-500 text-center w-full">
-      <span class="font-bold block mb-0.5">¡Nueva Alerta!</span>
-      Cambio de tarifas
+    <!-- Content -->
+    <div class="flex-1 p-3 space-y-3 overflow-hidden">
+      
+      <!-- Community Chips -->
+      <div class="space-y-1">
+        <span class="text-[9px] text-neutral-muted font-medium uppercase">Comunidad</span>
+        <div class="flex gap-1 flex-wrap" id="alert-chips">
+          <div class="alert-chip active" data-chip="madrid">Madrid</div>
+          <div class="alert-chip" data-chip="valencia">Valencia</div>
+          <div class="alert-chip" data-chip="bcn">BCN</div>
+        </div>
+      </div>
+      
+      <!-- Tenant Checkboxes -->
+      <div class="space-y-1">
+        <span class="text-[9px] text-neutral-muted font-medium uppercase">Destinatarios</span>
+        <div class="grid grid-cols-2 gap-1" id="alert-tenants">
+          <label class="flex items-center gap-1.5 text-[10px] text-neutral-text cursor-pointer bg-white border border-neutral-border rounded-lg px-2 py-1.5">
+            <input type="checkbox" class="alert-checkbox w-3 h-3 rounded" checked />
+            <span>Franquicias</span>
+          </label>
+          <label class="flex items-center gap-1.5 text-[10px] text-neutral-text cursor-pointer bg-white border border-neutral-border rounded-lg px-2 py-1.5">
+            <input type="checkbox" class="alert-checkbox w-3 h-3 rounded" checked />
+            <span>Agentes</span>
+          </label>
+          <label class="flex items-center gap-1.5 text-[10px] text-neutral-text cursor-pointer bg-white border border-neutral-border rounded-lg px-2 py-1.5">
+            <input type="checkbox" class="alert-checkbox w-3 h-3 rounded" />
+            <span>Propietarios</span>
+          </label>
+          <label class="flex items-center gap-1.5 text-[10px] text-neutral-text cursor-pointer bg-white border border-neutral-border rounded-lg px-2 py-1.5">
+            <input type="checkbox" class="alert-checkbox w-3 h-3 rounded" />
+            <span>Clientes</span>
+          </label>
+        </div>
+      </div>
+      
+      <!-- Message Input -->
+      <div class="space-y-1">
+        <span class="text-[9px] text-neutral-muted font-medium uppercase">Mensaje</span>
+        <div 
+          id="alert-message" 
+          class="h-14 border border-neutral-border rounded-lg bg-white p-2 text-[10px] text-neutral-text overflow-hidden"
+        >
+          <span id="alert-msg-text"></span><span id="alert-cursor" class="inline-block w-0.5 h-3 bg-brand-primary animate-pulse"></span>
+        </div>
+      </div>
+      
+      <!-- Counter Badge -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-1">
+          <Icon name="heroicons:user-group" class="w-3 h-3 text-neutral-muted" />
+          <span id="alert-count" class="text-[10px] font-bold text-brand-primary">24</span>
+          <span class="text-[9px] text-neutral-muted">destinatarios</span>
+        </div>
+        <div id="alert-priority" class="flex items-center gap-1 opacity-0">
+          <Icon name="heroicons:exclamation-triangle" class="w-3 h-3 text-warning" />
+          <span class="text-[9px] text-warning font-bold">Urgente</span>
+        </div>
+      </div>
+      
+      <!-- Send Button -->
+      <div 
+        id="alert-send-btn" 
+        class="bg-danger text-white h-10 rounded-lg flex items-center justify-center gap-2 text-xs font-bold cursor-pointer transition-all"
+      >
+        <span id="alert-btn-text">Enviar Alerta</span>
+        <Icon name="heroicons:paper-airplane" class="w-4 h-4" />
+      </div>
+
+      <!-- Notification Preview (simulates receiver) -->
+      <div 
+        id="alert-notification" 
+        class="bg-gradient-to-br from-danger to-danger/80 text-white p-3 rounded-xl shadow-lg opacity-0 translate-y-4 transition-all duration-500"
+      >
+        <div class="flex items-start gap-2">
+          <div class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <Icon name="heroicons:bell-alert" class="w-3.5 h-3.5 text-white" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <span class="font-bold text-[11px] block mb-0.5">Nueva Alerta Urgente</span>
+            <span class="text-[10px] opacity-90 line-clamp-2" id="alert-received-msg">Nuevas tarifas vigentes desde el lunes</span>
+          </div>
+        </div>
+        <div class="flex items-center justify-between mt-2 pt-2 border-t border-white/20">
+          <span class="text-[8px] opacity-70">Hace 1 min</span>
+          <span class="text-[8px] font-bold bg-white/20 px-1.5 py-0.5 rounded">Madrid</span>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</MobileFrame>
+
+<style>
+  @reference "../../styles/global.css";
+  
+  .alert-chip {
+    @apply px-2.5 py-1 text-[10px] font-medium rounded-full border cursor-pointer transition-all;
+    @apply border-neutral-border bg-white text-neutral-muted;
+  }
+  .alert-chip.active {
+    @apply border-brand-primary bg-brand-primary-soft text-brand-primary;
+  }
+  .alert-chip:hover:not(.active) {
+    @apply border-neutral-text/30;
+  }
+</style>

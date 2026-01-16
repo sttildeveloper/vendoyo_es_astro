@@ -1,0 +1,133 @@
+---
+/**
+ * DemoCRM.astro
+ * Demo animado del CRM de clientes con búsqueda, ficha y tags
+ * Basado en clientes/index y clientes/[id] del proyecto React Native
+ */
+import { Icon } from 'astro-icon/components';
+import MobileFrame from '../ui/MobileFrame.astro';
+---
+
+<MobileFrame height="530px">
+  <div class="demo-crm h-full flex flex-col bg-white" id="demo-crm-container">
+    
+    <!-- Header -->
+    <div class="bg-white px-3 py-2 border-b border-neutral-border flex items-center gap-2 pt-6">
+      <Icon name="heroicons:users" class="w-4 h-4 text-brand-primary" />
+      <span id="crm-header" class="text-sm font-bold text-neutral-text">Clientes</span>
+      <div class="ml-auto">
+        <div class="w-6 h-6 bg-brand-primary rounded-full flex items-center justify-center">
+          <Icon name="heroicons:plus" class="w-3 h-3 text-white" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="flex-1 relative overflow-hidden">
+      
+      <!-- List View -->
+      <div id="crm-list" class="absolute inset-0 p-3 flex flex-col">
+        
+        <!-- Search Bar -->
+        <div class="bg-white border border-neutral-border rounded-lg px-2 py-2 flex items-center gap-2 mb-3">
+          <Icon name="heroicons:magnifying-glass" class="w-3 h-3 text-neutral-muted" />
+          <span id="crm-search-text" class="text-xs text-neutral-muted"></span>
+          <span id="crm-cursor" class="w-0.5 h-3 bg-brand-primary animate-pulse"></span>
+        </div>
+        
+        <!-- Filter Chips -->
+        <div class="flex gap-1 mb-3">
+          <span class="px-2 py-0.5 text-[9px] rounded-full bg-brand-primary text-white">Todos</span>
+          <span class="px-2 py-0.5 text-[9px] rounded-full bg-neutral-border text-neutral-muted">Activos</span>
+          <span class="px-2 py-0.5 text-[9px] rounded-full bg-neutral-border text-neutral-muted">Leads</span>
+        </div>
+        
+        <!-- Client List -->
+        <div class="space-y-2 flex-1">
+          <div id="crm-item-1" class="bg-white border border-neutral-border rounded-lg p-2 flex items-center gap-2 opacity-60">
+            <div class="w-9 h-9 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 text-xs font-bold">CP</div>
+            <div class="flex-1">
+              <p class="text-xs font-bold text-neutral-text">Carlos Pérez</p>
+              <p class="text-[9px] text-neutral-muted">3 propiedades</p>
+            </div>
+            <span class="px-1.5 py-0.5 text-[8px] rounded bg-neutral-border text-neutral-muted">Lead</span>
+          </div>
+          
+          <div id="crm-item-2" class="bg-white border-2 border-brand-primary rounded-lg p-2 flex items-center gap-2 shadow-sm">
+            <div class="w-9 h-9 bg-brand-primary-soft rounded-full flex items-center justify-center text-brand-primary text-xs font-bold">MG</div>
+            <div class="flex-1">
+              <p class="text-xs font-bold text-neutral-text">María García</p>
+              <p class="text-[9px] text-neutral-muted">5 propiedades</p>
+            </div>
+            <span class="px-1.5 py-0.5 text-[8px] rounded bg-accent-success/20 text-accent-success">Activo</span>
+          </div>
+          
+          <div id="crm-item-3" class="bg-white border border-neutral-border rounded-lg p-2 flex items-center gap-2 opacity-60">
+            <div class="w-9 h-9 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 text-xs font-bold">JL</div>
+            <div class="flex-1">
+              <p class="text-xs font-bold text-neutral-text">José López</p>
+              <p class="text-[9px] text-neutral-muted">1 propiedad</p>
+            </div>
+            <span class="px-1.5 py-0.5 text-[8px] rounded bg-accent-warning/20 text-accent-warning">Pendiente</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detail View -->
+      <div id="crm-detail" class="absolute inset-0 bg-white flex flex-col" style="opacity: 0; transform: translateX(100%);">
+        
+        <!-- Detail Header -->
+        <div class="bg-brand-primary-soft p-4 text-center pt-6">
+          <div class="w-14 h-14 bg-brand-primary rounded-full flex items-center justify-center text-white text-lg font-bold mx-auto mb-2">MG</div>
+          <h3 class="text-sm font-bold text-neutral-text">María García</h3>
+          <p class="text-[10px] text-neutral-muted">maria@empresa.com</p>
+        </div>
+        
+        <!-- Tags -->
+        <div class="px-3 py-2 flex gap-1 justify-center border-b border-neutral-border">
+          <span class="crm-tag px-2 py-0.5 text-[9px] rounded-full bg-accent-success/20 text-accent-success">Activo</span>
+          <span class="crm-tag px-2 py-0.5 text-[9px] rounded-full bg-brand-primary/10 text-brand-primary">VIP</span>
+          <span class="crm-tag px-2 py-0.5 text-[9px] rounded-full bg-blue-50 text-blue-600">Madrid</span>
+        </div>
+        
+        <!-- Info Cards -->
+        <div class="p-3 space-y-2 flex-1">
+          <div class="bg-slate-50 rounded-lg p-2 flex items-center gap-2">
+            <Icon name="heroicons:building-office-2" class="w-4 h-4 text-brand-primary" />
+            <div>
+              <p class="text-[10px] text-neutral-muted">Propiedades</p>
+              <p class="text-xs font-bold text-neutral-text">5 activas</p>
+            </div>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-2 flex items-center gap-2">
+            <Icon name="heroicons:clipboard-document-check" class="w-4 h-4 text-brand-primary" />
+            <div>
+              <p class="text-[10px] text-neutral-muted">Trámites</p>
+              <p class="text-xs font-bold text-neutral-text">2 en proceso</p>
+            </div>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-2 flex items-center gap-2">
+            <Icon name="heroicons:phone" class="w-4 h-4 text-brand-primary" />
+            <div>
+              <p class="text-[10px] text-neutral-muted">Teléfono</p>
+              <p class="text-xs font-bold text-neutral-text">+34 612 345 678</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="p-3 flex gap-2">
+          <button class="flex-1 bg-brand-primary text-white text-[10px] font-bold py-2 rounded-lg flex items-center justify-center gap-1">
+            <Icon name="heroicons:phone" class="w-3 h-3" />
+            Llamar
+          </button>
+          <button class="flex-1 bg-white border border-brand-primary text-brand-primary text-[10px] font-bold py-2 rounded-lg flex items-center justify-center gap-1">
+            <Icon name="heroicons:envelope" class="w-3 h-3" />
+            Email
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</MobileFrame>

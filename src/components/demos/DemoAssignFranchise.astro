@@ -1,35 +1,103 @@
 ---
+/**
+ * DemoAssignFranchise.astro
+ * Demo animado de filtrado por comunidad/tenant y asignación de franquicia
+ * Basado en propiedades/index con filtros del proyecto React Native
+ */
 import { Icon } from 'astro-icon/components';
+import MobileFrame from '../ui/MobileFrame.astro';
 ---
 
-<div class="bg-neutral-white border border-neutral-border rounded-2xl shadow-sm overflow-hidden font-sans w-full max-w-sm mx-auto select-none p-4">
-  <div class="space-y-4">
-    <!-- Dropdown -->
-    <div class="relative">
-      <label class="text-[10px] font-bold text-neutral-muted uppercase mb-1 block">Asignar a Franquicia</label>
-      <div id="demo-dropdown" class="w-full h-10 border border-brand-primary rounded-lg flex items-center justify-between px-3 text-sm text-neutral-text cursor-pointer bg-brand-primary-soft/20">
-        <span id="demo-dropdown-text">Seleccionar...</span>
-        <Icon name="heroicons:chevron-down" class="w-4 h-4 text-brand-primary" />
-      </div>
-      
-      <!-- Dropdown Menu (Hidden initially) -->
-      <div id="demo-menu" class="absolute top-full left-0 right-0 mt-1 bg-white border border-neutral-border rounded-lg shadow-lg z-10 opacity-0 scale-95 origin-top pointer-events-none">
-        <div class="p-2 text-xs hover:bg-brand-primary-soft rounded cursor-pointer text-neutral-text">Madrid Centro</div>
-        <div class="p-2 text-xs hover:bg-brand-primary-soft rounded cursor-pointer text-neutral-text font-bold text-brand-primary bg-brand-primary-soft/50">Valencia Norte</div>
-        <div class="p-2 text-xs hover:bg-brand-primary-soft rounded cursor-pointer text-neutral-text">Barcelona Sur</div>
+<MobileFrame height="530px">
+  <div class="demo-assign h-full flex flex-col bg-slate-50" id="demo-assign-container">
+    
+    <!-- Header -->
+    <div class="bg-white px-3 py-2 border-b border-neutral-border flex items-center gap-2 pt-6">
+      <Icon name="heroicons:building-storefront" class="w-4 h-4 text-brand-primary" />
+      <span class="text-sm font-bold text-neutral-text">Franquicias</span>
+      <div class="ml-auto flex items-center gap-1">
+        <Icon name="heroicons:funnel" class="w-4 h-4 text-neutral-muted" />
       </div>
     </div>
 
-    <!-- Result Card -->
-    <div id="demo-card" class="border border-neutral-border rounded-xl p-3 flex items-center gap-3 opacity-50 grayscale transition-all duration-500">
-      <div class="w-10 h-10 bg-neutral-border rounded-lg"></div>
-      <div class="flex-1">
-        <div class="h-3 w-24 bg-neutral-border rounded mb-1"></div>
-        <div class="h-2 w-16 bg-neutral-border/50 rounded"></div>
+    <!-- Content -->
+    <div class="flex-1 p-3 space-y-3 overflow-hidden">
+      
+      <!-- Community Filter -->
+      <div>
+        <label class="text-[9px] text-neutral-muted uppercase mb-1 block">Comunidad</label>
+        <div id="assign-community" class="bg-white border border-neutral-border rounded-lg px-2 py-2 flex items-center justify-between text-xs cursor-pointer">
+          <span id="assign-community-text" class="text-neutral-muted">Seleccionar comunidad...</span>
+          <Icon name="heroicons:chevron-down" class="w-3 h-3 text-neutral-muted" />
+        </div>
       </div>
-      <div class="w-6 h-6 rounded-full border border-neutral-border flex items-center justify-center">
-        <Icon name="heroicons:check" class="w-3 h-3 text-white" />
+
+      <!-- Community Dropdown (initially hidden) -->
+      <div id="assign-dropdown" class="bg-white border border-neutral-border rounded-lg shadow-lg overflow-hidden opacity-0 scale-95 origin-top transition-all" style="max-height: 0;">
+        <div id="assign-opt-1" class="px-3 py-2 text-xs text-neutral-text hover:bg-slate-50 cursor-pointer border-b border-neutral-border/50">
+          <div class="flex items-center gap-2">
+            <Icon name="heroicons:map-pin" class="w-3 h-3 text-neutral-muted" />
+            Madrid
+          </div>
+        </div>
+        <div id="assign-opt-2" class="px-3 py-2 text-xs text-neutral-text hover:bg-slate-50 cursor-pointer border-b border-neutral-border/50 bg-brand-primary-soft">
+          <div class="flex items-center gap-2">
+            <Icon name="heroicons:map-pin" class="w-3 h-3 text-brand-primary" />
+            <span class="font-bold text-brand-primary">Valencia</span>
+            <Icon name="heroicons:check" class="w-3 h-3 text-brand-primary ml-auto" />
+          </div>
+        </div>
+        <div id="assign-opt-3" class="px-3 py-2 text-xs text-neutral-text hover:bg-slate-50 cursor-pointer">
+          <div class="flex items-center gap-2">
+            <Icon name="heroicons:map-pin" class="w-3 h-3 text-neutral-muted" />
+            Barcelona
+          </div>
+        </div>
       </div>
+
+      <!-- Tenant Filter (shown after community selected) -->
+      <div id="assign-tenant-section" class="opacity-0 translate-y-2">
+        <label class="text-[9px] text-neutral-muted uppercase mb-1 block">Franquicia (Tenant)</label>
+        <div class="flex gap-1 flex-wrap">
+          <span id="assign-tenant-1" class="px-2 py-1 text-[10px] rounded-full bg-neutral-border text-neutral-muted cursor-pointer">Valencia Norte</span>
+          <span id="assign-tenant-2" class="px-2 py-1 text-[10px] rounded-full bg-brand-primary text-white cursor-pointer">Valencia Centro</span>
+          <span id="assign-tenant-3" class="px-2 py-1 text-[10px] rounded-full bg-neutral-border text-neutral-muted cursor-pointer">Valencia Sur</span>
+        </div>
+      </div>
+
+      <!-- Filtered Results -->
+      <div id="assign-results" class="space-y-2 opacity-0 translate-y-2">
+        <div class="flex items-center justify-between">
+          <p class="text-[10px] text-neutral-muted">
+            <span class="font-bold text-neutral-text">12</span> propiedades encontradas
+          </p>
+          <span class="text-[9px] text-brand-primary font-bold">Ver todas</span>
+        </div>
+        
+        <!-- Property Cards -->
+        <div class="bg-white border border-neutral-border rounded-lg p-2 flex items-center gap-2">
+          <div class="w-10 h-10 bg-brand-primary-soft rounded-lg flex items-center justify-center">
+            <Icon name="heroicons:building-office-2" class="w-5 h-5 text-brand-primary" />
+          </div>
+          <div class="flex-1">
+            <p class="text-xs font-bold text-neutral-text">Ático Gran Vía</p>
+            <p class="text-[9px] text-neutral-muted">Valencia Centro • 120m²</p>
+          </div>
+          <span class="px-1.5 py-0.5 text-[8px] rounded bg-accent-success/20 text-accent-success">Activo</span>
+        </div>
+        
+        <div class="bg-white border border-neutral-border rounded-lg p-2 flex items-center gap-2 opacity-70">
+          <div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
+            <Icon name="heroicons:home-modern" class="w-5 h-5 text-slate-400" />
+          </div>
+          <div class="flex-1">
+            <p class="text-xs font-bold text-neutral-text">Piso Centro</p>
+            <p class="text-[9px] text-neutral-muted">Valencia Centro • 85m²</p>
+          </div>
+          <span class="px-1.5 py-0.5 text-[8px] rounded bg-accent-warning/20 text-accent-warning">Pendiente</span>
+        </div>
+      </div>
+
     </div>
   </div>
-</div>
+</MobileFrame>

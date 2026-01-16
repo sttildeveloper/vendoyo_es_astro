@@ -1,0 +1,202 @@
+---
+/**
+ * MobileFrame.astro
+ * Componente reutilizable que simula un iPhone con notch, barra de estado y bordes realistas
+ * Usado como contenedor para todos los demos de la sección Features
+ */
+interface Props {
+  height?: string;
+  class?: string;
+}
+
+const { height = "480px", class: className = "" } = Astro.props;
+---
+
+<div 
+  class:list={["mobile-frame", className]}
+  style={`height: ${height};`}
+>
+  <!-- Phone Outer Frame -->
+  <div class="phone-body">
+    <!-- Notch -->
+    <div class="phone-notch">
+      <div class="notch-speaker"></div>
+      <div class="notch-camera"></div>
+    </div>
+    
+    <!-- Status Bar -->
+    <div class="phone-status-bar">
+      <span class="status-time">9:41</span>
+      <div class="status-icons">
+        <svg class="status-signal" viewBox="0 0 17 10" fill="currentColor">
+          <rect x="0" y="6" width="3" height="4" rx="0.5"/>
+          <rect x="4.5" y="4" width="3" height="6" rx="0.5"/>
+          <rect x="9" y="2" width="3" height="8" rx="0.5"/>
+          <rect x="13.5" y="0" width="3" height="10" rx="0.5"/>
+        </svg>
+        <svg class="status-wifi" viewBox="0 0 15 11" fill="currentColor">
+          <path d="M7.5 11a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
+          <path d="M3.5 7.5c2.2-2.2 5.8-2.2 8 0l-.7.7c-1.8-1.8-4.8-1.8-6.6 0l-.7-.7z"/>
+          <path d="M1 5c3.6-3.6 9.4-3.6 13 0l-.7.7C10.1 2.5 4.9 2.5 1.7 5.7L1 5z"/>
+        </svg>
+        <div class="status-battery">
+          <div class="battery-body">
+            <div class="battery-level"></div>
+          </div>
+          <div class="battery-cap"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Screen Content (slot) -->
+    <div class="phone-screen">
+      <slot />
+    </div>
+    
+    <!-- Home Indicator -->
+    <div class="phone-home-indicator">
+      <div class="home-bar"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .mobile-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+  }
+
+  .phone-body {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+    height: 100%;
+    background: linear-gradient(145deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+    border-radius: 40px;
+    padding: 8px;
+    box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+      0 -1px 0 0 rgba(255, 255, 255, 0.05) inset;
+  }
+
+  .phone-notch {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 28px;
+    background: #1a1a1a;
+    border-radius: 0 0 18px 18px;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .notch-speaker {
+    width: 40px;
+    height: 4px;
+    background: #3a3a3a;
+    border-radius: 2px;
+  }
+
+  .notch-camera {
+    width: 8px;
+    height: 8px;
+    background: #2a2a3a;
+    border-radius: 50%;
+    border: 1px solid #3a3a4a;
+  }
+
+  .phone-status-bar {
+    position: absolute;
+    top: 12px;
+    left: 24px;
+    right: 24px;
+    height: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 40;
+    color: #1a1a1a;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .status-time {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .status-icons {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .status-signal {
+    width: 17px;
+    height: 10px;
+  }
+
+  .status-wifi {
+    width: 15px;
+    height: 11px;
+  }
+
+  .status-battery {
+    display: flex;
+    align-items: center;
+  }
+
+  .battery-body {
+    width: 22px;
+    height: 11px;
+    border: 1.5px solid currentColor;
+    border-radius: 3px;
+    padding: 1px;
+  }
+
+  .battery-level {
+    width: 100%;
+    height: 100%;
+    background: currentColor;
+    border-radius: 1px;
+  }
+
+  .battery-cap {
+    width: 2px;
+    height: 5px;
+    background: currentColor;
+    border-radius: 0 1px 1px 0;
+    margin-left: 1px;
+  }
+
+  .phone-screen {
+    width: 100%;
+    height: calc(100% - 24px);
+    background: #f8fafc;
+    border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .phone-home-indicator {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+  }
+
+  .home-bar {
+    width: 100px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+  }
+</style>
