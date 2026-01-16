@@ -1,0 +1,135 @@
+---
+/**
+ * ScreenAdminProperties.astro
+ * Directorio de propiedades para administrador con búsqueda dual
+ * Basado en admin_propiedades.png del diseño
+ */
+import { Icon } from 'astro-icon/components';
+import MobileNavbar from './MobileNavbar.astro';
+---
+
+<div class="screen-container bg-slate-50 text-neutral-text">
+  
+  <!-- Header -->
+  <div class="screen-header space-y-3">
+    <div class="flex justify-between items-center">
+      <h1 class="text-xl font-bold text-neutral-text">Propiedades</h1>
+      <button class="w-8 h-8 rounded-full bg-brand-primary flex items-center justify-center text-white shadow-sm">
+        <Icon name="heroicons:plus" class="w-5 h-5" />
+      </button>
+    </div>
+    
+    <!-- Search Bar -->
+    <div class="relative">
+      <Icon name="heroicons:magnifying-glass" class="w-4 h-4 text-neutral-muted absolute left-3 top-1/2 -translate-y-1/2" />
+      <div class="w-full bg-white border border-neutral-border rounded-xl pl-9 pr-4 py-2.5 text-sm text-neutral-muted">
+        Buscar propiedad...
+      </div>
+    </div>
+
+    <!-- Franchise Filter -->
+    <div class="relative">
+      <Icon name="heroicons:building-storefront" class="w-4 h-4 text-neutral-muted absolute left-3 top-1/2 -translate-y-1/2" />
+      <div class="w-full bg-white border border-neutral-border rounded-xl pl-9 pr-4 py-2.5 text-sm text-neutral-text flex justify-between items-center">
+        <span>Todas las franquicias</span>
+        <Icon name="heroicons:chevron-down" class="w-4 h-4 text-neutral-muted" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Properties List -->
+  <div class="screen-content space-y-3">
+    
+    <!-- Property Card 1 -->
+    <div class="bg-white p-3 rounded-xl border border-neutral-border shadow-sm flex gap-3">
+      <div 
+        class="w-16 h-16 rounded-xl bg-cover bg-center flex-shrink-0" 
+        style="background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=100&q=80')"
+      ></div>
+      <div class="flex-1 min-w-0">
+        <div class="flex justify-between items-start gap-2">
+          <h3 class="font-bold text-sm text-neutral-text truncate">Ático en Centro</h3>
+          <span class="badge badge-success text-[9px] py-0.5 px-2">Activo</span>
+        </div>
+        <p class="text-xs text-neutral-muted mt-0.5 truncate">
+          <Icon name="heroicons:map-pin" class="w-3 h-3 inline" />
+          C/ Mayor 12, Madrid
+        </p>
+        <div class="flex items-center gap-2 mt-1.5">
+          <span class="text-xs font-bold text-brand-primary">€350,000</span>
+          <span class="text-[9px] text-neutral-muted">• Valencia Norte</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Property Card 2 -->
+    <div class="bg-white p-3 rounded-xl border border-neutral-border shadow-sm flex gap-3">
+      <div 
+        class="w-16 h-16 rounded-xl bg-cover bg-center flex-shrink-0" 
+        style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=100&q=80')"
+      ></div>
+      <div class="flex-1 min-w-0">
+        <div class="flex justify-between items-start gap-2">
+          <h3 class="font-bold text-sm text-neutral-text truncate">Loft Moderno</h3>
+          <span class="badge badge-warning text-[9px] py-0.5 px-2">Revisión</span>
+        </div>
+        <p class="text-xs text-neutral-muted mt-0.5 truncate">
+          <Icon name="heroicons:map-pin" class="w-3 h-3 inline" />
+          Av. Libertad 45, Valencia
+        </p>
+        <div class="flex items-center gap-2 mt-1.5">
+          <span class="text-xs font-bold text-brand-primary">€180,000</span>
+          <span class="text-[9px] text-neutral-muted">• Madrid Centro</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Property Card 3 -->
+    <div class="bg-white p-3 rounded-xl border border-neutral-border shadow-sm flex gap-3">
+      <div 
+        class="w-16 h-16 rounded-xl bg-cover bg-center flex-shrink-0" 
+        style="background-image: url('https://images.unsplash.com/photo-1600596542815-2a4d04792a95?auto=format&fit=crop&w=100&q=80')"
+      ></div>
+      <div class="flex-1 min-w-0">
+        <div class="flex justify-between items-start gap-2">
+          <h3 class="font-bold text-sm text-neutral-text truncate">Chalet con Jardín</h3>
+          <span class="badge badge-success text-[9px] py-0.5 px-2">Activo</span>
+        </div>
+        <p class="text-xs text-neutral-muted mt-0.5 truncate">
+          <Icon name="heroicons:map-pin" class="w-3 h-3 inline" />
+          Urb. Las Rosas 8, Sevilla
+        </p>
+        <div class="flex items-center gap-2 mt-1.5">
+          <span class="text-xs font-bold text-brand-primary">€425,000</span>
+          <span class="text-[9px] text-neutral-muted">• Sevilla Sur</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Property Card 4 -->
+    <div class="bg-white p-3 rounded-xl border border-neutral-border shadow-sm flex gap-3">
+      <div 
+        class="w-16 h-16 rounded-xl bg-cover bg-center flex-shrink-0" 
+        style="background-image: url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=100&q=80')"
+      ></div>
+      <div class="flex-1 min-w-0">
+        <div class="flex justify-between items-start gap-2">
+          <h3 class="font-bold text-sm text-neutral-text truncate">Piso Céntrico</h3>
+          <span class="badge badge-info text-[9px] py-0.5 px-2">Nuevo</span>
+        </div>
+        <p class="text-xs text-neutral-muted mt-0.5 truncate">
+          <Icon name="heroicons:map-pin" class="w-3 h-3 inline" />
+          Plaza España 3, Barcelona
+        </p>
+        <div class="flex items-center gap-2 mt-1.5">
+          <span class="text-xs font-bold text-brand-primary">€290,000</span>
+          <span class="text-[9px] text-neutral-muted">• Barcelona Eixample</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation -->
+  <MobileNavbar activeTab="properties" variant="admin" />
+</div>

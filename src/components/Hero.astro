@@ -74,7 +74,7 @@ import ScreenManagerDashboard from './screens/ScreenManagerDashboard.astro';
 
               <!-- Screen Container - POINTER EVENTS NONE to block interaction -->
               <div
-                class="bg-white rounded-[2rem] aspect-[9/19] overflow-hidden relative isolate pointer-events-none select-none"
+                class="bg-white rounded-[2rem] aspect-[9/18] overflow-hidden relative isolate pointer-events-none select-none"
               >
                 <!-- 1. Register Screen (Start Visible) -->
                 <div class="absolute inset-0 w-full h-full bg-white z-40" id="screen-register">
@@ -128,35 +128,43 @@ import ScreenManagerDashboard from './screens/ScreenManagerDashboard.astro';
     const appTl = gsap.timeline({ delay: 1.5 });
 
     // --- PHASE 1: REGISTRATION WIZARD (0-12s) ---
+    
+    // Initialize steps hidden BEFORE timeline starts (use opacity only, no slide)
+    gsap.set('#wiz-step-1', { opacity: 0, display: 'none' });
+    gsap.set('#wiz-step-2', { opacity: 0, display: 'none' });
+    
     appTl
       // Step 0: Select User Type (Visual Feedback)
-      .to('#type-franchisor', { borderColor: '#0B8F7A', backgroundColor: '#DDF3EE', scale: 1.02, duration: 0.8, delay: 1 })
+      .to('#type-franchisor', { borderColor: '#0B8F7A', backgroundColor: '#DDF3EE', scale: 1.02, duration: 0.6, delay: 1.5 })
       
-      // Transition to Step 1
-      .to('#wiz-step-0', { xPercent: -100, opacity: 0, duration: 0.8, ease: zenEase }, "+=0.5")
-      .to('#wizard-stepper', { opacity: 1, duration: 0.5 }, "<")
-      .set('#wiz-step-1', { display: 'flex', xPercent: 100 }, "<") // Set start position
-      .to('#wiz-step-1', { xPercent: 0, opacity: 1, duration: 0.8, ease: zenEase }, "<") // Animate to center
+      // Transition to Step 1 - fade out step 0, fade in step 1
+      .to('#wiz-step-0', { opacity: 0, duration: 0.4, ease: "power2.inOut" }, "+=0.6")
+      .set('#wiz-step-0', { display: 'none' })
+      .to('#wizard-stepper', { opacity: 1, duration: 0.4 }, "<")
+      .set('#wiz-step-1', { display: 'flex' })
+      .to('#wiz-step-1', { opacity: 1, duration: 0.5, ease: "power2.out" })
 
       // Fill Step 1 (Typing Effect)
-      .to('#wiz-field-company', { duration: 1, text: "VendoYo Madrid", ease: "none" }, "+=0.2")
-      .to('#wiz-field-email', { duration: 1.2, text: "manager@vendoyo.es", ease: "none" }, "+=0.3")
-      .to('#wiz-field-pass', { duration: 0.8, text: "••••••••", ease: "none" }, "+=0.2")
+      .to('#wiz-field-company', { duration: 0.8, text: "VendoYo Madrid", ease: "none" }, "+=0.4")
+      .to('#wiz-field-email', { duration: 1, text: "manager@vendoyo.es", ease: "none" }, "+=0.3")
+      .to('#wiz-field-pass', { duration: 0.6, text: "••••••••", ease: "none" }, "+=0.2")
       
-      // Transition to Step 2
-      .to('#wiz-step-1', { xPercent: -100, opacity: 0, duration: 0.8, ease: zenEase }, "+=0.8")
-      .to('.wizard-dot-2', { width: '2rem', backgroundColor: '#0B8F7A', duration: 0.5 }, "<")
-      .set('#wiz-step-2', { display: 'flex', xPercent: 100 }, "<") // Set start position
-      .to('#wiz-step-2', { xPercent: 0, opacity: 1, duration: 0.8, ease: zenEase }, "<") // Animate to center
+      // Transition to Step 2 - fade out step 1, fade in step 2
+      .to('#wiz-step-1', { opacity: 0, duration: 0.4, ease: "power2.inOut" }, "+=0.6")
+      .set('#wiz-step-1', { display: 'none' })
+      .to('.wizard-dot-1', { width: '0.375rem', backgroundColor: '#E5E7EB', duration: 0.3 }, "<")
+      .to('.wizard-dot-2', { width: '1.5rem', backgroundColor: '#0B8F7A', duration: 0.3 }, "<")
+      .set('#wiz-step-2', { display: 'flex' })
+      .to('#wiz-step-2', { opacity: 1, duration: 0.5, ease: "power2.out" })
 
       // Fill Step 2
-      .to('#wiz-field-city', { duration: 0.8, text: "Madrid", ease: "none" }, "+=0.2")
-      .to('#wiz-field-addr', { duration: 1, text: "Calle Gran Vía, 12", ease: "none" }, "+=0.3")
+      .to('#wiz-field-city', { duration: 0.6, text: "Madrid", ease: "none" }, "+=0.4")
+      .to('#wiz-field-addr', { duration: 0.8, text: "Calle Gran Vía, 12", ease: "none" }, "+=0.3")
 
       // Finalize Click
-      .to('#wiz-btn-finish', { scale: 0.98, duration: 0.2 }, "+=0.8")
-      .to('#wiz-btn-finish', { scale: 1, duration: 0.2, onStart: () => document.getElementById('wiz-spinner')?.classList.remove('hidden') })
-      .to('#reg-alert', { y: '80px', opacity: 1, duration: 0.8, ease: "back.out(1.7)" }, "+=0.5");
+      .to('#wiz-btn-finish', { scale: 0.96, duration: 0.15 }, "+=0.6")
+      .to('#wiz-btn-finish', { scale: 1, duration: 0.15, onStart: () => document.getElementById('wiz-spinner')?.classList.remove('hidden') })
+      .to('#reg-alert', { y: '70px', opacity: 1, duration: 0.6, ease: "back.out(1.5)" }, "+=0.4");
 
     // --- PHASE 2: VERIFICATION (12-22s) ---
     appTl
@@ -189,7 +197,8 @@ import ScreenManagerDashboard from './screens/ScreenManagerDashboard.astro';
       .to('#screen-dashboard', { 
           opacity: 1, duration: 1.2,
           onComplete: () => {
-               if (window.animateManagerDashboard) window.animateManagerDashboard(document.getElementById('screen-dashboard')).play();
+               const dashboard = document.getElementById('screen-dashboard');
+               if (window.animateManagerDashboard && dashboard) window.animateManagerDashboard(dashboard).play();
           }
       }, "<");
 

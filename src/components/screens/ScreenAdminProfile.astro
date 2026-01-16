@@ -1,0 +1,135 @@
+---
+/**
+ * ScreenAdminProfile.astro
+ * Perfil del administrador con avatar, métricas y datos de contacto
+ * Basado en admin_perfil.png del diseño
+ */
+import { Icon } from 'astro-icon/components';
+import MobileNavbar from './MobileNavbar.astro';
+
+const registrationDate = new Intl.DateTimeFormat('es-ES', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date('2023-03-15'));
+const lastUpdate = new Intl.DateTimeFormat('es-ES', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date());
+---
+
+<div class="screen-container bg-slate-50 text-neutral-text">
+  
+  <!-- Header -->
+  <div class="screen-header flex items-center gap-3">
+    <button class="text-neutral-muted">
+      <Icon name="heroicons:arrow-left" class="w-6 h-6" />
+    </button>
+    <h1 class="text-lg font-bold text-neutral-text flex-1">Mi Perfil</h1>
+    <button class="text-brand-primary">
+      <Icon name="heroicons:pencil-square" class="w-5 h-5" />
+    </button>
+  </div>
+
+  <!-- Content -->
+  <div class="screen-content space-y-5">
+    
+    <!-- Profile Header -->
+    <div class="flex flex-col items-center text-center pt-2">
+      <!-- Avatar with edit button -->
+      <div class="relative mb-3">
+        <div class="w-24 h-24 rounded-full bg-brand-primary flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-brand-primary/30">
+          MA
+        </div>
+        <button class="absolute bottom-0 right-0 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-neutral-muted border border-neutral-border">
+          <Icon name="heroicons:camera" class="w-4 h-4" />
+        </button>
+      </div>
+      
+      <h2 class="text-xl font-bold text-neutral-text">Manager Admin</h2>
+      <span class="badge badge-critical text-xs mt-2">Super Admin</span>
+    </div>
+
+    <!-- Time Metrics -->
+    <div class="grid grid-cols-2 gap-3">
+      <div class="bg-white p-4 rounded-xl border border-neutral-border shadow-sm">
+        <div class="flex items-center gap-2 mb-2">
+          <Icon name="heroicons:calendar" class="w-4 h-4 text-neutral-muted" />
+          <span class="text-xs text-neutral-muted font-medium">Registro</span>
+        </div>
+        <div class="text-sm font-bold text-neutral-text">{registrationDate}</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-neutral-border shadow-sm">
+        <div class="flex items-center gap-2 mb-2">
+          <Icon name="heroicons:arrow-path" class="w-4 h-4 text-neutral-muted" />
+          <span class="text-xs text-neutral-muted font-medium">Actualizado</span>
+        </div>
+        <div class="text-sm font-bold text-neutral-text">{lastUpdate}</div>
+      </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="bg-white rounded-xl border border-neutral-border shadow-sm overflow-hidden">
+      <div class="p-4 border-b border-neutral-border">
+        <h3 class="text-xs font-bold text-neutral-muted uppercase tracking-wide">Información de Contacto</h3>
+      </div>
+      
+      <div class="divide-y divide-neutral-border">
+        <div class="flex items-center gap-3 p-4">
+          <div class="w-10 h-10 bg-brand-primary-soft rounded-xl flex items-center justify-center text-brand-primary">
+            <Icon name="heroicons:envelope" class="w-5 h-5" />
+          </div>
+          <div class="flex-1">
+            <div class="text-xs text-neutral-muted">Email</div>
+            <div class="text-sm font-medium text-neutral-text">admin@vendoyo.es</div>
+          </div>
+          <Icon name="heroicons:chevron-right" class="w-4 h-4 text-neutral-border" />
+        </div>
+
+        <div class="flex items-center gap-3 p-4">
+          <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-accent-info">
+            <Icon name="heroicons:phone" class="w-5 h-5" />
+          </div>
+          <div class="flex-1">
+            <div class="text-xs text-neutral-muted">Teléfono</div>
+            <div class="text-sm font-medium text-neutral-text">+34 600 123 456</div>
+          </div>
+          <Icon name="heroicons:chevron-right" class="w-4 h-4 text-neutral-border" />
+        </div>
+
+        <div class="flex items-center gap-3 p-4">
+          <div class="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center text-purple-500">
+            <Icon name="heroicons:building-office" class="w-5 h-5" />
+          </div>
+          <div class="flex-1">
+            <div class="text-xs text-neutral-muted">Franquicia</div>
+            <div class="text-sm font-medium text-neutral-text">Madrid Centro</div>
+          </div>
+          <Icon name="heroicons:chevron-right" class="w-4 h-4 text-neutral-border" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="bg-white rounded-xl border border-neutral-border shadow-sm overflow-hidden">
+      <div class="divide-y divide-neutral-border">
+        <div class="flex items-center gap-3 p-4 cursor-pointer hover:bg-slate-50 transition-colors">
+          <div class="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center text-accent-warning">
+            <Icon name="heroicons:cog-6-tooth" class="w-5 h-5" />
+          </div>
+          <div class="flex-1">
+            <div class="text-sm font-medium text-neutral-text">Configuración</div>
+          </div>
+          <Icon name="heroicons:chevron-right" class="w-4 h-4 text-neutral-border" />
+        </div>
+
+        <div class="flex items-center gap-3 p-4 cursor-pointer hover:bg-slate-50 transition-colors">
+          <div class="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center text-danger">
+            <Icon name="heroicons:arrow-right-on-rectangle" class="w-5 h-5" />
+          </div>
+          <div class="flex-1">
+            <div class="text-sm font-medium text-danger">Cerrar Sesión</div>
+          </div>
+          <Icon name="heroicons:chevron-right" class="w-4 h-4 text-neutral-border" />
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation -->
+  <MobileNavbar activeTab="profile" variant="admin" />
+</div>

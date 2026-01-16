@@ -1,63 +1,99 @@
 ---
+/**
+ * ScreenLogin.astro
+ * Pantalla de login basada en login.png del diseño
+ * - Header teal con logo VENDOYO
+ * - Card blanca con toggle, inputs y botón
+ */
 import { Icon } from 'astro-icon/components';
 ---
 
-<div class="h-full flex flex-col font-sans relative overflow-hidden select-none pointer-events-none bg-neutral-white">
-  
-  <!-- Content -->
-  <div class="relative z-10 flex-1 flex flex-col justify-center px-5 pb-8 w-full">
+<div class="screen-container bg-brand-primary">
+  <!-- Teal Header with Logo -->
+  <div class="pt-6 pb-4 text-center">
+    <h1 class="text-xl font-extrabold text-white tracking-wider">VENDOYO</h1>
+  </div>
+
+  <!-- White Card (full remaining height) -->
+  <div class="flex-1 bg-white rounded-t-3xl px-5 py-6 flex flex-col">
     
-    <!-- Logo Area -->
-    <div class="text-center mb-10">
-      <h1 class="text-3xl font-extrabold text-brand-primary tracking-tight mb-2 flex items-center justify-center gap-2">
-        VendoYo <Icon name="circle-flags:ua" class="w-6 h-6 shadow-sm" />
-      </h1>
-      <p class="text-neutral-muted text-sm">Tu inmobiliaria en tu bolsillo</p>
+    <!-- Title -->
+    <div class="text-center mb-4">
+      <h2 class="text-lg font-bold text-neutral-text">Bienvenido de nuevo</h2>
+      <p class="text-xs text-neutral-muted mt-1">Gestiona de propiedades con tarifa plana.</p>
     </div>
 
-    <!-- Form Container -->
-    <div class="space-y-5 w-full">
-        
-        <!-- Email Input -->
-        <div class="space-y-1.5">
-            <label class="text-[10px] font-bold text-neutral-muted uppercase ml-1">Email</label>
-            <div class="relative group">
-                <Icon name="heroicons:envelope" class="w-5 h-5 text-neutral-muted absolute left-3 top-3 z-10" />
-                <div 
-                  id="login-email"
-                  class="input-mock w-full !pl-10 shadow-sm"
-                ></div>
-            </div>
-        </div>
-
-        <!-- Password Input -->
-        <div class="space-y-1.5">
-            <label class="text-[10px] font-bold text-neutral-muted uppercase ml-1">Contraseña</label>
-            <div class="relative group">
-                <Icon name="heroicons:lock-closed" class="w-5 h-5 text-neutral-muted absolute left-3 top-3 z-10" />
-                <div 
-                  id="login-pass"
-                  class="input-mock w-full !pl-10 shadow-sm"
-                ></div>
-            </div>
-        </div>
-
-        <div class="flex justify-end pt-1">
-            <span class="text-xs text-brand-primary font-bold cursor-pointer hover:text-brand-primary-dark">¿Olvidaste tu contraseña?</span>
-        </div>
-
-        <!-- Login Button -->
-        <button id="btn-login-submit" class="btn-brand w-full shadow-md py-3.5 rounded-xl flex items-center justify-center gap-2 mt-2">
-            <span>Iniciar Sesión</span>
-            <Icon id="login-spinner" name="heroicons:arrow-path" class="w-5 h-5 animate-spin hidden" />
-        </button>
+    <!-- Toggle Login/Register -->
+    <div class="flex bg-neutral-border/30 rounded-full p-0.5 mb-5">
+      <button 
+        id="tab-login" 
+        class="flex-1 py-2 px-4 rounded-full text-xs font-bold transition-all bg-brand-primary text-white"
+      >
+        Iniciar Sesión
+      </button>
+      <button 
+        id="tab-register" 
+        class="flex-1 py-2 px-4 rounded-full text-xs font-bold transition-all text-neutral-muted hover:text-neutral-text"
+      >
+        Registrarse
+      </button>
     </div>
 
-    <!-- Footer -->
-    <div class="mt-8 text-center">
-        <p class="text-xs text-neutral-muted">
-            ¿No tienes cuenta? <span id="btn-to-register" class="text-brand-primary font-bold cursor-pointer">Regístrate gratis</span>
+    <!-- Form -->
+    <div class="flex-1 flex flex-col space-y-4">
+      <!-- Email Input -->
+      <div class="space-y-1">
+        <label class="text-[10px] text-neutral-muted ml-1">Correo electrónico o usuario</label>
+        <div class="relative">
+          <Icon name="heroicons:envelope" class="w-4 h-4 text-neutral-muted absolute left-3 top-1/2 -translate-y-1/2 z-10" />
+          <div 
+            id="login-email"
+            class="w-full bg-white border border-neutral-border rounded-xl py-3 pl-10 pr-4 text-xs text-neutral-text min-h-[44px] flex items-center"
+          ></div>
+        </div>
+        <p class="text-[9px] text-neutral-muted ml-1">Puedes usar tu correo o nombre de usuario.</p>
+      </div>
+
+      <!-- Password Input -->
+      <div class="space-y-1">
+        <label class="text-[10px] text-neutral-muted ml-1">Contraseña</label>
+        <div class="relative">
+          <Icon name="heroicons:lock-closed" class="w-4 h-4 text-neutral-muted absolute left-3 top-1/2 -translate-y-1/2 z-10" />
+          <div 
+            id="login-pass"
+            class="w-full bg-white border border-neutral-border rounded-xl py-3 pl-10 pr-10 text-xs text-neutral-text min-h-[44px] flex items-center"
+          ></div>
+          <Icon name="heroicons:eye" class="w-4 h-4 text-neutral-muted absolute right-3 top-1/2 -translate-y-1/2" />
+        </div>
+      </div>
+
+      <!-- Forgot Password -->
+      <div class="flex justify-end">
+        <span class="text-xs text-brand-primary font-medium cursor-pointer">
+          ¿Olvidaste tu contraseña?
+        </span>
+      </div>
+
+      <!-- Spacer -->
+      <div class="flex-1"></div>
+
+      <!-- Submit Button -->
+      <button 
+        id="btn-login-submit" 
+        class="w-full bg-brand-primary/80 text-white font-bold py-3.5 rounded-full shadow-md flex items-center justify-center gap-2 transition-all"
+        disabled
+      >
+        <span>Iniciar Sesión</span>
+        <Icon id="login-spinner" name="heroicons:arrow-path" class="w-4 h-4 animate-spin hidden" />
+      </button>
+
+      <!-- Footer -->
+      <div class="text-center pt-2">
+        <p class="text-[11px] text-neutral-muted">
+          ¿Necesitas ayuda? 
+          <span class="text-brand-primary font-bold cursor-pointer">Contacta a soporte</span>
         </p>
+      </div>
     </div>
   </div>
 </div>

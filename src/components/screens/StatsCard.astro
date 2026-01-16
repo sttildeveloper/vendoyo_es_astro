@@ -1,0 +1,61 @@
+---
+/**
+ * StatsCard.astro
+ * Componente reutilizable para mostrar KPIs/estadísticas en dashboards móviles
+ */
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  icon: string;
+  value: string | number;
+  label: string;
+  variant?: 'default' | 'warning' | 'success' | 'info';
+  showPulse?: boolean;
+  class?: string;
+}
+
+const { 
+  icon, 
+  value, 
+  label, 
+  variant = 'default', 
+  showPulse = false,
+  class: className = ''
+} = Astro.props;
+
+const variantStyles = {
+  default: {
+    iconBg: 'bg-brand-primary-soft',
+    iconColor: 'text-brand-primary',
+    pulseColor: 'bg-brand-primary'
+  },
+  warning: {
+    iconBg: 'bg-orange-50',
+    iconColor: 'text-accent-warning',
+    pulseColor: 'bg-accent-warning'
+  },
+  success: {
+    iconBg: 'bg-emerald-50',
+    iconColor: 'text-accent-success',
+    pulseColor: 'bg-accent-success'
+  },
+  info: {
+    iconBg: 'bg-blue-50',
+    iconColor: 'text-accent-info',
+    pulseColor: 'bg-accent-info'
+  }
+};
+
+const styles = variantStyles[variant];
+---
+
+<div class={`bg-white p-3 rounded-xl shadow-sm border border-neutral-border relative ${className}`}>
+  <div class={`w-6 h-6 ${styles.iconBg} rounded-md flex items-center justify-center ${styles.iconColor} mb-2`}>
+    <Icon name={icon} class="w-3.5 h-3.5" />
+  </div>
+  <div class="text-xl font-bold text-neutral-text leading-none">{value}</div>
+  <div class="text-[9px] text-neutral-muted font-bold uppercase mt-1">{label}</div>
+  {showPulse && (
+    <div class={`absolute top-3 right-3 w-1.5 h-1.5 ${styles.pulseColor} rounded-full animate-pulse`}></div>
+  )}
+</div>

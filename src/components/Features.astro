@@ -173,6 +173,7 @@ import DemoAlertSystem from './demos/DemoAlertSystem.astro';
         const menu = document.getElementById('demo-menu');
         const card = document.getElementById('demo-card');
         const text = document.getElementById('demo-dropdown-text');
+        if (!menu) return;
         tl.to(menu, { opacity: 1, scale: 1, duration: 0.3 })
           .to(menu.children[1], { backgroundColor: '#DDF3EE', duration: 0.2 }, "+=0.4")
           .to(menu, { opacity: 0, scale: 0.95, duration: 0.2, delay: 0.4 })

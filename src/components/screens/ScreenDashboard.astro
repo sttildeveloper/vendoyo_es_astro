@@ -1,110 +1,151 @@
 ---
+/**
+ * ScreenDashboard.astro
+ * Dashboard del Propietario con stats y botón central
+ * Basado en property_owner_dashboard.png del diseño
+ */
 import { Icon } from 'astro-icon/components';
+import MobileNavbar from './MobileNavbar.astro';
+import StatsCard from './StatsCard.astro';
 
 const nextPaymentDate = new Intl.DateTimeFormat('es-ES', { month: 'long', day: 'numeric' }).format(new Date(new Date().setDate(new Date().getDate() + 5)));
 ---
 
-<div class="dashboard-container bg-slate-50 h-full flex flex-col font-sans overflow-hidden">
+<div class="dashboard-container screen-container bg-slate-50 text-neutral-text">
   
   <!-- Header & Address -->
-  <div class="bg-white px-6 pt-12 pb-6 rounded-b-[2rem] shadow-sm z-10 relative">
-     <div class="flex justify-between items-center mb-4">
-         <div>
-             <h1 class="text-xl font-bold text-slate-900">Hola, Carlos</h1>
-             <div class="flex items-center gap-1 text-slate-500 text-sm mt-1">
-                 <Icon name="heroicons:map-pin" class="w-3.5 h-3.5" />
-                 <span>C/ Gran Vía 45, 3ºA</span>
-             </div>
-         </div>
-         <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center relative">
-             <Icon name="heroicons:bell" class="w-5 h-5 text-slate-600" />
-             <div class="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border border-slate-100"></div>
-         </div>
-     </div>
+  <div class="bg-white px-5 pt-8 pb-5 rounded-b-[2rem] shadow-sm z-10 relative flex-shrink-0">
+    <div class="flex justify-between items-center mb-4">
+      <div>
+        <h1 class="text-xl font-bold text-neutral-text">Hola, Carlos</h1>
+        <div class="flex items-center gap-1 text-neutral-muted text-sm mt-1">
+          <Icon name="heroicons:map-pin" class="w-3.5 h-3.5" />
+          <span>C/ Gran Vía 45, 3ºA</span>
+        </div>
+      </div>
+      <div class="w-10 h-10 rounded-full bg-neutral-border/30 flex items-center justify-center relative">
+        <Icon name="heroicons:bell" class="w-5 h-5 text-neutral-muted" />
+        <div class="absolute top-2 right-2.5 w-2 h-2 bg-danger rounded-full border border-white"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Content Layer -->
-  <div class="flex-1 overflow-y-auto px-5 py-6 space-y-6 relative z-0">
+  <div class="screen-content space-y-5 relative z-0">
+    
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-2 gap-3">
+      <StatsCard 
+        icon="heroicons:home-modern" 
+        value="3" 
+        label="Propiedades" 
+        variant="default"
+        showPulse={true}
+      />
+      <StatsCard 
+        icon="heroicons:eye" 
+        value="128" 
+        label="Visitas" 
+        variant="info"
+      />
+    </div>
+
+    <!-- Main CTA Button -->
+    <div class="w-full bg-brand-primary text-white p-4 rounded-2xl shadow-lg shadow-brand-primary/20 flex items-center justify-between cursor-pointer hover:bg-brand-primary-dark transition-colors">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+          <Icon name="heroicons:plus" class="w-6 h-6 text-white" />
+        </div>
+        <div class="text-left">
+          <div class="font-bold text-base">Agregar Propiedad</div>
+          <div class="text-xs text-brand-soft opacity-90">Publica un nuevo anuncio</div>
+        </div>
+      </div>
+      <Icon name="heroicons:chevron-right" class="w-5 h-5 opacity-80" />
+    </div>
+
+    <!-- Payment Card -->
+    <div class="bg-neutral-text text-white p-5 rounded-2xl shadow-xl shadow-neutral-text/20 relative overflow-hidden">
+      <!-- Decor -->
+      <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
       
-      <!-- Payment Card -->
-      <div class="bg-slate-900 text-white p-6 rounded-3xl shadow-xl shadow-slate-900/20 relative overflow-hidden group">
-          <!-- Decor -->
-          <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
-          
-          <div class="relative z-10">
-            <div class="flex justify-between items-start mb-2">
-                <span class="text-slate-400 text-xs font-bold uppercase tracking-wider">Próximo Recibo</span>
-                <span class="bg-yellow-500/20 text-yellow-300 text-[10px] font-bold px-2 py-1 rounded-full border border-yellow-500/20">Pendiente</span>
-            </div>
-            
-            <div class="flex items-baseline gap-1 mb-6">
-                <span class="text-2xl font-bold opacity-60">€</span>
-                <span class="text-5xl font-bold dash-amount">0</span>
-            </div>
+      <div class="relative z-10">
+        <div class="flex justify-between items-start mb-2">
+          <span class="text-neutral-muted text-xs font-bold uppercase tracking-wider">Próximo Recibo</span>
+          <span class="bg-yellow-500/20 text-yellow-300 text-[10px] font-bold px-2 py-1 rounded-full border border-yellow-500/20">Pendiente</span>
+        </div>
+        
+        <div class="flex items-baseline gap-1 mb-4">
+          <span class="text-xl font-bold opacity-60">€</span>
+          <span class="text-4xl font-bold dash-amount">850.00</span>
+        </div>
 
-            <div class="flex justify-between items-end">
-                <div>
-                    <div class="text-xs text-slate-400 mb-1">Vence el</div>
-                    <div class="font-bold text-sm">{nextPaymentDate}</div>
-                </div>
-                <button class="bg-white text-slate-900 px-4 py-2 rounded-xl text-sm font-bold shadow-lg active:scale-95 transition-transform flex items-center gap-2">
-                    Pagar Ahora
-                    <Icon name="heroicons:arrow-right" class="w-3 h-3" />
-                </button>
-            </div>
+        <div class="flex justify-between items-end">
+          <div>
+            <div class="text-xs text-neutral-muted mb-1">Vence el</div>
+            <div class="font-bold text-sm">{nextPaymentDate}</div>
           </div>
+          <button class="bg-white text-neutral-text px-4 py-2 rounded-xl text-sm font-bold shadow-lg active:scale-95 transition-transform flex items-center gap-2">
+            Pagar Ahora
+            <Icon name="heroicons:arrow-right" class="w-3 h-3" />
+          </button>
+        </div>
       </div>
+    </div>
 
-      <!-- Quick Actions -->
-      <div class="grid grid-cols-3 gap-3">
-          <button class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center gap-2 hover:border-primary-200 transition-colors action-btn opacity-0 translate-y-4">
-              <div class="w-10 h-10 bg-red-50 text-red-500 rounded-full flex items-center justify-center">
-                  <Icon name="heroicons:wrench-screwdriver" class="w-5 h-5" />
-              </div>
-              <span class="text-xs font-bold text-slate-700">Reportar</span>
-          </button>
-          <button class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center gap-2 hover:border-primary-200 transition-colors action-btn opacity-0 translate-y-4">
-              <div class="w-10 h-10 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center">
-                  <Icon name="heroicons:document-text" class="w-5 h-5" />
-              </div>
-              <span class="text-xs font-bold text-slate-700">Contrato</span>
-          </button>
-          <button class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center gap-2 hover:border-primary-200 transition-colors action-btn opacity-0 translate-y-4">
-              <div class="w-10 h-10 bg-purple-50 text-purple-500 rounded-full flex items-center justify-center">
-                  <Icon name="heroicons:clipboard-document-list" class="w-5 h-5" />
-              </div>
-              <span class="text-xs font-bold text-slate-700">Recibos</span>
-          </button>
-      </div>
+    <!-- Quick Actions -->
+    <div class="grid grid-cols-3 gap-3">
+      <button class="bg-white p-4 rounded-2xl shadow-sm border border-neutral-border flex flex-col items-center gap-2 hover:border-brand-primary transition-colors action-btn">
+        <div class="w-10 h-10 bg-red-50 text-danger rounded-full flex items-center justify-center">
+          <Icon name="heroicons:wrench-screwdriver" class="w-5 h-5" />
+        </div>
+        <span class="text-xs font-bold text-neutral-text">Reportar</span>
+      </button>
+      <button class="bg-white p-4 rounded-2xl shadow-sm border border-neutral-border flex flex-col items-center gap-2 hover:border-brand-primary transition-colors action-btn">
+        <div class="w-10 h-10 bg-blue-50 text-accent-info rounded-full flex items-center justify-center">
+          <Icon name="heroicons:document-text" class="w-5 h-5" />
+        </div>
+        <span class="text-xs font-bold text-neutral-text">Contrato</span>
+      </button>
+      <button class="bg-white p-4 rounded-2xl shadow-sm border border-neutral-border flex flex-col items-center gap-2 hover:border-brand-primary transition-colors action-btn">
+        <div class="w-10 h-10 bg-purple-50 text-purple-500 rounded-full flex items-center justify-center">
+          <Icon name="heroicons:clipboard-document-list" class="w-5 h-5" />
+        </div>
+        <span class="text-xs font-bold text-neutral-text">Recibos</span>
+      </button>
+    </div>
 
-      <!-- Recent History -->
-      <div>
-          <h3 class="font-bold text-slate-900 text-sm mb-3 px-1">Historial Reciente</h3>
-          <div class="space-y-3">
-              <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-3 history-item opacity-0 translate-x-4">
-                  <div class="w-10 h-10 bg-green-50 text-green-600 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Icon name="heroicons:check" class="w-5 h-5" />
-                  </div>
-                  <div class="flex-1">
-                      <div class="text-sm font-bold text-slate-900">Alquiler Octubre</div>
-                      <div class="text-xs text-slate-500">Pagado con tarjeta</div>
-                  </div>
-                  <div class="font-bold text-sm text-slate-900">-€850.00</div>
-              </div>
-
-              <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-3 history-item opacity-0 translate-x-4">
-                  <div class="w-10 h-10 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Icon name="heroicons:wrench" class="w-5 h-5" />
-                  </div>
-                  <div class="flex-1">
-                      <div class="text-sm font-bold text-slate-900">Incidencia #402</div>
-                      <div class="text-xs text-slate-500">Grifo goteando • Resuelto</div>
-                  </div>
-                  <div class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-md">Hecho</div>
-              </div>
+    <!-- Recent History -->
+    <div>
+      <h3 class="font-bold text-neutral-text text-sm mb-3 px-1">Historial Reciente</h3>
+      <div class="space-y-3">
+        <div class="bg-white p-3 rounded-2xl shadow-sm border border-neutral-border flex items-center gap-3 history-item">
+          <div class="w-10 h-10 bg-emerald-50 text-accent-success rounded-full flex items-center justify-center flex-shrink-0">
+            <Icon name="heroicons:check" class="w-5 h-5" />
           </div>
+          <div class="flex-1">
+            <div class="text-sm font-bold text-neutral-text">Alquiler Octubre</div>
+            <div class="text-xs text-neutral-muted">Pagado con tarjeta</div>
+          </div>
+          <div class="font-bold text-sm text-neutral-text">-€850.00</div>
+        </div>
+
+        <div class="bg-white p-3 rounded-2xl shadow-sm border border-neutral-border flex items-center gap-3 history-item">
+          <div class="w-10 h-10 bg-orange-50 text-accent-warning rounded-full flex items-center justify-center flex-shrink-0">
+            <Icon name="heroicons:wrench" class="w-5 h-5" />
+          </div>
+          <div class="flex-1">
+            <div class="text-sm font-bold text-neutral-text">Incidencia #402</div>
+            <div class="text-xs text-neutral-muted">Grifo goteando • Resuelto</div>
+          </div>
+          <div class="text-xs font-bold text-accent-success bg-emerald-50 px-2 py-1 rounded-md">Hecho</div>
+        </div>
       </div>
+    </div>
   </div>
+
+  <!-- Bottom Navigation -->
+  <MobileNavbar activeTab="home" variant="owner" />
 </div>
 
 <script>
@@ -117,48 +158,49 @@ const nextPaymentDate = new Intl.DateTimeFormat('es-ES', { month: 'long', day: '
   }
 
   window.animateDashboardScreen = (container = document) => {
-      const tl = gsap.timeline();
+    const tl = gsap.timeline();
 
-      // Scoped selections
-      const amountEl = container.querySelector('.dash-amount');
-      const buttons = container.querySelectorAll('.action-btn');
-      const history = container.querySelectorAll('.history-item');
+    // Scoped selections
+    const amountEl = container.querySelector('.dash-amount') as HTMLElement;
+    const buttons = container.querySelectorAll('.action-btn');
+    const history = container.querySelectorAll('.history-item');
 
-      // Reset
-      gsap.set(amountEl, { innerText: 0 });
-      gsap.set([buttons, history], { opacity: 0, y: 10, x: 10 });
-      gsap.set(buttons, { y: 20 });
-      gsap.set(history, { x: 20, y: 0 });
+    // Reset
+    if (amountEl) gsap.set(amountEl, { innerText: '0.00' });
+    gsap.set(buttons, { opacity: 0, y: 20 });
+    gsap.set(history, { opacity: 0, x: 20 });
 
-      // 1. Count Up Rent Amount
+    // 1. Count Up Rent Amount
+    if (amountEl) {
       tl.to(amountEl, { 
-          innerText: 850, 
-          duration: 2, 
-          snap: { innerText: 1 },
-          ease: "power3.out",
-          onUpdate: function() {
-              if(amountEl) amountEl.textContent = Math.ceil(parseFloat(amountEl.innerText)).toLocaleString('de-DE') + '.00';
-          }
-      })
-      
-      // 2. Pop in Buttons
-      .to(buttons, {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "back.out(1.7)"
-      }, "-=1.5")
+        innerText: 850, 
+        duration: 2, 
+        snap: { innerText: 1 },
+        ease: "power3.out",
+        onUpdate: function() {
+          if(amountEl) amountEl.textContent = Math.ceil(parseFloat(amountEl.innerText || '0')).toLocaleString('de-DE') + '.00';
+        }
+      });
+    }
+    
+    // 2. Pop in Buttons
+    tl.to(buttons, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      stagger: 0.1,
+      ease: "back.out(1.7)"
+    }, "-=1.5")
 
-      // 3. Slide in History
-      .to(history, {
-          opacity: 1,
-          x: 0,
-          duration: 0.6,
-          stagger: 0.2,
-          ease: "power2.out"
-      }, "-=0.8");
+    // 3. Slide in History
+    .to(history, {
+      opacity: 1,
+      x: 0,
+      duration: 0.6,
+      stagger: 0.2,
+      ease: "power2.out"
+    }, "-=0.8");
 
-      return tl;
+    return tl;
   }
 </script>

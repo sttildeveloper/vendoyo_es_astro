@@ -1,0 +1,64 @@
+---
+/**
+ * MobileNavbar.astro
+ * Componente reutilizable de navegación inferior para pantallas móviles
+ * 5 tabs: Inicio, Usuarios, Propiedades, Alertas, Perfil
+ */
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  activeTab?: 'home' | 'users' | 'properties' | 'alerts' | 'profile';
+  variant?: 'admin' | 'manager' | 'owner';
+}
+
+const { activeTab = 'home', variant = 'admin' } = Astro.props;
+
+const tabs = [
+  { id: 'home', icon: 'heroicons:home', label: 'Inicio' },
+  { id: 'users', icon: 'heroicons:users', label: 'Usuarios' },
+  { id: 'properties', icon: 'heroicons:building-office-2', label: 'Props' },
+  { id: 'alerts', icon: 'heroicons:bell-alert', label: 'Alertas' },
+  { id: 'profile', icon: 'heroicons:user-circle', label: 'Perfil' },
+];
+
+// Variantes para diferentes roles
+const managerTabs = [
+  { id: 'home', icon: 'heroicons:home', label: 'Inicio' },
+  { id: 'properties', icon: 'heroicons:building-office-2', label: 'Props' },
+  { id: 'users', icon: 'heroicons:user-group', label: 'Clientes' },
+  { id: 'alerts', icon: 'heroicons:bell', label: 'Alertas' },
+  { id: 'profile', icon: 'heroicons:user-circle', label: 'Perfil' },
+];
+
+const ownerTabs = [
+  { id: 'home', icon: 'heroicons:home', label: 'Inicio' },
+  { id: 'properties', icon: 'heroicons:building-office-2', label: 'Props' },
+  { id: 'alerts', icon: 'heroicons:bell', label: 'Avisos' },
+  { id: 'profile', icon: 'heroicons:user-circle', label: 'Perfil' },
+];
+
+const currentTabs = variant === 'manager' ? managerTabs : variant === 'owner' ? ownerTabs : tabs;
+---
+
+<nav class="screen-navbar">
+  {currentTabs.map((tab) => (
+    <div 
+      class={`flex flex-col items-center gap-0.5 transition-colors ${
+        activeTab === tab.id 
+          ? 'text-brand-primary' 
+          : 'text-neutral-muted opacity-60'
+      }`}
+    >
+      <Icon 
+        name={tab.icon} 
+        class={`w-5 h-5 ${activeTab === tab.id ? '' : ''}`} 
+      />
+      <span class={`text-[8px] ${activeTab === tab.id ? 'font-bold' : 'font-medium'}`}>
+        {tab.label}
+      </span>
+      {tab.id === 'alerts' && (
+        <div class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-accent-warning rounded-full border border-white hidden" data-alert-badge></div>
+      )}
+    </div>
+  ))}
+</nav>
