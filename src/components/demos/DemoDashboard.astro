@@ -6,9 +6,16 @@
  */
 import { Icon } from 'astro-icon/components';
 import MobileFrame from '../ui/MobileFrame.astro';
+
+interface Props {
+  height?: string;
+  class?: string;
+}
+
+const { height = "530px", class: className = "" } = Astro.props;
 ---
 
-<MobileFrame height="530px">
+<MobileFrame height={height} class={className}>
   <div class="demo-dashboard h-full flex flex-col bg-slate-50" id="demo-dashboard-container">
     
     <!-- Header -->

@@ -1,275 +1,157 @@
---- 
+---
+/**
+ * AppShowcase.astro
+ * Sección de descarga de la app con links a tiendas y DOBLE mockup visual
+ * Diseño "Dúo Dinámico" para llenar mejor el espacio
+ */
 import { Icon } from 'astro-icon/components';
-import ScreenUpload from './screens/ScreenUpload.astro';
-import ScreenTeam from './screens/ScreenTeam.astro';
-import ScreenManagerDashboard from './screens/ScreenManagerDashboard.astro';
+import MobileFrame from './ui/MobileFrame.astro';
+import DemoDashboard from './demos/DemoDashboard.astro';
+import DemoAssignFranchise from './demos/DemoAssignFranchise.astro';
+
+const IOS_URL = import.meta.env.PUBLIC_STORE_APPLE || '#';
+const ANDROID_URL = import.meta.env.PUBLIC_STORE_GOOGLE || '#';
 ---
 
-<section id="app-showcase" class="section bg-gradient-to-br from-primary-50 to-cyan-50">
-  <div
-    class="max-w-6xl mx-auto"
-    x-data="{ activeTab: 'upload', autoplay: true }"
-    x-init="() => {
-      // Trigger initial animation
-      setTimeout(() => window.animateUploadScreen?.().play(), 500);
+<section id="app-showcase" class="section bg-slate-900 overflow-hidden relative py-24">
+  <!-- Background Ambient Glows -->
+  <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-      // Autoplay Logic
-      if (autoplay) {
-        const interval = setInterval(() => {
-          if (!autoplay) return clearInterval(interval);
-          const tabs = ['upload', 'assign', 'track'];
-          const currentIndex = tabs.indexOf(activeTab);
-          activeTab = tabs[(currentIndex + 1) % tabs.length];
-        }, 6000); // Slightly longer for animations to finish
-      }
-    }"
-    x-effect="
-      // Watch for tab changes to trigger animations
-      if (activeTab === 'upload') setTimeout(() => window.animateUploadScreen?.().restart(), 100);
-      if (activeTab === 'assign') setTimeout(() => window.animateTeamScreen?.().restart(), 100);
-      // Manager Dashboard animates on mount via CSS/Internal script
-    "
-  >
-    <!-- Header -->
-    <div class="text-center mb-12">
-      <span class="badge mb-4">
-        <Icon name="heroicons:device-phone-mobile" class="w-4 h-4" />
-        App Móvil Disponible
-      </span>
-      <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-        Descarga la <span class="gradient-text">App VendoYo</span>
-      </h2>
-      <p class="text-xl text-slate-600 max-w-2xl mx-auto mb-6">
-        Disponible para <strong>iOS</strong> y <strong>Android</strong>. Gestiona tus propiedades
-        desde cualquier lugar.
-      </p>
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      
+      <!-- Left Column: Copy & CTAs -->
+      <div class="text-center lg:text-left space-y-8 relative z-20">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-xs font-medium backdrop-blur-sm border border-white/10 shadow-lg shadow-brand-primary/5">
+          <div class="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse"></div>
+          App Móvil Disponible
+        </span>
+        
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight">
+          Lleva tu franquicia <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-emerald-400">en el bolsillo.</span>
+        </h2>
+        
+        <p class="text-lg text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
+          Control total para iOS y Android. Supervisa agentes, aprueba trámites y revisa métricas en tiempo real, estés donde estés.
+        </p>
 
-      <!-- Store Badges -->
-      <div class="flex flex-wrap gap-4 justify-center mb-8">
-        <a
-          href="#ios"
-          class="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-all hover:-translate-y-1 shadow-lg"
-        >
-          <Icon name="lucide:apple" class="w-6 h-6" />
-          <div class="text-left">
-            <div class="text-xs opacity-80">Descárgalo en</div>
-            <div class="text-sm font-bold">App Store</div>
-          </div>
-        </a>
-        <a
-          href="#android"
-          class="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-all hover:-translate-y-1 shadow-lg"
-        >
-          <Icon name="lucide:play" class="w-6 h-6" />
-          <div class="text-left">
-            <div class="text-xs opacity-80">Disponible en</div>
-            <div class="text-sm font-bold">Google Play</div>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Tabs + Phone Mockup -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-      <!-- Tabs -->
-      <div class="order-2 lg:order-1">
-        <!-- Tab Buttons -->
-        <div class="flex flex-col gap-4 mb-6">
-          <button
-            @click="activeTab = 'upload'; autoplay = false"
-            :class="activeTab === 'upload' ? 'bg-primary-400 text-white shadow-primary' : 'bg-white text-slate-700 hover:bg-primary-50'"
-            class="flex items-start gap-4 p-6 rounded-2xl border-2 transition-all text-left"
-            :style="activeTab === 'upload' ? 'border-color: var(--color-primary-400)' : 'border-color: var(--color-gray-200)'"
+        <!-- Store Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+          <a
+            href={IOS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex items-center gap-3 px-6 py-4 bg-white text-slate-900 rounded-2xl hover:bg-slate-50 transition-all hover:-translate-y-1 shadow-xl hover:shadow-2xl hover:shadow-white/10"
           >
-            <div
-              class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-              :class="activeTab === 'upload' ? 'bg-white/20' : 'bg-primary-100'"
-            >
-              <Icon
-                name="heroicons:home"
-                class="w-6 h-6"
-                :class="activeTab === 'upload' ? 'text-white' : 'text-primary-600'"
-              />
+            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor" role="img" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.74 1.18 0 2.45-1.62 4.37-1.62 1.35.02 2.37.52 3.1 1.25-3.08 1.87-2.3 5.76.65 6.94-.48 1.6-1.18 2.89-3.2 5.66zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+            </svg>
+            <div class="text-left">
+              <div class="text-[10px] uppercase font-bold tracking-wider opacity-60">Descargar en</div>
+              <div class="text-lg font-bold leading-none font-display">App Store</div>
             </div>
-            <div>
-              <h3 class="text-lg font-bold mb-1">📸 Sube tu Propiedad</h3>
-              <p class="text-sm opacity-90">
-                Añade fotos, descripción y precio en minutos directamente desde tu móvil
-              </p>
-            </div>
-          </button>
-
-          <button
-            @click="activeTab = 'assign'; autoplay = false"
-            :class="activeTab === 'assign' ? 'bg-primary-400 text-white shadow-primary' : 'bg-white text-slate-700 hover:bg-primary-50'"
-            class="flex items-start gap-4 p-6 rounded-2xl border-2 transition-all text-left"
-            :style="activeTab === 'assign' ? 'border-color: var(--color-primary-400)' : 'border-color: var(--color-gray-200)'"
+          </a>
+          
+          <a
+            href={ANDROID_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex items-center gap-3 px-6 py-4 bg-slate-800 text-white border border-slate-700 rounded-2xl hover:bg-slate-700 transition-all hover:-translate-y-1 shadow-xl hover:shadow-2xl hover:shadow-black/20"
           >
-            <div
-              class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-              :class="activeTab === 'assign' ? 'bg-white/20' : 'bg-primary-100'"
-            >
-              <Icon
-                name="heroicons:users"
-                class="w-6 h-6"
-                :class="activeTab === 'assign' ? 'text-white' : 'text-primary-600'"
-              />
+            <svg class="w-7 h-7 text-brand-primary group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="currentColor" role="img" xmlns="http://www.w3.org/2000/svg">
+               <path d="M21.055 11.235l-16.5-9.35C4.24 1.705 4 1.84 4 2.12v19.76c0 .28.24.415.555.235l16.5-9.35c.315-.18.315-.47 0-.65zm-1.89-5.185L8.5 11.83 5.41 14.885l13.755 7.635L21.055 12.8c.215-.125.215-.325 0-.45l-1.89-6.3zM7.22 10.55L5.41 8.74v6.52l1.81-1.81 4.61-2.9-4.61-1.9z"/>
+            </svg>
+            <div class="text-left">
+              <div class="text-[10px] uppercase font-bold tracking-wider opacity-60">Disponible en</div>
+              <div class="text-lg font-bold leading-none font-display">Google Play</div>
             </div>
-            <div>
-              <h3 class="text-lg font-bold mb-1">👥 Gestión de Equipo</h3>
-              <p class="text-sm opacity-90">
-                Administra usuarios, asigna roles y gestiona tu red de agentes fácilmente
-              </p>
-            </div>
-          </button>
-
-          <button
-            @click="activeTab = 'track'; autoplay = false"
-            :class="activeTab === 'track' ? 'bg-primary-400 text-white shadow-primary' : 'bg-white text-slate-700 hover:bg-primary-50'"
-            class="flex items-start gap-4 p-6 rounded-2xl border-2 transition-all text-left"
-            :style="activeTab === 'track' ? 'border-color: var(--color-primary-400)' : 'border-color: var(--color-gray-200)'"
-          >
-            <div
-              class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-              :class="activeTab === 'track' ? 'bg-white/20' : 'bg-primary-100'"
-            >
-              <Icon
-                name="heroicons:chart-bar"
-                class="w-6 h-6"
-                :class="activeTab === 'track' ? 'text-white' : 'text-primary-600'"
-              />
-            </div>
-            <div>
-              <h3 class="text-lg font-bold mb-1">📊 Manager Dashboard</h3>
-              <p class="text-sm opacity-90">KPIs, gestión de cartera y estado de franquicia</p>
-            </div>
-          </button>
+          </a>
         </div>
 
-        <!-- Progress Indicator -->
-        <div class="flex gap-2">
-          <div class="h-1 flex-1 rounded-full bg-primary-200">
-            <div
-              class="h-full rounded-full bg-primary-500 transition-all duration-300"
-              :style="`width: ${activeTab === 'upload' ? '100' : '0'}%`"
-            >
-            </div>
-          </div>
-          <div class="h-1 flex-1 rounded-full bg-primary-200">
-            <div
-              class="h-full rounded-full bg-primary-500 transition-all duration-300"
-              :style="`width: ${activeTab === 'assign' ? '100' : '0'}%`"
-            >
-            </div>
-          </div>
-          <div class="h-1 flex-1 rounded-full bg-primary-200">
-            <div
-              class="h-full rounded-full bg-primary-500 transition-all duration-300"
-              :style="`width: ${activeTab === 'track' ? '100' : '0'}%`"
-            >
-            </div>
-          </div>
+        <!-- QR Code (Desktop only) -->
+        <div class="hidden lg:inline-flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-2 pr-6 mt-8">
+           <div class="bg-white p-2 rounded-xl">
+              <Icon name="heroicons:qr-code" class="w-12 h-12 text-slate-900" />
+           </div>
+           <div class="text-left">
+              <p class="text-xs text-slate-400 font-medium">Escanea el código QR</p>
+              <p class="text-sm font-bold text-white">Instalar ahora mismo</p>
+           </div>
         </div>
       </div>
 
-      <!-- Phone Mockup -->
-      <div class="order-1 lg:order-2 flex justify-center">
-        <div class="relative max-w-sm w-full">
-          <!-- Glow -->
-          <div
-            class="absolute inset-0 bg-gradient-to-r from-primary-400 to-cyan-400 rounded-[3rem] blur-3xl opacity-20"
-          >
-          </div>
+      <!-- Right Column: Dual Phones -->
+      <div class="relative h-[600px] flex items-center justify-center lg:justify-end perspective-1000">
+        
+        <!-- Glass Card Background to unite them -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[80%] bg-gradient-to-tr from-white/5 to-transparent border border-white/5 rounded-[3rem] backdrop-blur-sm -rotate-6 z-0"></div>
 
-          <!-- Phone Frame -->
-          <div class="relative bg-slate-900 rounded-[3rem] p-3 shadow-2xl">
-            <!-- Notch -->
-            <div
-              class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-slate-900 rounded-b-3xl z-10"
-            >
-            </div>
-
-            <!-- Screen Container -->
-            <div class="relative bg-white rounded-[2.5rem] aspect-[9/19] overflow-hidden isolate">
-              
-              <!-- Screen 1: Upload -->
-              <div 
-                class="absolute inset-0 w-full h-full bg-white" 
-                x-show="activeTab === 'upload'" 
-                x-transition:enter="transition ease-out duration-300" 
-                x-transition:enter-start="opacity-0 translate-x-10" 
-                x-transition:enter-end="opacity-100 translate-x-0" 
-                x-transition:leave="transition ease-in duration-300" 
-                x-transition:leave-start="opacity-100 translate-x-0" 
-                x-transition:leave-end="opacity-0 -translate-x-10"
-              >
-                  <ScreenUpload />
+        <!-- Phone 1 (Back/Left - Operations/Map) -->
+        <div class="absolute top-10 left-4 lg:left-20 transform -rotate-12 scale-90 z-10 opacity-60 brightness-75 hover:opacity-100 hover:brightness-100 transition-all duration-500 hover:z-30 hover:scale-95 animate-float-slow">
+           <MobileFrame height="540px" class="shadow-2xl shadow-black/80">
+              <div class="h-full bg-white relative overflow-hidden pointer-events-none">
+                 <DemoAssignFranchise height="540px" />
               </div>
+           </MobileFrame>
+        </div>
 
-              <!-- Screen 2: Team -->
-              <div 
-                class="absolute inset-0 w-full h-full bg-white" 
-                x-show="activeTab === 'assign'"
-                x-transition:enter="transition ease-out duration-300" 
-                x-transition:enter-start="opacity-0 translate-x-10" 
-                x-transition:enter-end="opacity-100 translate-x-0" 
-                x-transition:leave="transition ease-in duration-300" 
-                x-transition:leave-start="opacity-100 translate-x-0" 
-                x-transition:leave-end="opacity-0 -translate-x-10"
-                style="display: none;"
-              >
-                  <ScreenTeam />
+        <!-- Phone 2 (Front/Right - Dashboard) -->
+        <div class="absolute top-20 right-4 lg:right-10 transform -rotate-3 z-20 hover:scale-105 transition-transform duration-500 animate-float-delayed">
+           <MobileFrame height="580px" class="shadow-2xl shadow-black/90 ring-1 ring-white/10">
+              <div class="h-full bg-white relative overflow-hidden pointer-events-none">
+                 <DemoDashboard height="580px" />
               </div>
-
-              <!-- Screen 3: Manager Dashboard -->
-              <div 
-                class="absolute inset-0 w-full h-full bg-white" 
-                x-show="activeTab === 'track'"
-                x-transition:enter="transition ease-out duration-300" 
-                x-transition:enter-start="opacity-0 translate-x-10" 
-                x-transition:enter-end="opacity-100 translate-x-0" 
-                x-transition:leave="transition ease-in duration-300" 
-                x-transition:leave-start="opacity-100 translate-x-0" 
-                x-transition:leave-end="opacity-0 -translate-x-10"
-                style="display: none;"
-              >
-                  <ScreenManagerDashboard />
+           </MobileFrame>
+           
+           <!-- Floating Notification Badge -->
+           <div class="absolute top-24 -left-12 bg-white rounded-xl shadow-xl p-3 flex items-center gap-3 animate-bounce-subtle z-40 max-w-[180px]">
+              <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 shrink-0">
+                 <Icon name="heroicons:currency-dollar" class="w-6 h-6" />
               </div>
+              <div>
+                 <p class="text-[10px] text-slate-500 font-bold uppercase">Nueva Venta</p>
+                 <p class="text-xs font-bold text-slate-900">+12.500€ Com.</p>
+              </div>
+           </div>
+        </div>
 
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
 
-    <!-- Platform Logos -->
-    <div class="mt-16 text-center">
-      <p class="text-sm text-slate-500 mb-4">Compatible con</p>
-      <div class="flex items-center justify-center gap-8 opacity-60">
-        <div class="flex items-center gap-2">
-          <Icon name="lucide:apple" class="w-8 h-8" />
-          <span class="font-medium">iOS 14+</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <Icon name="lucide:smartphone" class="w-8 h-8" />
-          <span class="font-medium">Android 8+</span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
-<script>
-  import autoAnimate from '@formkit/auto-animate';
+<style>
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0) rotate(-12deg) scale(0.9); }
+    50% { transform: translateY(-15px) rotate(-12deg) scale(0.9); }
+  }
 
-  document.addEventListener('alpine:init', () => {
-    // Auto-animate for smooth height changes if needed, 
-    // though here we rely mostly on x-transition and GSAP
-    const tabs = document.querySelectorAll('[x-show]');
-    tabs.forEach((tab) => {
-      if (tab.parentElement) {
-        autoAnimate(tab.parentElement);
-      }
-    });
-  });
-</script>
+  @keyframes float-delayed {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-20px) rotate(-3deg); }
+  }
+
+  @keyframes bounce-subtle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  .animate-float-slow {
+    animation: float-slow 6s ease-in-out infinite;
+  }
+  
+  .animate-float-delayed {
+    animation: float-delayed 7s ease-in-out infinite 1s;
+  }
+
+  .animate-bounce-subtle {
+    animation: bounce-subtle 3s ease-in-out infinite;
+  }
+</style>

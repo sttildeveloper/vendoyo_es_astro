@@ -1,0 +1,88 @@
+---
+/**
+ * FAQ.astro
+ * Preguntas frecuentes para PROPIETARIOS (B2C)
+ * Enfocadas en el proceso de venta, pagos y servicios incluidos
+ */
+import { Icon } from 'astro-icon/components';
+
+const faqs = [
+  {
+    question: "¿Qué incluye exactamente la Tarifa Plana?",
+    answer: "Incluye todo lo necesario para vender: valoración profesional, reportaje fotográfico, publicación en portales (Idealista, Fotocasa, etc.), filtrado de compradores, gestión de visitas, negociación y todo el trámite legal hasta la firma en notaría."
+  },
+  {
+    question: "¿Cuándo tengo que pagar?",
+    answer: "El pago se realiza en dos partes: una pequeña señal al inicio para cubrir los costes de puesta en marcha (fotos, certificado, etc.) y el resto SOLO cuando se vende tu piso. Si no vendes, no pagas la parte final."
+  },
+  {
+    question: "¿Hacéis vosotros las visitas?",
+    answer: "Nosotros filtramos y cualificamos a los compradores. Tú decides si quieres enseñar el piso (te damos consejos y trucos) o si prefieres que un agente asociado lo haga por ti (con un pequeño suplemento)."
+  },
+  {
+    question: "¿Hay exclusividad?",
+    answer: "No. Creemos en nuestro servicio. Puedes vender por tu cuenta o con otra agencia si quieres. Solo te pedimos un compromiso de tiempo mínimo para amortizar la inversión inicial que hacemos en tu propiedad."
+  },
+  {
+    question: "¿Quién se encarga del papeleo legal?",
+    answer: "Nuestro equipo de abogados expertos. Gestionamos el contrato de arras, revisamos la nota simple, cancelamos cargas hipotecarias y preparamos la escritura para notaría. Estás cubierto legalmente al 100%."
+  },
+  {
+    question: "¿Cómo uso la App para vender?",
+    answer: "La App de VendoYo es tu centro de control. Recibes notificaciones de visitas, ves las valoraciones de los compradores, accedes a tus documentos y chat directo con tu gestor. Transparencia total en tu bolsillo."
+  }
+];
+---
+
+<section id="faq" class="section bg-slate-50">
+  <div class="max-w-3xl mx-auto px-6">
+    
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Preguntas Frecuentes</h2>
+      <p class="text-slate-600">Resolvemos tus dudas antes de empezar.</p>
+    </div>
+
+    <div class="space-y-4">
+      {faqs.map((faq) => (
+        <details class="group bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-300 open:shadow-md">
+          <summary class="flex items-center justify-between p-6 cursor-pointer list-none text-slate-900 font-bold hover:bg-slate-50 transition-colors">
+            <span class="pr-8">{faq.question}</span>
+            <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 group-open:bg-brand-primary group-open:text-white transition-all duration-300 flex-shrink-0">
+              <Icon name="heroicons:chevron-down" class="w-5 h-5 group-open:rotate-180 transition-transform duration-300" />
+            </div>
+          </summary>
+          <div class="px-6 pb-6 text-slate-600 leading-relaxed animate-fade-in text-sm md:text-base">
+            {faq.answer}
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <div class="mt-12 text-center bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+      <h4 class="text-lg font-bold text-slate-900 mb-2">¿Tienes más preguntas?</h4>
+      <p class="text-slate-600 mb-6 text-sm">Llámanos gratis y te explicamos cómo funciona.</p>
+      <a href="tel:680225298" class="inline-flex items-center gap-2 text-brand-primary font-bold hover:underline text-lg">
+        <Icon name="heroicons:phone" class="w-5 h-5" />
+        680 225 298
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+</style>

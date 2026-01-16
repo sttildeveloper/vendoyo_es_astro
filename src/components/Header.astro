@@ -22,21 +22,25 @@ import { Icon } from 'astro-icon/components';
       <a href="#" class="flex items-center gap-2 group">
         <span
           class="text-2xl font-bold tracking-tight flex items-center gap-2 transition-colors duration-300 text-brand-primary"
-          >VendoYo <Icon name="circle-flags:ua" class="w-5 h-5 shadow-sm opacity-90" /></span
-        >
+          >
+          <div class="w-8 h-8 rounded-lg bg-brand-primary text-white flex items-center justify-center shadow-sm">
+            <Icon name="heroicons:home-modern" class="w-5 h-5" />
+          </div>
+          VendoYo
+        </span>
       </a>
 
       <!-- Desktop Navigation -->
       <div class="hidden lg:flex items-center gap-8">
         <a href="#features" class="nav-link" :class="scrolled ? 'text-neutral-text hover:text-brand-primary' : 'text-neutral-muted hover:text-brand-primary'">Características</a>
-        <a href="#app-showcase" class="nav-link" :class="scrolled ? 'text-neutral-text hover:text-brand-primary' : 'text-neutral-muted hover:text-brand-primary'">App Móvil</a>
         <a href="#pricing" class="nav-link" :class="scrolled ? 'text-neutral-text hover:text-brand-primary' : 'text-neutral-muted hover:text-brand-primary'">Precios</a>
+        <a href="#testimonials" class="nav-link" :class="scrolled ? 'text-neutral-text hover:text-brand-primary' : 'text-neutral-muted hover:text-brand-primary'">Testimonios</a>
       </div>
 
       <!-- Desktop CTAs -->
       <div class="hidden md:flex items-center gap-4">
         <a 
-          href="#download" 
+          href="#app-showcase" 
           class="px-6 py-2.5 rounded-xl font-bold transition-all duration-300 text-sm bg-brand-primary text-white hover:bg-brand-primary-dark shadow-lg shadow-brand-primary/20"
         >
           Descargar App
@@ -66,16 +70,16 @@ import { Icon } from 'astro-icon/components';
       <a href="#features" @click="mobileMenuOpen = false" class="block p-3 font-bold hover:bg-brand-soft rounded-xl transition-colors">
         Características
       </a>
-      <a href="#app-showcase" @click="mobileMenuOpen = false" class="block p-3 font-bold hover:bg-brand-soft rounded-xl transition-colors">
-        App Móvil
-      </a>
       <a href="#pricing" @click="mobileMenuOpen = false" class="block p-3 font-bold hover:bg-brand-soft rounded-xl transition-colors"> 
         Precios 
+      </a>
+      <a href="#testimonials" @click="mobileMenuOpen = false" class="block p-3 font-bold hover:bg-brand-soft rounded-xl transition-colors"> 
+        Testimonios
       </a>
 
       <div class="pt-4 mt-2 border-t border-neutral-border">
         <a
-          href="#download"
+          href="#app-showcase"
           @click="mobileMenuOpen = false"
           class="w-full bg-brand-primary text-white font-bold py-3.5 rounded-xl flex items-center justify-center shadow-lg"
         >

@@ -1,0 +1,177 @@
+---
+/**
+ * Pricing.astro
+ * Sección de tarifas planas por venta de inmueble
+ * Modelo de Pago Único según valor de la vivienda
+ */
+import { Icon } from 'astro-icon/components';
+
+const tiers = [
+  {
+    range: "Hasta 150.000€",
+    price: "2.000€",
+    description: "Para propiedades accesibles y rápidas de vender.",
+    highlight: false
+  },
+  {
+    range: "150.001€ - 300.000€",
+    price: "3.000€",
+    description: "El tramo más común. Gestión completa sin sorpresas.",
+    highlight: true
+  },
+  {
+    range: "300.001€ - 600.000€",
+    price: "4.000€",
+    description: "Para inmuebles de alto valor que requieren atención experta.",
+    highlight: false
+  },
+  {
+    range: "Más de 600.000€",
+    price: "6.000€",
+    description: "Servicio exclusivo para propiedades de lujo.",
+    highlight: false
+  }
+];
+
+const features = [
+  "Valoración de la propiedad",
+  "Reportaje fotográfico profesional",
+  "Publicación en portales líderes",
+  "Filtrado de visitas y agenda",
+  "Asesoramiento legal y notaría",
+  "Certificado energético y cédula"
+];
+---
+
+<section id="pricing" class="section bg-slate-50 relative overflow-hidden">
+  <!-- Background Elements -->
+  <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="inline-flex items-center gap-2 px-3 py-1 bg-brand-primary/10 text-brand-primary text-xs font-bold rounded-full uppercase tracking-wider mb-4">
+        <Icon name="heroicons:tag" class="w-4 h-4" />
+        Tarifa Plana
+      </span>
+      <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+        Vende tu piso <br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-cyan-600">sin comisiones.</span>
+      </h2>
+      <p class="text-xl text-slate-600">
+        Un precio único y transparente según el valor de tu vivienda. <br>
+        <strong class="text-slate-900">Ahorra miles de euros</strong> comparado con agencias tradicionales.
+      </p>
+    </div>
+
+    <!-- Pricing Cards Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      {tiers.map((tier) => (
+        <div class:list={[
+          "relative flex flex-col bg-white rounded-2xl p-6 border transition-all duration-300",
+          tier.highlight 
+            ? "border-brand-primary shadow-2xl shadow-brand-primary/10 scale-105 z-10 ring-4 ring-brand-primary/10" 
+            : "border-slate-200 shadow-lg hover:shadow-xl hover:-translate-y-1"
+        ]}>
+          
+          {tier.highlight && (
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-primary text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm whitespace-nowrap">
+              Opción Habitual
+            </div>
+          )}
+
+          <div class="mb-4 text-center">
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">Valor de vivienda</p>
+            <h3 class="text-sm font-bold text-slate-900 bg-slate-100 py-2 px-3 rounded-lg inline-block">{tier.range}</h3>
+          </div>
+
+          <div class="text-center mb-6 py-6 border-b border-slate-100 flex-1 flex flex-col justify-center">
+            <div class="flex items-center justify-center gap-1">
+              <span class="text-4xl font-bold text-slate-900 tracking-tight">{tier.price}</span>
+            </div>
+            <p class="text-[10px] text-slate-400 mt-2 uppercase font-medium">+ IVA</p>
+            <p class="text-sm text-slate-500 mt-4 leading-relaxed">{tier.description}</p>
+          </div>
+
+          <a 
+            href="#contact" 
+            class:list={[
+              "block w-full py-3 rounded-xl text-center text-sm font-bold transition-all",
+              tier.highlight
+                ? "bg-brand-primary text-white hover:bg-brand-primary-dark shadow-lg shadow-brand-primary/30"
+                : "bg-slate-900 text-white hover:bg-slate-800"
+            ]}
+          >
+            Elegir Plan
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <!-- Features List (Services Included) -->
+    <div class="bg-white rounded-3xl border border-slate-200 p-8 md:p-12 shadow-sm">
+      <div class="text-center mb-8">
+        <h3 class="text-2xl font-bold text-slate-900 mb-2">Todo incluido en tu Tarifa Plana</h3>
+        <p class="text-slate-500">Servicio integral de principio a fin, sin letra pequeña.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-12">
+        {features.map((feature) => (
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+              <Icon name="heroicons:check" class="w-4 h-4 text-green-600" />
+            </div>
+            <span class="text-slate-700 font-medium">{feature}</span>
+          </div>
+        ))}
+        <!-- Extra items from the text -->
+        <div class="flex items-center gap-3">
+          <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+            <Icon name="heroicons:check" class="w-4 h-4 text-green-600" />
+          </div>
+          <span class="text-slate-700 font-medium">Contratos de arras y reserva</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+            <Icon name="heroicons:check" class="w-4 h-4 text-green-600" />
+          </div>
+          <span class="text-slate-700 font-medium">Nota simple y cargas</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+            <Icon name="heroicons:check" class="w-4 h-4 text-green-600" />
+          </div>
+          <span class="text-slate-700 font-medium">Acompañamiento hasta notaría</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Value Proposition -->
+    <div class="grid md:grid-cols-3 gap-8 mt-16 text-center">
+      <div class="p-6">
+        <div class="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-blue-600">
+          <Icon name="heroicons:banknotes" class="w-7 h-7" />
+        </div>
+        <h4 class="text-lg font-bold text-slate-900 mb-2">Ahorro Real</h4>
+        <p class="text-slate-600 text-sm">Sin comisiones sobre el precio final. Tú decides el precio, tú te quedas el beneficio.</p>
+      </div>
+      <div class="p-6">
+        <div class="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-purple-600">
+          <Icon name="heroicons:shield-check" class="w-7 h-7" />
+        </div>
+        <h4 class="text-lg font-bold text-slate-900 mb-2">Seguridad Jurídica</h4>
+        <p class="text-slate-600 text-sm">Nuestro equipo de abogados revisa cada documento y trámite del proceso.</p>
+      </div>
+      <div class="p-6">
+        <div class="w-12 h-12 bg-teal-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-teal-600">
+          <Icon name="heroicons:device-phone-mobile" class="w-7 h-7" />
+        </div>
+        <h4 class="text-lg font-bold text-slate-900 mb-2">100% Digital</h4>
+        <p class="text-slate-600 text-sm">Sigue las visitas, ofertas y estado de la venta en tiempo real desde la App.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
