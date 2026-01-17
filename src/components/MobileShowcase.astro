@@ -1,0 +1,96 @@
+---
+/**
+ * MobileShowcase.astro
+ * Visualizacion de pantallas reales con animacion GSAP.
+ */
+import { Image } from 'astro:assets';
+import MobileFrame from './ui/MobileFrame.astro';
+
+import screenDashboard from '../assets/mobile_screens/admin_dashboard.png';
+import screenProperty from '../assets/mobile_screens/detalle_propiedad.png';
+import screenUpload from '../assets/mobile_screens/nueva_propiedad.png';
+import screenUsers from '../assets/mobile_screens/admin_usuarios.png';
+
+const rotatingScreens = [screenDashboard, screenProperty, screenUpload];
+const backScreen = screenUsers;
+---
+
+<div class="relative h-[580px] flex items-center justify-center lg:justify-end" data-mobile-showcase>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[80%] bg-gradient-to-tr from-white/5 to-transparent border border-white/5 rounded-[3rem] backdrop-blur-sm -rotate-6 z-0"></div>
+
+  <div
+    class="absolute top-10 left-6 lg:left-16 -rotate-8 scale-90 opacity-70 z-10"
+    data-phone-back
+  >
+    <MobileFrame height="520px" class="shadow-2xl shadow-black/70 ring-1 ring-white/5">
+      <div class="h-full w-full bg-white relative overflow-hidden pointer-events-none">
+        <Image
+          src={backScreen}
+          alt=""
+          aria-hidden="true"
+          class="w-full h-full object-cover"
+          width={420}
+          height={840}
+          sizes="(min-width: 1024px) 320px, 70vw"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </MobileFrame>
+  </div>
+
+  <div class="relative z-20" data-phone-front>
+    <MobileFrame height="580px" class="shadow-2xl shadow-black/90 ring-1 ring-white/10">
+      <div class="h-full w-full bg-white relative overflow-hidden pointer-events-none" data-screen-stack>
+        {rotatingScreens.map((screen, index) => (
+          <div class:list={["absolute inset-0", index === 0 ? "opacity-100" : "opacity-0"]} data-screen>
+            <Image
+              src={screen}
+              alt=""
+              aria-hidden="true"
+              class="w-full h-full object-cover"
+              width={460}
+              height={920}
+              sizes="(min-width: 1024px) 360px, 80vw"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        ))}
+      </div>
+    </MobileFrame>
+  </div>
+</div>
+
+<script>
+  import gsap from 'gsap';
+
+  const root = document.querySelector('[data-mobile-showcase]');
+
+  if (root && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const screens = Array.from(root.querySelectorAll('[data-screen]'));
+    const frontPhone = root.querySelector('[data-phone-front]');
+    const backPhone = root.querySelector('[data-phone-back]');
+
+    if (screens.length > 1) {
+      gsap.set(screens, { autoAlpha: 0, y: 16, scale: 0.98 });
+      gsap.set(screens[0], { autoAlpha: 1, y: 0, scale: 1 });
+
+      const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.3 });
+
+      screens.forEach((screen, index) => {
+        const next = screens[(index + 1) % screens.length];
+        tl.to(screen, { autoAlpha: 0, y: -10, scale: 0.98, duration: 0.5, ease: 'power2.inOut' }, '+=2.2')
+          .to(next, { autoAlpha: 1, y: 0, scale: 1, duration: 0.6, ease: 'power2.out' }, '<');
+      });
+    }
+
+    if (frontPhone) {
+      gsap.to(frontPhone, { y: -12, duration: 3.6, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    }
+
+    if (backPhone) {
+      gsap.to(backPhone, { y: 10, duration: 4.2, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+    }
+  }
+</script>

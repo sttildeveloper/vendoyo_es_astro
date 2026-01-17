@@ -4,6 +4,8 @@ import ScreenRegisterWizard from './screens/ScreenRegisterWizard.astro';
 import ScreenEmail from './screens/ScreenEmail.astro';
 import ScreenLogin from './screens/ScreenLogin.astro';
 import ScreenManagerDashboard from './screens/ScreenManagerDashboard.astro';
+
+const landingUrl = import.meta.env.PUBLIC_LANDING_VENDOYO_APP_URL || '/';
 ---
 
 <section id="hero" class="relative min-h-screen flex items-center overflow-hidden pt-20 bg-neutral-white">
@@ -36,7 +38,7 @@ import ScreenManagerDashboard from './screens/ScreenManagerDashboard.astro';
 
         <!-- CTAs -->
         <div class="flex flex-wrap gap-4" data-hero-ctas>
-          <a href="#app-showcase" class="btn-primary px-8 py-3 shadow-lg shadow-brand-primary/20">
+          <a href={landingUrl} class="btn-primary px-8 py-3 shadow-lg shadow-brand-primary/20">
             Descargar App
           </a>
           <a href="#features" class="btn-ghost px-8 py-3 !border-neutral-border hover:!border-brand-primary">

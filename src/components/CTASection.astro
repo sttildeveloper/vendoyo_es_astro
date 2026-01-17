@@ -1,5 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
+
+const landingUrl = import.meta.env.PUBLIC_LANDING_VENDOYO_APP_URL || '/';
 ---
 
 <section id="download" class="section bg-gradient-to-r from-teal-600 to-cyan-600 text-white">
@@ -11,14 +13,14 @@ import { Icon } from 'astro-icon/components';
 
     <div class="flex flex-wrap gap-4 justify-center">
       <a
-        href="#"
+        href={landingUrl}
         class="btn-dark inline-flex items-center gap-2 !bg-white !text-slate-900 hover:!bg-slate-100"
       >
         <Icon name="lucide:apple" class="w-5 h-5" />
         Descargar en App Store
       </a>
       <a
-        href="#"
+        href={landingUrl}
         class="btn-dark inline-flex items-center gap-2 !bg-white !text-slate-900 hover:!bg-slate-100"
       >
         <Icon name="lucide:play" class="w-5 h-5" />

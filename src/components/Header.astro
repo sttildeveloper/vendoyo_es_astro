@@ -1,5 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
+
+const landingUrl = import.meta.env.PUBLIC_LANDING_VENDOYO_APP_URL || '/';
 ---
 
 <header
@@ -19,7 +21,7 @@ import { Icon } from 'astro-icon/components';
   <nav class="section !py-0">
     <div class="flex items-center justify-between">
       <!-- Logo -->
-      <a href="#" class="flex items-center gap-2 group">
+      <a href={landingUrl} class="flex items-center gap-2 group">
         <span
           class="text-2xl font-bold tracking-tight flex items-center gap-2 transition-colors duration-300 text-brand-primary"
           >
@@ -40,7 +42,7 @@ import { Icon } from 'astro-icon/components';
       <!-- Desktop CTAs -->
       <div class="hidden md:flex items-center gap-4">
         <a 
-          href="#app-showcase" 
+          href={landingUrl} 
           class="px-6 py-2.5 rounded-xl font-bold transition-all duration-300 text-sm bg-brand-primary text-white hover:bg-brand-primary-dark shadow-lg shadow-brand-primary/20"
         >
           Descargar App
@@ -79,7 +81,7 @@ import { Icon } from 'astro-icon/components';
 
       <div class="pt-4 mt-2 border-t border-neutral-border">
         <a
-          href="#app-showcase"
+          href={landingUrl}
           @click="mobileMenuOpen = false"
           class="w-full bg-brand-primary text-white font-bold py-3.5 rounded-xl flex items-center justify-center shadow-lg"
         >

@@ -5,12 +5,8 @@
  * Diseño "Dúo Dinámico" para llenar mejor el espacio
  */
 import { Icon } from 'astro-icon/components';
-import MobileFrame from './ui/MobileFrame.astro';
-import DemoDashboard from './demos/DemoDashboard.astro';
-import DemoAssignFranchise from './demos/DemoAssignFranchise.astro';
 
-const IOS_URL = import.meta.env.PUBLIC_STORE_APPLE || '#';
-const ANDROID_URL = import.meta.env.PUBLIC_STORE_GOOGLE || '#';
+const landingUrl = import.meta.env.PUBLIC_LANDING_VENDOYO_APP_URL || '/';
 ---
 
 <section id="app-showcase" class="section bg-slate-900 overflow-hidden relative py-24">
@@ -18,11 +14,8 @@ const ANDROID_URL = import.meta.env.PUBLIC_STORE_GOOGLE || '#';
   <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
   <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-  <div class="max-w-7xl mx-auto px-6 relative z-10">
-    <div class="grid lg:grid-cols-2 gap-16 items-center">
-      
-      <!-- Left Column: Copy & CTAs -->
-      <div class="text-center lg:text-left space-y-8 relative z-20">
+  <div class="max-w-5xl mx-auto px-6 relative z-10">
+    <div class="flex flex-col items-center text-center space-y-8">
         <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-xs font-medium backdrop-blur-sm border border-white/10 shadow-lg shadow-brand-primary/5">
           <div class="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse"></div>
           App Móvil Disponible
@@ -33,14 +26,14 @@ const ANDROID_URL = import.meta.env.PUBLIC_STORE_GOOGLE || '#';
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-emerald-400">en el bolsillo.</span>
         </h2>
         
-        <p class="text-lg text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
+        <p class="text-lg text-slate-300 max-w-xl mx-auto leading-relaxed font-light">
           Control total para iOS y Android. Supervisa agentes, aprueba trámites y revisa métricas en tiempo real, estés donde estés.
         </p>
 
         <!-- Store Buttons -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
           <a
-            href={IOS_URL}
+            href={landingUrl}
             target="_blank"
             rel="noopener noreferrer"
             class="group flex items-center gap-3 px-6 py-4 bg-white text-slate-900 rounded-2xl hover:bg-slate-50 transition-all hover:-translate-y-1 shadow-xl hover:shadow-2xl hover:shadow-white/10"
@@ -55,7 +48,7 @@ const ANDROID_URL = import.meta.env.PUBLIC_STORE_GOOGLE || '#';
           </a>
           
           <a
-            href={ANDROID_URL}
+            href={landingUrl}
             target="_blank"
             rel="noopener noreferrer"
             class="group flex items-center gap-3 px-6 py-4 bg-slate-800 text-white border border-slate-700 rounded-2xl hover:bg-slate-700 transition-all hover:-translate-y-1 shadow-xl hover:shadow-2xl hover:shadow-black/20"
@@ -69,89 +62,7 @@ const ANDROID_URL = import.meta.env.PUBLIC_STORE_GOOGLE || '#';
             </div>
           </a>
         </div>
-
-        <!-- QR Code (Desktop only) -->
-        <div class="hidden lg:inline-flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-2 pr-6 mt-8">
-           <div class="bg-white p-2 rounded-xl">
-              <Icon name="heroicons:qr-code" class="w-12 h-12 text-slate-900" />
-           </div>
-           <div class="text-left">
-              <p class="text-xs text-slate-400 font-medium">Escanea el código QR</p>
-              <p class="text-sm font-bold text-white">Instalar ahora mismo</p>
-           </div>
-        </div>
       </div>
-
-      <!-- Right Column: Dual Phones -->
-      <div class="relative h-[600px] flex items-center justify-center lg:justify-end perspective-1000">
-        
-        <!-- Glass Card Background to unite them -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[80%] bg-gradient-to-tr from-white/5 to-transparent border border-white/5 rounded-[3rem] backdrop-blur-sm -rotate-6 z-0"></div>
-
-        <!-- Phone 1 (Back/Left - Operations/Map) -->
-        <div class="absolute top-10 left-4 lg:left-20 transform -rotate-12 scale-90 z-10 opacity-60 brightness-75 hover:opacity-100 hover:brightness-100 transition-all duration-500 hover:z-30 hover:scale-95 animate-float-slow">
-           <MobileFrame height="540px" class="shadow-2xl shadow-black/80">
-              <div class="h-full bg-white relative overflow-hidden pointer-events-none">
-                 <DemoAssignFranchise height="540px" />
-              </div>
-           </MobileFrame>
-        </div>
-
-        <!-- Phone 2 (Front/Right - Dashboard) -->
-        <div class="absolute top-20 right-4 lg:right-10 transform -rotate-3 z-20 hover:scale-105 transition-transform duration-500 animate-float-delayed">
-           <MobileFrame height="580px" class="shadow-2xl shadow-black/90 ring-1 ring-white/10">
-              <div class="h-full bg-white relative overflow-hidden pointer-events-none">
-                 <DemoDashboard height="580px" />
-              </div>
-           </MobileFrame>
-           
-           <!-- Floating Notification Badge -->
-           <div class="absolute top-24 -left-12 bg-white rounded-xl shadow-xl p-3 flex items-center gap-3 animate-bounce-subtle z-40 max-w-[180px]">
-              <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 shrink-0">
-                 <Icon name="heroicons:currency-dollar" class="w-6 h-6" />
-              </div>
-              <div>
-                 <p class="text-[10px] text-slate-500 font-bold uppercase">Nueva Venta</p>
-                 <p class="text-xs font-bold text-slate-900">+12.500€ Com.</p>
-              </div>
-           </div>
-        </div>
-
-      </div>
-
     </div>
   </div>
 </section>
-
-<style>
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-  
-  @keyframes float-slow {
-    0%, 100% { transform: translateY(0) rotate(-12deg) scale(0.9); }
-    50% { transform: translateY(-15px) rotate(-12deg) scale(0.9); }
-  }
-
-  @keyframes float-delayed {
-    0%, 100% { transform: translateY(0) rotate(-3deg); }
-    50% { transform: translateY(-20px) rotate(-3deg); }
-  }
-
-  @keyframes bounce-subtle {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-  }
-
-  .animate-float-slow {
-    animation: float-slow 6s ease-in-out infinite;
-  }
-  
-  .animate-float-delayed {
-    animation: float-delayed 7s ease-in-out infinite 1s;
-  }
-
-  .animate-bounce-subtle {
-    animation: bounce-subtle 3s ease-in-out infinite;
-  }
-</style>
