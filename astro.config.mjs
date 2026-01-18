@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
+import compress from 'astro-compress';
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,6 +19,13 @@ export default defineConfig({
         lucide: ['*'],
         'circle-flags': ['*'],
       },
+    }),
+    compress({
+      CSS: true,
+      HTML: true,
+      Image: false, // Let Astro handle image optimization
+      JavaScript: true,
+      SVG: true,
     }),
   ],
 });

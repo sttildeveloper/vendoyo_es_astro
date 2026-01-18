@@ -1,0 +1,20 @@
+{
+  "name": "VendoYo - Tu inmobiliaria en tu bolsillo",
+  "short_name": "VendoYo",
+  "description": "App móvil para gestionar propiedades, franquicias y agencias inmobiliarias",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3CB4AC",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "lang": "es"
+}

@@ -1,0 +1,56 @@
+---
+/**
+ * 404.astro - Error page for VendoYo
+ * Clean design with navigation back to home
+ */
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+
+const landingUrl = import.meta.env.PUBLIC_LANDING_VENDOYO_APP_URL || '/';
+---
+
+<Layout title="Página no encontrada | VendoYo" description="La página que buscas no existe o ha sido movida.">
+  <main class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 px-6">
+    <div class="text-center max-w-lg">
+      <!-- Error Icon -->
+      <div class="mb-8">
+        <div class="w-32 h-32 mx-auto bg-brand-soft rounded-full flex items-center justify-center">
+          <Icon name="heroicons:map" class="w-16 h-16 text-brand-primary" />
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <h1 class="text-6xl md:text-8xl font-bold text-brand-primary mb-4">404</h1>
+      <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4">Página no encontrada</h2>
+      <p class="text-lg text-slate-600 mb-8">
+        La propiedad que buscas no está disponible. Quizás ha sido vendida... ¡como las que gestionamos!
+      </p>
+
+      <!-- Actions -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href={landingUrl}
+          class="btn-primary inline-flex items-center justify-center gap-2"
+        >
+          <Icon name="heroicons:home" class="w-5 h-5" />
+          Volver al inicio
+        </a>
+        <a 
+          href="#download"
+          onclick="history.back()"
+          class="btn-ghost inline-flex items-center justify-center gap-2 text-slate-600 hover:text-brand-primary"
+        >
+          <Icon name="heroicons:arrow-left" class="w-5 h-5" />
+          Página anterior
+        </a>
+      </div>
+
+      <!-- Fun Stats -->
+      <div class="mt-16 pt-8 border-t border-slate-200">
+        <p class="text-sm text-slate-500">
+          Mientras tanto, ya hemos ayudado a vender más de <span class="font-bold text-brand-primary">1.000+ propiedades</span>
+        </p>
+      </div>
+    </div>
+  </main>
+</Layout>

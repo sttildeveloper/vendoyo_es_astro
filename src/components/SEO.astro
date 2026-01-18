@@ -1,5 +1,5 @@
 ---
-import { SEO } from 'astro-seo';
+import { SEO as AstroSEO } from 'astro-seo';
 
 interface Props {
   title?: string;
@@ -22,12 +22,11 @@ const canonicalUrl = canonical || (Astro.site ? new URL(Astro.url.pathname, Astr
 const ogImageUrl = Astro.site ? new URL(image, Astro.site).href : image;
 ---
 
-<SEO
+<AstroSEO
   title={title}
   description={description}
   canonical={canonicalUrl}
   noindex={noindex}
-  robotsExtras="max-snippet:-1, max-image-preview:large, max-video-preview:-1"
   openGraph={{
     basic: {
       title,
@@ -52,7 +51,8 @@ const ogImageUrl = Astro.site ? new URL(image, Astro.site).href : image;
       { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
       { rel: 'shortcut icon', href: '/favicon.svg', type: 'image/svg+xml' },
       { rel: 'apple-touch-icon', href: '/favicon.svg' },
-      { rel: 'mask-icon', href: '/favicon.svg', color: '#3CB4AC' },
+      { rel: 'mask-icon', href: '/favicon.svg' },
+      { rel: 'manifest', href: '/site.webmanifest' },
     ],
     meta: [
       { name: 'theme-color', content: '#3CB4AC' },
@@ -65,7 +65,7 @@ const ogImageUrl = Astro.site ? new URL(image, Astro.site).href : image;
   }}
 />
 
-<script
+<script is:inline
   type="application/ld+json"
   set:html={JSON.stringify({
     '@context': 'https://schema.org',
