@@ -10,28 +10,28 @@ const testimonials = [
   {
     author: "Carlos Méndez",
     role: "Vendió en Madrid",
-    avatar_url: "https://i.pravatar.cc/150?u=vy-owner-1",
+    initials: "CM",
     content: "Al principio dudaba de la tarifa plana, pero el ahorro ha sido brutal. Me he ahorrado más de 12.000€ en comisiones y la gestión ha sido impecable. La app te mantiene informado de todo.",
     stars: 5
   },
   {
     author: "Ana Belén Torres",
     role: "Vendió en Barcelona",
-    avatar_url: "https://i.pravatar.cc/150?u=vy-owner-2",
+    initials: "AT",
     content: "Vendí mi piso en 3 semanas. Lo mejor es que tú controlas las visitas desde el móvil y ellos se encargan de todo el papeleo legal. Muy recomendable si no quieres regalar dinero.",
     stars: 5
   },
   {
     author: "Miguel Ángel R.",
     role: "Vendió en Valencia",
-    avatar_url: "https://i.pravatar.cc/150?u=vy-owner-3",
+    initials: "MR",
     content: "Servicio de 10. Las fotos quedaron espectaculares y el abogado me resolvió un problema con la nota simple en dos días. Transparencia total desde el minuto uno.",
     stars: 5
   },
   {
     author: "Lucía P.",
     role: "Vendió en Sevilla",
-    avatar_url: "https://i.pravatar.cc/150?u=vy-owner-4",
+    initials: "LP",
     content: "Sencillo, rápido y barato. Pagué la tarifa plana y me olvidé de porcentajes abusivos. El equipo de soporte siempre está ahí para cualquier duda.",
     stars: 5
   }
@@ -71,11 +71,9 @@ const testimonials = [
 
           <!-- Author -->
           <div class="flex items-center gap-4 border-t border-slate-200/50 pt-6">
-            <img 
-              src={t.avatar_url} 
-              alt={t.author} 
-              class="w-12 h-12 rounded-full object-cover shadow-sm group-hover:scale-110 transition-transform duration-300"
-            />
+            <div class="w-12 h-12 rounded-full bg-brand-primary-soft text-brand-primary font-bold flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300">
+              {t.initials}
+            </div>
             <div>
               <h4 class="text-slate-900 font-bold text-sm">{t.author}</h4>
               <p class="text-slate-500 text-xs">{t.role}</p>

@@ -178,7 +178,7 @@ const nextPaymentDate = new Intl.DateTimeFormat('es-ES', { month: 'long', day: '
         snap: { innerText: 1 },
         ease: "power3.out",
         onUpdate: function() {
-          if(amountEl) amountEl.textContent = Math.ceil(parseFloat(amountEl.innerText || '0')).toLocaleString('de-DE') + '.00';
+          if (amountEl) amountEl.textContent = Math.ceil(parseFloat(amountEl.innerText || '0')).toLocaleString('de-DE') + '.00';
         }
       });
     }

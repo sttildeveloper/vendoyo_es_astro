@@ -1,0 +1,108 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+
+<Layout title="Eliminacion de cuenta - VendoYo" description="Solicitud de eliminacion de cuenta y datos personales en VendoYo.">
+  <Header />
+  <main class="pt-28 pb-20 bg-slate-50">
+    <section class="max-w-6xl mx-auto px-6">
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 md:p-10">
+        <div class="flex flex-col lg:flex-row gap-10">
+          <div class="flex-1">
+            <span class="badge">Eliminacion de cuenta</span>
+            <h1 class="mt-4 text-3xl md:text-4xl font-bold text-neutral-text">
+              Eliminacion de cuenta - VendoYo
+            </h1>
+            <p class="mt-4 text-slate-600 text-lg leading-relaxed">
+              Los usuarios de la aplicacion VendoYo pueden solicitar la eliminacion de su cuenta y
+              de los datos personales asociados en cualquier momento.
+            </p>
+
+            <div class="mt-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+              <a
+                href="mailto:info@vendoyo.com?subject=Solicitud%20de%20eliminacion%20de%20cuenta"
+                class="btn-primary px-6 py-3"
+              >
+                Enviar solicitud
+              </a>
+              <span class="text-sm text-slate-500">
+                info@vendoyo.com
+              </span>
+            </div>
+
+            <div class="mt-6 grid sm:grid-cols-2 gap-4">
+              <div class="rounded-2xl border border-brand-primary/20 bg-brand-primary-soft/40 p-4">
+                <p class="text-xs uppercase font-bold text-brand-primary">Plazo maximo</p>
+                <p class="text-base font-semibold text-neutral-text">30 dias desde la recepcion</p>
+              </div>
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <p class="text-xs uppercase font-bold text-slate-500">Canal de solicitud</p>
+                <p class="text-base font-semibold text-neutral-text">Correo electronico</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-full lg:w-80">
+            <div class="bg-slate-900 text-white rounded-2xl p-6">
+              <h2 class="text-lg font-bold mb-4">Datos que se eliminaran</h2>
+              <ul class="space-y-2 text-sm text-slate-200">
+                <li>Cuenta de usuario</li>
+                <li>Correo electronico</li>
+                <li>Datos de perfil</li>
+                <li>Propiedades y contenido asociados al usuario</li>
+              </ul>
+            </div>
+            <div class="mt-4 bg-white rounded-2xl p-6 border border-slate-200">
+              <h3 class="text-base font-bold text-neutral-text mb-2">Datos que pueden conservarse</h3>
+              <p class="text-sm text-slate-600">
+                Podran conservarse determinados datos unicamente cuando sea necesario para cumplir
+                obligaciones legales, fiscales o de seguridad.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-6xl mx-auto px-6 mt-10">
+      <div class="mb-6 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold text-neutral-text">Como solicitar la eliminacion</h2>
+        <p class="text-slate-600 mt-2">Sigue estos pasos para procesar tu solicitud.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+          <div class="w-10 h-10 rounded-full bg-brand-primary-soft text-brand-primary font-bold flex items-center justify-center">
+            1
+          </div>
+          <h3 class="mt-4 text-base font-bold text-neutral-text">Envia un correo electronico</h3>
+          <p class="text-sm text-slate-600 mt-2">
+            Escribe a <a href="mailto:info@vendoyo.com" class="text-brand-primary font-semibold">info@vendoyo.com</a>.
+          </p>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+          <div class="w-10 h-10 rounded-full bg-brand-primary-soft text-brand-primary font-bold flex items-center justify-center">
+            2
+          </div>
+          <h3 class="mt-4 text-base font-bold text-neutral-text">Indica tu correo registrado</h3>
+          <p class="text-sm text-slate-600 mt-2">
+            Incluye el correo electronico con el que te registraste en la aplicacion.
+          </p>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+          <div class="w-10 h-10 rounded-full bg-brand-primary-soft text-brand-primary font-bold flex items-center justify-center">
+            3
+          </div>
+          <h3 class="mt-4 text-base font-bold text-neutral-text">Usa el asunto correcto</h3>
+          <p class="text-sm text-slate-600 mt-2">
+            Utiliza como asunto: "Solicitud de eliminacion de cuenta".
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
